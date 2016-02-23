@@ -78,7 +78,7 @@ export msg_processor = (msg) ->
 
 
 bot_run!
-telegram!\sendMessage 110626080, "result"
+
 while is_running
   res = telegram!\getUpdates last_update + 1
   if res
