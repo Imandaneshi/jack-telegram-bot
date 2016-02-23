@@ -3,12 +3,12 @@
 
 #Setup
 
-You should have lua,luarocks,moonscript,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors installed
+You should have lua,luarocks,redis-server,moonscript,serpent,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors installed
 
 You can install them by:
 
 ```bash
-sudo apt-get install lua5.1 luarocks lua-socket ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors
+sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors ;sudo luarocks install serpent
 ```
 
 Clone the bot
