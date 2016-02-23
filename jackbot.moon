@@ -29,12 +29,10 @@ export bot_run = class bot_run
   plugins_load: =>
     print "\n"
     for k,v in pairs config!.plugs
-      print(serpent.block config!.plugs, {comment:false})
       pcall(->
         t = moonscript.loadfile "plugins/#{v}.moon",implicitly_return_root:true
         plugins[v] = t
       )
-      print(serpent.block bot_run.plugins, {comment:false})
       print(colors "Plugin %{blue whitebg}#{v}%{reset} loaded")
   Bot_loading: =>
     export last_update = last_update or tonumber(redis\get "bot:update_id") or 0
