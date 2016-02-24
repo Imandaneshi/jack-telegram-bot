@@ -3,12 +3,12 @@
 
 #Setup
 
-You should have lua,luarocks,redis-server,moonscript,serpent,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors installed
+You should have lua,luarocks,redis-server,moonscript,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors installed
 
 You can install them by:
 
 ```bash
-sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors ;sudo luarocks install serpent
+sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors
 ```
 
 Clone the bot
@@ -30,6 +30,30 @@ Run it!
 sh run.sh
 ```
 
+
+If you get this error from moonscript
+```
+/usr/bin/lua: /usr/share/lua/5.1//luarocks/loader.lua:113: error loading module 'lfs' from file '/usr/local/lib/lua/5.1/lfs.so':
+    /usr/local/lib/lua/5.1/lfs.so: undefined symbol: luaL_register
+```
+
+
+
+Make sure you are using the lua5.1 package instead of the lua5.2 package. Try:
+
+```
+sudo apt-get install lua5.1
+sudo apt-get remove lua5.2
+```
+
 #Support and development
 
 Join our bot development group by sending /join 1047524697 to @TeleSeed or just search username [@seed_dev](https://telegram.me/seed_dev) and join
+
+# Special thanks to
+
+[Tiago Danin](https://github.com/TiagoDanin)
+
+[Yago](https://github.com/yagop)
+
+[Drew](https://github.com/topkecleon)
