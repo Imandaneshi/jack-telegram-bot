@@ -7,5 +7,8 @@ _ =
   }
   plugs: {
     "echo"
+    "help"
+    "imdb"
+    "admin"
   }
 return _

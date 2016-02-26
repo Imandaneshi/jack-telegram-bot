@@ -52,8 +52,10 @@ Join our bot development group by sending /join 1047524697 to @TeleSeed or just 
 
 # Special thanks to
 
-[Tiago Danin](https://github.com/TiagoDanin)
+[Alphonse](https://github.com/hmon)
+
+[topkecleon](https://github.com/topkecleon)
 
 [Yago](https://github.com/yagop)
 
-[Drew](https://github.com/topkecleon)
+[Tiago Danin](https://github.com/TiagoDanin)

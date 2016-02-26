@@ -36,7 +36,7 @@ export bot_run = class bot_run
         t = moonscript.loadfile "plugins/#{v}.moon",implicitly_return_root:true
         plugins[v] = t
       )
-      print(colors "Plugin %{blue whitebg}#{v}%{reset} loaded")
+      print(colors "Plugin %{black whitebg}#{v}%{reset} loaded")
   Bot_loading: =>
     export last_update = last_update or tonumber(redis\get "bot:update_id") or 0
 
@@ -57,8 +57,9 @@ export match_plugin = (plugin, plugin_name, msg) ->
     matches = match_trigger patterns, msg.text
     print "plugin #{plugin_name} triggered: #{patterns}" if matches
     if matches
-      if redis\get "bot:plugin_disabled_on_chat:#{plugin_name}" and not is_admin(msg)--Check if plugin is disabled on chat or not
-        return
+      if redis\get "bot:plugin_disabled_on_chat:#{plugin_name}:#{msg.chat.id}"--Check if plugin is disabled on chat or not
+        unless is_admin(msg)
+          return
       --plugin status
       redis\incr "bot:plugin_usage:#{plugin_name}"
       redis\incr "bot:plugin_usage_on_chat:#{plugin_name}:#{msg.chat.id}"
@@ -68,13 +69,14 @@ export match_plugin = (plugin, plugin_name, msg) ->
       if result
         telegram!\sendChatAction msg.chat.id, "typing"
         if msg.chat.type ~= "private"
-          telegram!\sendMessage msg.chat.id, result, msg.message_id, "Markdown"
+          telegram!\sendMessage msg.chat.id, result, msg.message_id, "Markdown", true
         else
-          telegram!\sendMessage msg.chat.id, result, false, "Markdown"
+          telegram!\sendMessage msg.chat.id, result, false, "Markdown", true
 
 
 export msg_processor = (msg) ->
-  msg.text = msg.text\gsub "@#{bot_username}",""--Remove username
+  if msg.text
+    msg.text = msg.text\gsub "@#{bot_username}",""--Remove username
   msg_text = msg.text or ""
   --User changed chat name
   msg_text = "changed group name to > #{msg.new_chat_title}" if msg.new_chat_title
@@ -158,7 +160,7 @@ export msg_processor = (msg) ->
       if not msg.text\match('^[/!]') and msg.reply_to_message and msg.reply_to_message.from.id == bot_id
         msg.text = "#{bot_first_name\lower!}, #{msg.text}"
 
-  is_blacklisted = redis\sismember "blacklist:users",msg.from.id--Ignore banned/blacklisted users
+  is_blacklisted = redis\sismember "bot:blacklist",msg.from.id--Ignore banned/blacklisted users
   if is_blacklisted and not is_admin msg--Admins wont be ignored even if they are blacklisted
     return
 
