@@ -12,16 +12,16 @@ plugins_list = ->--Returns plugin list
 
 "
   i = 1
-  for name in pairs plugins
-    if name ~= "admin"
-      text ..= "`#{i}` *- #{name}*\n"
+  for k,v in pairs config!.plugs
+    if v ~= "admin"
+      text ..= "`#{i}` *- #{v}*\n"
       i += 1
 
-    text ..= "
+  text ..= "
 Send `/help [plugin name]` for more info."
-    text ..= "
+  text ..= "
 Or Send `/help all` to my private for all info."
-    return text
+  return text
 
 help_all = (target) ->--Returns all plugins info
   text_1 = ""
@@ -33,10 +33,10 @@ help_all = (target) ->--Returns all plugins info
     i += 1
 
   res = telegram!\sendMessage target,text_1,false,"Markdown"
-  unless res
+  if res
+    return true
+  else
     return false
-
-
 
 run = (msg,matches) ->
   if matches[1] == "help" and matches[2] == "all"
