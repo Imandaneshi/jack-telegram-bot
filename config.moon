@@ -11,5 +11,6 @@ _ =
     "imdb"
     "admin"
     "chatter"
+    "github"
   }
 return _
