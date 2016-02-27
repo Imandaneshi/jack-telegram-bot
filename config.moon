@@ -10,5 +10,6 @@ _ =
     "help"
     "imdb"
     "admin"
+    "chatter"
   }
 return _
