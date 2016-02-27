@@ -12,5 +12,8 @@ _ =
     "admin"
     "chatter"
     "github"
+    "remind"
+    "who"
+    "time"
   }
 return _

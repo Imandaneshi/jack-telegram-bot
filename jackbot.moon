@@ -76,7 +76,8 @@ export match_plugin = (plugin, plugin_name, msg) ->
 
 export msg_processor = (msg) ->
   if msg.text
-    msg.text = msg.text\gsub "@#{bot_username}",""--Remove username
+    if msg.text\match '^[/]'
+      msg.text = msg.text\gsub "@#{bot_username}",""--Remove username
   msg_text = msg.text or ""
   --User changed chat name
   msg_text = "changed group name to > #{msg.new_chat_title}" if msg.new_chat_title
@@ -152,13 +153,14 @@ export msg_processor = (msg) ->
       return
 
   if msg.chat.type == "private" and msg.text--If msg is not a command in private will talk to user
-    if not msg.text\match '^[/!]'
-      msg.text = "#{bot_first_name\lower!}, #{msg.text}"
+    unless msg.text\match '^[/!#]'
+      msg.text = "#{bot_first_name}, #{msg.text}"
 
   if msg.text
     if msg.chat.type == "group" or msg.chat.type == "supergroup"--Same as above but in groups and supergroups also user should replyed to bots msg
-      if not msg.text\match('^[/!]') and msg.reply_to_message and msg.reply_to_message.from.id == bot_id
-        msg.text = "#{bot_first_name\lower!}, #{msg.text}"
+      unless msg.text\match '^[/!#]'
+        if msg.reply_to_message and msg.reply_to_message.from.id == bot_id
+          msg.text = "#{bot_first_name}, #{msg.text}"
 
   is_blacklisted = redis\sismember "bot:blacklist",msg.from.id--Ignore banned/blacklisted users
   if is_blacklisted and not is_admin msg--Admins wont be ignored even if they are blacklisted
@@ -208,9 +210,7 @@ while is_running--A loop for getting messages
   if last_cron < os.time() - 10--cron thing
     for i,v in pairs plugins
       if (v @).cron
-        pcall(->
-          v.cron!
-        )
+        (v @).cron!
 
 
   res = telegram!\getUpdates last_update + 1
