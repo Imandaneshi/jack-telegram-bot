@@ -251,18 +251,18 @@ export download_to_file = (url, file_name) ->
   else
     response = {http.request options}
 
-    code = response[2]
-    headers = response[3]
-    status = response[4]
+  code = response[2]
+  headers = response[3]
+  status = response[4]
 
-    if code ~= 200
-      return nil
+  if code ~= 200
+    return nil
 
-    file_name = file_name or get_http_file_name url,headers
-    file_path = ".tmp/#{file_name}"
-    print "Saved to: #{file_path}"
-    file = io.open file_path,"w+"
-    file\write(table.concat respbody)
-    file\close!
+  file_name = file_name or get_http_file_name url,headers
+  file_path = ".tmp/#{file_name}"
+  print "Saved to: #{file_path}"
+  file = io.open file_path,"w+"
+  file\write(table.concat respbody)
+  file\close!
 
-    return file_path
+  return file_path
