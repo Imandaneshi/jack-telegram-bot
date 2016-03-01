@@ -100,7 +100,8 @@ export msg_processor = (msg) ->
   --System full time and date
   date = os.date "[ %X ]  "
   --Chat type (group,supergroup,private)
-  chat_type = "NULL"
+  chat_type = "Uknown"
+  chat_type = "Inline" if msg.chat.type == "inline"
   chat_type = "Group" if msg.chat.type == "group"
   chat_type = "Supergroup" if msg.chat.type == "supergroup"
   chat_type = "Private" if msg.chat.type == "private"
@@ -113,6 +114,12 @@ export msg_processor = (msg) ->
 
 %{bright blue}#{msg_text}%{reset}"
   elseif tostring(msg.chat.type) == "private"
+    text = "
+
+%{red}#{date}%{reset} %{green}#{user_info}%{reset} %{magenta}#{chat_type}%{reset}
+
+%{bright blue}#{msg_text}%{reset}"
+  elseif tostring(msg.chat.type) == "inline"
     text = "
 
 %{red}#{date}%{reset} %{green}#{user_info}%{reset} %{magenta}#{chat_type}%{reset}
@@ -133,6 +140,7 @@ export msg_processor = (msg) ->
     msg.from.last_name = " "
 
   if msg.date < os.time! - 30--Ignore old messages
+    print colors("%{red}Old msg%{reset}")
     return
   --Return about text if someone added bot to chat
   msg.text = "/about" if msg.new_chat_participant and msg.new_chat_participant.id == bot_id
@@ -175,6 +183,7 @@ export msg_processor = (msg) ->
   redis\sadd "bot:privates",msg.chat.id if msg.chat.type == "private"
   redis\sadd "bot:groups",msg.chat.id if msg.chat.type == "group"
   redis\sadd "bot:supergroups",msg.chat.id if msg.chat.type == "supergroup"
+  redis\sadd "bot:inline_users",msg.chat.id if msg.chat.type == "inline"
 
   --Add chat/user info to database
 
@@ -184,23 +193,43 @@ export msg_processor = (msg) ->
   redis\hset "bot:users:#{msg.from.id}","username",msg.from.username if msg.from.username
 
   --chats
-  if msg.chat.type ~= "private"
+  if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
     redis\hset "bot:chats:#{msg.chat.id}","title",msg.chat.title
     redis\hset "bot:chats:#{msg.chat.id}","type",msg.chat.type
 
 
   --Group memebers
-  if msg.chat.type ~= "private"
+  if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
     redis\sadd "bot:chat#{msg.chat.id}",msg.from.id
 
   --msg statistics
-  redis\incr "bot:total_messages"
+  redis\incr "bot:total_messages" if msg.chat.type ~= "inline"
+  redis\incr "bot:total_inlines" if msg.chat.type == "inline"
   redis\incr "bot:total_user_msgs_in_private:#{msg.from.id}" if msg.chat.type == "private"
-  redis\incr "bot:total_chat_msgs:#{msg.chat.id}" if msg.chat.type ~= "private"
-  redis\incr "bot:total_users_msgs_in_chat:#{msg.chat.id}:#{msg.from.id}" if msg.chat.type ~= "private"
+  redis\incr "bot:total_chat_msgs:#{msg.chat.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
+  redis\incr "bot:total_users_msgs_in_chat:#{msg.chat.id}:#{msg.from.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
+  redis\incr "bot:total_inline_from_user:#{msg.from.id}" if msg.chat.type == "inline"
+
 
   for name, plugin in pairs plugins--Go over plugins and check patterns for match
     match_plugin(plugin, name, msg)
+
+
+
+export inline_query_received = (inline) ->
+  msg = {
+    id: inline.id
+    chat: {
+      id: inline.id
+      type: "inline"
+      title: inline.from.first_name
+    }
+    from: inline.from
+    message_id: math.random 1,800
+    text: "###inline#{inline.query}"
+    date: os.time! + 100
+  }
+  msg_processor msg
 
 
 bot_run!--Load the bot
@@ -216,8 +245,12 @@ while is_running--A loop for getting messages
   res = telegram!\getUpdates last_update + 1
   if res
     for i,msg in ipairs res.result
-      msg_processor msg.message
       export last_update = msg.update_id
       redis\set "bot:update_id", msg.update_id
+
+      if msg.inline_query--inline thing
+        inline_query_received msg.inline_query
+      else
+        msg_processor msg.message--process the msg
   else
     print "Connection failed"

@@ -17,5 +17,6 @@ _ =
     "who"
     "time"
     "ipinfo"
+    "location"
   }
 return _

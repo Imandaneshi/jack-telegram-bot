@@ -121,6 +121,12 @@ export telegram = class telegram--Telegram api methods
     url ..= "?chat_id=#{chat_id}&action=#{action}"
     return telegram!\sendRequest url
 
+  --https://core.telegram.org/bots/api#inlinequeryresultarticle
+  sendInline: (inline_id, result) =>
+    url = "#{API_URL}/answerInlineQuery"
+    url ..= "?inline_query_id=#{inline_id}&results=#{URL.escape result}&is_personal=true&cache_time=1"
+    return telegram!\sendRequest url
+
 --Returns users full info as string
 -- first_name last_name username [id]
 export user_info = (user) ->
@@ -138,6 +144,11 @@ export is_admin = (msg) ->
       var = true
 
   return var
+
+export inline_article_block = (title, text, parse_mode, disable_web_page_preview) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"article\", \"id\":\"#{ran}\", \"title\":\"#{title}\", \"message_text\": \"#{text}\", \"parse_mode\": \"#{parse_mode}\", \"disable_web_page_preview\": #{disable_web_page_preview}}"
+  return inline
 
 --cheks whatever text matches or not
 export match_trigger = (trigger,text) ->

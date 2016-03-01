@@ -59,3 +59,5 @@ Join our bot development group by sending /join 1047524697 to @TeleSeed or just 
 [Yago](https://github.com/yagop)
 
 [Tiago Danin](https://github.com/TiagoDanin)
+
+[Unfriendly](https://github.com/pAyDaAr)
