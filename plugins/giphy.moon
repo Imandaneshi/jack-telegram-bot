@@ -9,8 +9,8 @@ gif = (msg,q) ->
   
   jdat = JSON.decode jstr
   
-  if jdat.status ~= 'OK'
-    return "_No results found_"
+ -- if jdat.status ~= 'OK'
+   -- return "_No results found_"
  
   random = math.random #{jdat.data}
   
