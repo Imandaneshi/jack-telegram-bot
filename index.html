@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Jack telegram bot by SEEDTEAM</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Jack telegram bot</h1>
+        <h2>A multi purpose telegram bot written in MoonScript</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/SEEDTEAM/jack-telegram-bot/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/SEEDTEAM/jack-telegram-bot/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/SEEDTEAM/jack-telegram-bot" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="jack" class="anchor" href="#jack" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Jack</h1>
+
+<p>Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU General Public License.</p>
+
+<p><a href="https://telegram.me/imandabot">Public bot</a></p>
+
+<p>Table of Contents</p>
+
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#database">Database</a></li>
+<li><a href="#plugins">Plugins</a></li>
+<li><a href="#support-and-development">Support and development</a></li>
+<li><a href="#special-thanks-to">Special thanks to</a></li>
+<li><a href="#collaborators">Collaborators</a></li>
+<li><a href="#other-projects">Other projects</a></li>
+</ul>
+
+<h1>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h1>
+
+<p>You should have lua,luarocks,redis-server,moonscript,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors installed</p>
+
+<p>You can install them by:</p>
+
+<div class="highlight highlight-source-shell"><pre>sudo apt-get update<span class="pl-k">;</span> sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server <span class="pl-k">;</span> sudo luarocks install moonscript <span class="pl-k">;</span> sudo luarocks install oauth <span class="pl-k">;</span> sudo luarocks install redis-lua <span class="pl-k">;</span> sudo luarocks install lua-cjson <span class="pl-k">;</span> sudo luarocks install ansicolors</pre></div>
+
+<p>Clone the bot</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-smi">$HOME</span>
+git clone https://github.com/Imandaneshi/jack-telegram-bot.git
+<span class="pl-c1">cd</span> jack-telegram-bot</pre></div>
+
+<p>Set telegram_api_key in config.moon file to the token you received from the Botfather.</p>
+
+<div class="highlight highlight-source-moonscript"><pre><span class="pl-en">telegram_api_key</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span><span class="pl-c">--Your telegram bot api key</span></pre></div>
+
+<p>Run it!</p>
+
+<pre><code>sh run.sh
+</code></pre>
+
+<p>If you get this error from moonscript</p>
+
+<pre><code>/usr/bin/lua: /usr/share/lua/5.1//luarocks/loader.lua:113: error loading module 'lfs' from file '/usr/local/lib/lua/5.1/lfs.so':
+    /usr/local/lib/lua/5.1/lfs.so: undefined symbol: luaL_register
+</code></pre>
+
+<p>Make sure you are using the lua5.1 package instead of the lua5.2 package. Try:</p>
+
+<pre><code>sudo apt-get install lua5.1
+sudo apt-get remove lua5.2
+</code></pre>
+
+<h1>
+<a id="database" class="anchor" href="#database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Database</h1>
+
+<p>Jack is using redis as database
+We use perfix/folder <code>bot</code></p>
+
+<p>Here are the datas</p>
+
+<p><strong>Chats</strong></p>
+
+<p><code>bot:chats</code> &gt; List of all chats(groups,supergroups,privates)</p>
+
+<p><code>bot:privates</code> &gt; List of all private chats</p>
+
+<p><code>bot:groups</code> &gt; List of all groups</p>
+
+<p><code>bot:supergroups</code> &gt; List of all supergroups</p>
+
+<p><code>bot:inline_users</code> &gt; List of all inline users</p>
+
+<p><strong>chat_id info</strong></p>
+
+<p><code>bot:chats:chat_id</code></p>
+
+<ol>
+<li>title</li>
+<li>type</li>
+</ol>
+
+<p><strong>user_id info</strong></p>
+
+<p><code>bot:users:user_id</code></p>
+
+<ol>
+<li>first_name</li>
+<li>last_name</li>
+<li>username</li>
+</ol>
+
+<p>These info will be updated on each msg</p>
+
+<p><code>bot:total_inline_from_user:msg.from.id</code> &gt;  </p>
+
+<p><strong>bot statistics</strong></p>
+
+<p><code>bot:total_messages</code> &gt; Number of total msgs bot received</p>
+
+<p><code>bot:total_inlines</code> &gt; Number of total inline requests</p>
+
+<p><strong>chat_id msg statistics</strong></p>
+
+<p><code>bot:total_chat_msgs:chat_id</code> &gt; Number of total msgs bot received in chat_id</p>
+
+<p><code>"bot:total_users_msgs_in_chat:chat_id:user_id"</code> &gt; Number of total msgs bot received in chat_id from user_id</p>
+
+<p><strong>chat_id members</strong></p>
+
+<p><code>bot:chatchat_id</code> &gt; list of chat_id members</p>
+
+<p><a href="https://github.com/SEEDTEAM/TeleSeed/wiki/Redis">How to backup,restore,secure,stablize redis DB</a></p>
+
+<h1>
+<a id="plugins" class="anchor" href="#plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugins</h1>
+
+<p>Plugins list</p>
+
+<ol>
+<li><a href="#1---admin">Admin</a></li>
+<li><a href="#2---calculator">Calculato</a></li>
+<li><a href="#3---cat">Cat</a></li>
+<li><a href="#4---chatter">Chatter</a></li>
+<li><a href="#5---dogify">Dogify</a></li>
+<li><a href="#6---echo">Echo</a></li>
+<li><a href="#7---giphy">Giphy</a></li>
+<li><a href="#8---github">Github</a></li>
+<li><a href="#9---google-search">Google</a></li>
+<li><a href="#10---help">Help</a></li>
+<li><a href="#11---imdb">Imdb</a></li>
+<li><a href="#12---ip-info">Ipinfo</a></li>
+<li><a href="#13---link-shortener">Linkshortener</a></li>
+<li><a href="#14---location">Location</a></li>
+<li><a href="#15---remind">Remind</a></li>
+<li><a href="#16---spotify">Spotify</a></li>
+<li><a href="#17---stats">Stats</a></li>
+<li><a href="#18---talk">Talk</a></li>
+<li><a href="#19---time">Time</a></li>
+<li><a href="#20---urban-dictionary">Urbandictionary</a></li>
+<li><a href="#21---webshot">Webshot</a></li>
+<li><a href="#22---who">Who</a></li>
+<li><a href="#23---wikipedia">Wikipedia</a></li>
+</ol>
+
+<h3>
+<a id="1---admin" class="anchor" href="#1---admin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 - Admin</h3>
+
+<p>Plugin for admins</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/bot</code></p>
+
+<blockquote>
+<p>Returns Bot status</p>
+</blockquote>
+
+<p><code>/admin reload</code></p>
+
+<blockquote>
+<p>Reloads bot</p>
+</blockquote>
+
+<p><code>/plugins &lt;Plugin_name&gt; &lt;chat_id&gt; &lt;true|false&gt;</code></p>
+
+<blockquote>
+<p>True will disable plugin <code>&lt;Plugin_name&gt;</code> on chat <code>&lt;chat_id&gt;</code></p>
+</blockquote>
+
+<p><code>/blacklist &lt;user_id&gt;</code></p>
+
+<blockquote>
+<p>This command will blacklist </p>
+
+<blockquote>
+<p>Can also be used by reply</p>
+</blockquote>
+</blockquote>
+
+<p><code>/bc &lt;chat_id&gt; &lt;text&gt;</code></p>
+
+<blockquote>
+<p>this command will send <code>&lt;text&gt;</code> to <code>&lt;chat_id&gt;</code></p>
+
+<blockquote>
+<p>Markdown is enabled</p>
+
+<p>use @channel_username for sending msgs to channels</p>
+</blockquote>
+</blockquote>
+
+<p><code>/broadcast &lt;msg&gt;</code></p>
+
+<blockquote>
+<p>This command will send msg to all chats</p>
+</blockquote>
+
+<h3>
+<a id="2---calculator" class="anchor" href="#2---calculator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 - Calculator</h3>
+
+<p>Returns solutions to math expressions</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/calc &lt;expression&gt;</code></p>
+
+<h3>
+<a id="3---cat" class="anchor" href="#3---cat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 - Cat</h3>
+
+<p>Returns a cat</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>O</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/cat</code></p>
+
+<h3>
+<a id="4---chatter" class="anchor" href="#4---chatter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 - Chatter</h3>
+
+<p>Talk to bot in English !</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>bot_first_name, &lt;text&gt;</code>
+<code>bot_username, &lt;text&gt;</code></p>
+
+<blockquote>
+<p>jack, How are you ?
+@imandabot, How are you ?</p>
+
+<blockquote>
+<p>you can also trigger chatter plugin by talking to bot in private or replying on of its messages in groups</p>
+</blockquote>
+</blockquote>
+
+<h3>
+<a id="5---dogify" class="anchor" href="#5---dogify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 - Dogify</h3>
+
+<p>Create a doge image with you words</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p>`<code>/dogify &lt;your/words/with/slashes&gt;</code></p>
+
+<h3>
+<a id="6---echo" class="anchor" href="#6---echo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 - Echo</h3>
+
+<p>Returns text</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/echo &lt;text&gt;</code></p>
+
+<blockquote>
+<p>Markdown is enabled</p>
+</blockquote>
+
+<p><strong>Inline</strong></p>
+
+<p><code>@bot_username /echo &lt;text&gt;</code></p>
+
+<h3>
+<a id="7---giphy" class="anchor" href="#7---giphy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7 - Giphy</h3>
+
+<p>Returns a GIF from giphy.com!</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/giphy</code></p>
+
+<blockquote>
+<p>Returns a random GIF</p>
+</blockquote>
+
+<p><code>/giphy [query]</code></p>
+
+<blockquote>
+<p>Returns a GIF about [query]</p>
+</blockquote>
+
+<h3>
+<a id="8---github" class="anchor" href="#8---github" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 - Github</h3>
+
+<p>Returns info about GitHub repo</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/github &lt;repo&gt;</code></p>
+
+<blockquote>
+<p>/gitrepo SEEDTEAM/TeleSeed</p>
+</blockquote>
+
+<h3>
+<a id="9---google-search" class="anchor" href="#9---google-search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>9 - Google search</h3>
+
+<p>Google search</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/google &lt;terms&gt;</code></p>
+
+<p><code>/g &lt;terms&gt;</code></p>
+
+<h3>
+<a id="10---help" class="anchor" href="#10---help" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10 - Help</h3>
+
+<p>Returns info about other plugins</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/help</code></p>
+
+<blockquote>
+<p>Will return a short list of plugins</p>
+</blockquote>
+
+<p><code>/help all</code></p>
+
+<blockquote>
+<p>Will return full list of plugins with their commands</p>
+</blockquote>
+
+<p><code>/help [plugin_name]</code></p>
+
+<blockquote>
+<p>Will return info about that plugin</p>
+</blockquote>
+
+<h3>
+<a id="11---imdb" class="anchor" href="#11---imdb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 - IMDB</h3>
+
+<p>Returns Info about movie from IMDB and its poster</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<h3>
+<a id="12---ip-info" class="anchor" href="#12---ip-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 - IP info</h3>
+
+<p>Returns Given IP or domain info</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/ip &lt;IP|domain&gt;</code></p>
+
+<h3>
+<a id="13---link-shortener" class="anchor" href="#13---link-shortener" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 - Link shortener</h3>
+
+<p>Returns Shorten link</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/shorten &lt;url&gt;</code></p>
+
+<blockquote>
+<p>/shorten <a href="https://github.com/SEEDTEAM">https://github.com/SEEDTEAM</a></p>
+</blockquote>
+
+<h3>
+<a id="14---location" class="anchor" href="#14---location" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 - Location</h3>
+
+<p>Sends location data</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/loc &lt;query&gt;</code></p>
+
+<p><code>/location &lt;query&gt;</code></p>
+
+<h3>
+<a id="15---remind" class="anchor" href="#15---remind" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15 - Remind</h3>
+
+<p>Reminder</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/remind &lt;delay (value|mh)&gt;  &lt;text&gt;</code></p>
+
+<blockquote>
+<p>/remind 1h test</p>
+
+<p>/remind 1m test</p>
+
+<p>/remind 1h30m test</p>
+
+<blockquote>
+<p>This plugin will save data in Redis(database) So It even works after Bot crashed or anything happen</p>
+</blockquote>
+</blockquote>
+
+<h3>
+<a id="16---spotify" class="anchor" href="#16---spotify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 - Spotify</h3>
+
+<p>Spotify plugin</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>O</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/spotify get [track name(for search)]</code></p>
+
+<p>Returns preview of that song (only 30 sec)</p>
+
+<p><code>/spotify track [track name(for search)]</code></p>
+
+<p>Returns track info and picture</p>
+
+<p><code>/spotify album [album name(for search)]</code></p>
+
+<p>Returns lbum info and picture</p>
+
+<p><code>/spotify artist [artist name(for search)]</code></p>
+
+<p>Returns artist info and picture</p>
+
+<p><code>/spotify playlist [playlist name(for search)]</code></p>
+
+<p>Returns playlist info and picture</p>
+
+<h3>
+<a id="17---stats" class="anchor" href="#17---stats" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17 - Stats</h3>
+
+<p>Chat msg statistics</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<h3>
+<a id="18---talk" class="anchor" href="#18---talk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>18 - Talk</h3>
+
+<p>Returns voice</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/tts &lt;text&gt;</code></p>
+
+<h3>
+<a id="19---time" class="anchor" href="#19---time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 - Time</h3>
+
+<p>Returns the time, date, and timezone for the given location</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/time &lt;location&gt;</code></p>
+
+<h3>
+<a id="20---urban-dictionary" class="anchor" href="#20---urban-dictionary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 - Urban dictionary</h3>
+
+<p>Returns the top definition from Urban Dictionary.</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/ud &lt;query&gt;</code></p>
+
+<h3>
+<a id="21---webshot" class="anchor" href="#21---webshot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>21 - Webshot</h3>
+
+<p>Returns screen shot from given website</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/webshot &lt;url&gt;</code></p>
+
+<h3>
+<a id="22---who" class="anchor" href="#22---who" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22 - Who</h3>
+
+<p>Returns info about user and chat</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/who</code></p>
+
+<h3>
+<a id="23---wikipedia" class="anchor" href="#23---wikipedia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>23 - Wikipedia</h3>
+
+<p>Returns results from wikipedia.com</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/wiki &lt;query&gt;</code>
+<code>/wikipedia &lt;query&gt;</code></p>
+
+<h1>
+<a id="support-and-development" class="anchor" href="#support-and-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support and development</h1>
+
+<p>Join our bot development group by sending /join 1047524697 to @TeleSeed or just search username <a href="https://telegram.me/seed_dev">@seed_dev</a> and join</p>
+
+<h1>
+<a id="special-thanks-to" class="anchor" href="#special-thanks-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Special thanks to</h1>
+
+<p><a href="https://github.com/hmon">Alphonse</a></p>
+
+<p><a href="https://telegram.me/Vamptacus">Vamptacus</a></p>
+
+<p><a href="https://github.com/topkecleon">topkecleon</a></p>
+
+<p><a href="https://github.com/TiagoDanin">Tiago Danin</a></p>
+
+<p><a href="https://github.com/yagop">Yago</a></p>
+
+<h1>
+<a id="collaborators" class="anchor" href="#collaborators" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Collaborators</h1>
+
+<p><a href="https://github.com/pAyDaAr">Unfriendly</a></p>
+
+<h1>
+<a id="other-projects" class="anchor" href="#other-projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other projects</h1>
+
+<p><a href="https://github.com/SEEDTEAM/TeleSeed">TeleSeed</a></p>
+
+<blockquote>
+<p>An advance Administration bot</p>
+</blockquote>
+
+<p><a href="https://github.com/SEEDTEAM/TelegramLoggingBot">TelegramLoggingBot</a></p>
+
+<blockquote>
+<p>Connects 2 groups or can be used to create a logging group</p>
+</blockquote>
+
+<p><a href="https://github.com/SEEDTEAM/file-manager-bot">file-manager-bot</a></p>
+
+<blockquote>
+<p>A Linux file manager telegram bot</p>
+</blockquote>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
