@@ -70,6 +70,7 @@ track = (msg, matches, music) ->
 	if photo_download
 		file_path = download_to_file pic, prefix..file_name..".jpg"
 		telegram!\sendPhoto msg.chat.id, file_path
+		os.remove file_path
 	else
 		if msg.chat.type ~= "private"
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
@@ -109,6 +110,7 @@ artist = (msg, matches) ->
 	if photo_download
 		file_path = download_to_file pic, prefix..file_name..".jpg"
 		telegram!\sendPhoto msg.chat.id, file_path
+		os.remove file_path
 	else
 		if msg.chat.type ~= "private"
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
@@ -173,6 +175,7 @@ album = (msg, matches, id) ->
 	if photo_download
 		file_path = download_to_file pic, prefix..file_name..".jpg"
 		telegram!\sendPhoto msg.chat.id, file_path
+		os.remove file_path
 	else
 		if msg.chat.type ~= "private"
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
@@ -211,6 +214,7 @@ playlist = (msg, matches) ->
 	if photo_download
 		file_path = download_to_file pic, prefix..file_name..".jpg"
 		telegram!\sendPhoto msg.chat.id, file_path
+		os.remove file_path
 	else
 		if msg.chat.type ~= "private"
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"

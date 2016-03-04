@@ -36,6 +36,7 @@ export bot_run = class bot_run
         t = moonscript.loadfile "plugins/#{v}.moon",implicitly_return_root:true
         plugins[v] = t
       )
+      io.popen("moon plugins/#{v}.moon")\read("*all")
       print(colors "Plugin %{black whitebg}#{v}%{reset} loaded")
   Bot_loading: =>
     export last_update = last_update or tonumber(redis\get "bot:update_id") or 0
@@ -139,9 +140,7 @@ export msg_processor = (msg) ->
     msg.from.first_name = "#{nickname}"
     msg.from.last_name = " "
 
-  if msg.date < os.time! - 30--Ignore old messages
-    print colors("%{red}Old msg%{reset}")
-    return
+
   --Return about text if someone added bot to chat
   msg.text = "/about" if msg.new_chat_participant and msg.new_chat_participant.id == bot_id
 
@@ -210,6 +209,9 @@ export msg_processor = (msg) ->
   redis\incr "bot:total_users_msgs_in_chat:#{msg.chat.id}:#{msg.from.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
   redis\incr "bot:total_inline_from_user:#{msg.from.id}" if msg.chat.type == "inline"
 
+  if msg.date < os.time! - 30--Ignore old messages
+    print colors("%{red}Old msg%{reset}")
+    return
 
   for name, plugin in pairs plugins--Go over plugins and check patterns for match
     match_plugin(plugin, name, msg)
@@ -238,8 +240,9 @@ while is_running--A loop for getting messages
 
   if last_cron < os.time() - 10--cron thing
     for i,v in pairs plugins
-      if (v @).cron
-        (v @).cron!
+      if (v @)
+        if (v @).cron
+          (v @).cron!
 
 
   res = telegram!\getUpdates last_update + 1
