@@ -415,7 +415,7 @@ Spotify plugin
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        O         |         Y          |    N
+  Y    |        O         |         Y          |    Y
 
 
 **Commands**
@@ -430,7 +430,7 @@ Returns track info and picture
 
 `/spotify album [album name(for search)]`
 
-Returns lbum info and picture
+Returns album info and picture
 
 `/spotify artist [artist name(for search)]`
 
@@ -439,6 +439,16 @@ Returns artist info and picture
 `/spotify playlist [playlist name(for search)]`
 
 Returns playlist info and picture
+
+**Inline**
+
+`@bot_username /spotify album [album name(for search)]`
+
+`@bot_username /spotify album [album name(for search)]`
+
+`@bot_username /spotify artist [artist name(for search)]`
+
+`@bot_username /spotify playlist [playlist name(for search)]`
 
 
 ### 17 - Stats
