@@ -94,7 +94,7 @@ export telegram = class telegram--Telegram api methods
 --https://core.telegram.org/bots/api#sendvideo
   sendVideo: (chat_id,video,duration,caption,reply_to_message_id) =>
     url = "#{API_URL}/sendVideo"
-    command = "curl #{url}?chat_id=#{chat_id} -F \"sticker=@#{sticker}\""
+    command = "curl #{url}?chat_id=#{chat_id} -F \"video=@#{video}\""
     command ..= " -F \"duration=#{duration}\"" if duration
     command ..= " -F \"caption=#{caption}\"" if caption
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
