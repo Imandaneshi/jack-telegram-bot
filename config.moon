@@ -23,14 +23,18 @@ _ =
     "ipinfo"
     "linkshortener"
     "location"
+    "qrcode"
+    "reddit"
     "remind"
     "spotify"
     "stats"
     "talk"
     "time"
     "urbandictionary"
+    "weather"
     "webshot"
     "who"
     "wikipedia"
+    "9gag"
   }
 return _
