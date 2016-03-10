@@ -25,13 +25,32 @@ repo = (msg, git) ->
 run = (msg, matches) ->
   if matches[1] == "gitrepo" and matches[2]
     return repo msg, matches[2]
- 
+  elseif matches[1] == "gituser" and matches[2]
+    url = "https://api.github.com/users/#{matches[2]}"
+    jstr, res = https.request url
+    jdat = JSON.decode jstr
+    text = "#{jdat.name}
+followers: #{jdat.followers}
+following: #{jdat.following}
+repos: #{jdat.public_repos}
+blog: #{jdat.blog}
+location: #{jdat.location}  
+email: #{jdat.email} 
+GitPage: #{jdat.html_url}"
+    file = jdat.avatar_url
+    file_path = download_to_file file,"av.jpg"
+    telegram!\sendPhoto msg.chat.id,file_path,text
+    os.remove file_path
+    return
 
 return {
   description: "*github plugin !*"
-  usage: "`/gitrepo [repo]`"
+  usage: "`/gitrepo [repo]`
+`/gituser [user]`"
+  
   patterns: {
     "^[/!#](gitrepo) (.*)$"
+    "^[/!#](gituser) (.*)$"
     }
     :run
   }
