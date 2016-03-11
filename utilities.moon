@@ -90,7 +90,7 @@ export telegram = class telegram--Telegram api methods
     url = "#{API_URL}/sendSticker"
     command = "curl #{url}?chat_id=#{chat_id} -F \"sticker=@#{sticker}\""
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
-
+    return telegram!\curl command
 --https://core.telegram.org/bots/api#sendvideo
   sendVideo: (chat_id,video,duration,caption,reply_to_message_id) =>
     url = "#{API_URL}/sendVideo"
