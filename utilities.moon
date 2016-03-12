@@ -145,9 +145,64 @@ export is_admin = (msg) ->
 
   return var
 
-export inline_article_block = (title, text, parse_mode, disable_web_page_preview) ->
+-- Inline Block
+export inline_article_block = (title, text, parse_mode, disable_web_page_preview, description, thumb_url) ->
   ran = math.random 1 ,100
-  inline = "{\"type\":\"article\", \"id\":\"#{ran}\", \"title\":\"#{title}\", \"message_text\": \"#{text}\", \"parse_mode\": \"#{parse_mode}\", \"disable_web_page_preview\": #{disable_web_page_preview}}"
+  inline = "{\"type\":\"article\", \"id\":\"#{ran}\", \"title\":\"#{title}\", \"message_text\": \"#{text}\""
+  inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
+  inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= ",\"description\": \"#{description}\"" if description
+  inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
+  inline ..= "}"
+  return inline
+
+export inline_photo_block = (photo_url, thumb_url, title, description, caption, message_text, parse_mode, disable_web_page_preview) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"photo\", \"id\":\"#{ran}\", \"photo_url\":\"#{photo_url}\""
+  inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
+  inline ..= ",\"title\": \"#{title}\"" if title
+  inline ..= ",\"description\": \"#{description}\"" if description
+  inline ..= ",\"caption\": #{caption}" if caption
+  inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
+  inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
+  inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= "}"
+  return inline
+
+export inline_gif_block = (gif_url, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"gif\", \"id\":\"#{ran}\", \"gif_url\":\"#{gif_url}\""
+  inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
+  inline ..= ",\"title\": \"#{title}\"" if title
+  inline ..= ",\"caption\": #{caption}" if caption
+  inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
+  inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
+  inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= "}"
+  return inline
+
+export inline_mpeg4_block = (mpeg4_url, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"mpeg4_gif\", \"id\":\"#{ran}\", \"mpeg4_url\":\"#{mpeg4_url}\""
+  inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
+  inline ..= ",\"title\": \"#{title}\"" if title
+  inline ..= ",\"caption\": #{caption}" if caption
+  inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
+  inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
+  inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= "}"
+  return inline
+
+export inline_video_block = (video_url, mime_type, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"video\", \"id\":\"#{ran}\", \"video_url\":\"#{video_url}\", \"mime_type\": \"#{mime_type}\""
+  inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
+  inline ..= ",\"title\": \"#{title}\"" if title
+  inline ..= ",\"caption\": #{caption}" if caption
+  inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
+  inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
+  inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= "}"
   return inline
 
 --cheks whatever text matches or not

@@ -63,7 +63,7 @@ track = (msg, matches, music) ->
 		return
 
 	if msg.chat.type == "inline"
-		block = "[#{inline_article_block "#{song_name} on Spotify !", "#{output}", "Markdown", true}]"
+		block = "[#{inline_article_block "#{song_name} on Spotify !", "#{output}", "Markdown", true, "#{artist} - #{song_name}", "#{pic}"}]"
 		telegram!\sendInline msg.id, block
 		return
 
@@ -103,7 +103,7 @@ artist = (msg, matches) ->
 	output = "*Name:* ["..name.."]("..artist_link..")\n*Followers:* "..follow.." \n*Popularity:* "..popularity
 
 	if msg.chat.type == "inline"
-		block = "[#{inline_article_block "#{name} on Spotify !", "#{output}", "Markdown", true}]"
+		block = "[#{inline_article_block "#{name} on Spotify !", "#{output}", "Markdown", true, "#{name} - Followers: #{follow}", "#{pic}"}]"
 		telegram!\sendInline msg.id, block
 		return
 
@@ -168,7 +168,7 @@ album = (msg, matches, id) ->
 		output ..= '\n'..tracks
 
 	if msg.chat.type == "inline"
-		block = "[#{inline_article_block "#{name} on Spotify !", "#{output}", "Markdown", true}]"
+		block = "[#{inline_article_block "#{name} on Spotify !", "#{output}", "Markdown", true, "#{name} - #{total} Tracks", "#{pic}"}]"
 		telegram!\sendInline msg.id, block
 		return
 
@@ -207,7 +207,7 @@ playlist = (msg, matches) ->
 	output = "*Name:* ["..name.."]("..playlist_link..")\n*Total:* "..total
 
 	if msg.chat.type == "inline"
-		block = "[#{inline_article_block "#{name} on Spotify !", "#{output}", "Markdown", true}]"
+		block = "[#{inline_article_block "#{name} on Spotify !", "#{output}", "Markdown", true, "#{name} - #{total} Tracks", "#{pic}"}]"
 		telegram!\sendInline msg.id, block
 		return
 
