@@ -144,6 +144,7 @@ Plugins list
 22. [Who](#22---who)
 23. [Wikipedia](#23---wikipedia)
 24. [youtube](#24---youtube)
+25. [code](#25---code)
 
 
 ### 1 - Admin
@@ -513,7 +514,7 @@ Returns screen shot from given website
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    N
+  Y    |        Y         |         Y          |    N
 
 
 **Commands**
@@ -566,6 +567,20 @@ Listed | Requires API KEY | Enabled by default | inline
 **Inline**
 
 `/youtube dl [video name(for download)]`
+
+
+### 25 - Code
+
+Send the code in image format with support for highlighter.
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         N          |    N
+
+
+**Commands**
+
+`/code [language] [code]`
 
 
 #Support and development
