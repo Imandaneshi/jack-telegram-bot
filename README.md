@@ -143,6 +143,7 @@ Plugins list
 21. [Webshot](#21---webshot)
 22. [Who](#22---who)
 23. [Wikipedia](#23---wikipedia)
+24. [youtube](#24---youtube)
 
 
 ### 1 - Admin
@@ -546,6 +547,25 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/wiki <query>`
 `/wikipedia <query>`
+
+
+### 24 - Youtube
+
+Returns results from youtube.com
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         N          |    Y
+
+
+**Commands**
+
+`/youtube get [video name(for search)]`
+`/youtube dl [video name(for download)]`
+
+**Inline**
+
+`/youtube dl [video name(for download)]`
 
 
 #Support and development
