@@ -38,6 +38,7 @@ _ =
     --"talk"
     "time"
     "translate"
+    "tophoto"
     "urbandictionary"
     "weather"
     "webshot"
