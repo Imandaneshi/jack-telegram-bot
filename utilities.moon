@@ -277,3 +277,6 @@ export download_to_file = (url, file_name) ->
   file\close!
 
   return file_path
+
+export vardump = (data) ->
+  print serpent.block(data,{comment:false})

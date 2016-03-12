@@ -1,25 +1,22 @@
 gif = (msg,q) ->
   q = q
   url = "http://api.giphy.com/v1/gifs/search?q=#{q}&api_key=dc6zaTOxFJmzC"
-  
+
   jstr, res = http.request url
-  
-  if res ~= 200 
+
+  if res ~= 200
      return "not found"
-  
+
   jdat = JSON.decode jstr
-  
- -- if jdat.status ~= 'OK'
-   -- return "_No results found_"
- 
+
   random = math.random #{jdat.data}
-  
+
   file = "#{jdat.data[random].images.original.url}"
-  
+
   file_path = download_to_file file,"giphy.gif"
-  
+
   gif = telegram!\sendDocument msg.chat.id,file_path
-  
+
   remove = os.remove file_path
 
 run = (msg,matches) ->
@@ -30,11 +27,11 @@ run = (msg,matches) ->
 
       jstr, res = http.request url
       jdat = JSON.decode jstr
-      
+
       file = "#{jdat.data.image_url}"
-      
+
       file_path = download_to_file file,"giphy.gif"
-      
+
       gif = telegram!\sendDocument msg.chat.id,file_path
       remove = os.remove file_path
 

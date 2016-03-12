@@ -65,8 +65,12 @@ run = (msg,matches) ->
 *Users:* #{privates}
 *Total messages:* #{t_msgs}
 
-*Plugins usage*
+"
+    if msg.chat.type == "inline"
+      block = "[#{inline_article_block "Bot stats", text, "Markdown", true}]"
+      telegram!\sendInline msg.id,block
 
+    text ..= "*Plugins usage*
 "
     plugin_usage = {}
     for k, v in pairs config!.plugs
@@ -107,12 +111,15 @@ patterns = {
   "^[!#/](bc) ([^%s]+) (.*)$"
   "^[!#/](broadcast) +(.+)$"
   "^[!#/](bot)$"
+  "###inline[!#/](bot)$"
 }
 description = ""
 usage = ""
+is_listed = false
 return {
   :run
   :patterns
   :description
   :usage
+  :is_listed
 }

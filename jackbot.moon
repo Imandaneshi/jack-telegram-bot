@@ -213,6 +213,7 @@ export msg_processor = (msg) ->
     print colors("%{red}Old msg%{reset}")
     return
 
+  export msg_global = msg
   for name, plugin in pairs plugins--Go over plugins and check patterns for match
     match_plugin(plugin, name, msg)
 

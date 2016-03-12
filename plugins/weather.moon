@@ -4,23 +4,24 @@ run = (msg,matches) ->
 	jstr, res = http.request url
 	if res ~= 200
 		  return "_No connection_"
-	
+
 	jdat = JSON.decode jstr
-    
-  if not jdat.query.results
-      return "_no results_"
-       
-    data = jdat.query.results.channel.item.condition
-	  text = data.text
-    if jdat.query.results.channel.item.condition.text == "Fair"
-    	  text ..= " ⛅"
-    elseif jdat.query.results.channel.item.condition.text == "Sunny"
-    	  text ..= " 🌞"
-	
+
+	unless jdat.query.results
+		return "_no results_"
+
+	data = jdat.query.results.channel.item.condition
+	text = data.text
+
 	fahrenheit = data.temp
-  celsius = string.format("%.0f", (fahrenheit - 32) * 5/9)
+	celsius = string.format("%.0f", (fahrenheit - 32) * 5/9)
 	message = "*#{celsius}*°C | * #{fahrenheit} *°F, _ #{text} _."
-  return message
+
+	if msg.chat.type == "inline"
+		block = "[#{inline_article_block "#{matches[1]} weather", "*#{matches[1]} weather* \n#{message}","Markdown", true}]"
+		telegram!\sendInline msg.id, block
+		return
+	return message
 
 return {
   description: "*Weather*"
@@ -28,6 +29,7 @@ return {
   patterns: {
   "^[/!#]w (.*)"
   "^[/!#]weather (.*)"
+	"###inline[/!#]weather (.*)"
   }
   :run
-}�
+}
