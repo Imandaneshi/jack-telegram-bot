@@ -63,11 +63,12 @@ sudo apt-get remove lua5.2
 
 # Telegram cli
 
-first clone and configure telegram cli
+First clone and configure telegram cli
 
 ```
 git clone https://github.com/Rondoozle/tg.git
 cd tg
+git submodule update --init --recursive
 ./configure
 make
 ```
