@@ -12,6 +12,7 @@ run = (msg,matches) ->
 	return "`#{text}`"
 
 return {
+	is_listed: false
 	description: "*moonscript load string*"
 	usage: "`/moon [code]` - Load string in moonscript\n"
 	patterns: {

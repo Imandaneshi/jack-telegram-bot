@@ -13,9 +13,10 @@ plugins_list = ->--Returns plugin list
 "
   i = 1
   for k,v in pairs config!.plugs
-    if v ~= "admin"
-      text ..= "`#{i}` *- #{v}*\n"
-      i += 1
+    if plugins[v]
+      if (plugins[v] @).is_listed == nil or (plugins[v] @).is_listed == true
+        text ..= "`#{i}` *- #{v}*\n"
+        i += 1
 
   text ..= "
 Send `/help [plugin name]` for more info."
@@ -25,18 +26,28 @@ Or Send `/help all` to my private for all info."
 
 help_all = (target) ->--Returns all plugins info
   text_1 = ""
-  --text_2 = ""
-  --help_plugins = {}
+  text_2 = ""
+  help_plugins = {}
   i = 1
-  for v in pairs(plugins)
-    text_1 ..= "*#{i}* - #{plugin_help(v)}"
+  for k,v in pairs config!.plugs
+    if plugins[v]
+      if (plugins[v] @).is_listed == nil or (plugins[v] @).is_listed == true
+        table.insert help_plugins, v
+
+  for i=1,15
+    text_1 ..= "*#{i}* - #{plugin_help help_plugins[i]}"
     i += 1
 
+  for i=16,#help_plugins
+    text_2 ..= "*#{i}* - #{plugin_help help_plugins[i]}"
+    i += 1
   res = telegram!\sendMessage target,text_1,false,"Markdown"
-  if res
-    return true
-  else
+  vardump res
+  print text_1
+  unless res
+    print "test"
     return false
+  telegram!\sendMessage target,text_2,false,"Markdown"
 
 run = (msg,matches) ->
   if matches[1] == "help" and matches[2] == "all"
@@ -63,22 +74,24 @@ run = (msg,matches) ->
       return plugins_list()
 
 description = "*Get info about plugins !*"
-usage = [[
+usage = "
 `/help`
 Will return a short list of plugins
 `/help all`
 Will return full list of plugins with their commands
 `/help [plugin_name]`
 Will return info about that plugin
-]]
+"
 patterns = {
   "^[/!#](help) (.*)$"
   "^[/!#](help)$"
   "^[/!#](start)$"
 }
+is_listed = false
 return {
   :run
   :patterns
   :usage
   :description
+  :is_listed
 }

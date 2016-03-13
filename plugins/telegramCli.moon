@@ -13,6 +13,7 @@ run = (msg,matches) ->
 	return text
 
 return {
+	is_listed: false
 	description: "*Telegram cli plugin*"
 	usage: "/tg [command] - Run command on Telegram cli"
 	patterns: {

@@ -1,14 +1,14 @@
 save_value = (msg, name, value) ->
   if (not name or not value)
     return ""
-  
+
   hash = nil
   if msg.chat.type == 'group' or msg.chat.type == "supergroup" or msg.chat.type == "channel"
     hash = "bot:chat:#{msg.chat.id}:variables"
-  
+
   if msg.chat.type == 'private'
-    hash = "user:#{msg.from.id}:variables"
-  
+    hash = "bot:user:#{msg.from.id}:variables"
+
   if hash
     redis\hset hash, name, value
     return "*Saved* `#{name}`"
