@@ -14,7 +14,7 @@ run = (msg,matches) ->
 
 return {
   description: "*Return a Cat*"
-  usage: "`/cat`\n"
+  usage: "`/cat` - Return a Cat\n"
   patterns: {
   "^[/!#]cat"
   "^###inline[/!#]cat"

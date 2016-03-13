@@ -21,7 +21,7 @@ run = (msg,matches) ->
 
 return {
   description: "*Calculator !*"
-  usage: "`/calc [expression]`\n"
+  usage: "`/calc [expression]` - Return the result\n"
   patterns: {
   "^[!/#]calc (.*)"
   "###inline[!/#]calc (.*)"

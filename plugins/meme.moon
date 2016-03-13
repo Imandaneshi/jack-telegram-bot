@@ -10,7 +10,12 @@ run = (msg,matches) ->
 
 return {
   description: "*Generate a meme image with up and bottom texts.*"
-  usage: ""
+  usage: [[
+`/meme [name] "[text top]" "[text buttom]"`
+Generate a meme image
+Example:
+/meme _Derb "Love" "JakcBot"_
+]]
     patterns: {
     '^[!/]meme (.+) "(.+)" "(.+)"$'
     }

@@ -10,7 +10,7 @@ repo = (msg, git) ->
     jdat = JSON.decode response
     if jdat.Error
       return jdat.Error
-    
+
     text = "[#{jdat.owner.login}](#{jdat.owner.html_url}) *|* [#{jdat.name}](#{jdat.html_url})
 
 `#{jdat.description}`
@@ -20,7 +20,7 @@ repo = (msg, git) ->
 *stars:* `#{jdat.stargazers_count}`
 *issues:* `#{jdat.open_issues_count}`"
     return text
-    
+
 
 run = (msg, matches) ->
   if matches[1] == "gitrepo" and matches[2]
@@ -34,8 +34,8 @@ followers: #{jdat.followers}
 following: #{jdat.following}
 repos: #{jdat.public_repos}
 blog: #{jdat.blog}
-location: #{jdat.location}  
-email: #{jdat.email} 
+location: #{jdat.location}
+email: #{jdat.email}
 GitPage: #{jdat.html_url}"
     file = jdat.avatar_url
     file_path = download_to_file file,"av.jpg"
@@ -45,9 +45,10 @@ GitPage: #{jdat.html_url}"
 
 return {
   description: "*github plugin !*"
-  usage: "`/gitrepo [repo]`
-`/gituser [user]`"
-  
+  usage: [[
+`/gitrepo [repo]` - Return about the repo
+`/gituser [user]` - Return about the user
+]]
   patterns: {
     "^[/!#](gitrepo) (.*)$"
     "^[/!#](gituser) (.*)$"

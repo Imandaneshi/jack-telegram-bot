@@ -25,12 +25,12 @@ run = (msg,matches) ->
       jdat = jdat\sub 1, l-1
   jdat ..= "\n[#{text} on wikipedia](#{url})"
   return jdat
-  
-  
-  
+
+
+
 return {
   description: "*Wikipedia.com*"
-  usage: "`/wiki [query]`\n"
+  usage: "`/wiki [query]` - Search on Wikipedia\n"
   patterns: {
   "^[/!#]wikipedia (.*)"
   "^[/!#]wiki (.*)"

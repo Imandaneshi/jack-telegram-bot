@@ -14,7 +14,7 @@ run = (msg,matches) ->
 
 return {
 	description: "*Telegram cli plugin*"
-	usage: "/tg <command>"
+	usage: "/tg [command] - Run command on Telegram cli"
 	patterns: {
 		"^[/!#]tg (.*)$"
 	}

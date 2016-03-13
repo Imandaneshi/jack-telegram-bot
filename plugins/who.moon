@@ -12,9 +12,10 @@ run = (msg, matches) ->
   return
 
 description = "*User&chat info*"
-usage = "
+usage = [[
 `/who`
-returns info about user and chat"
+Returns info about user and chat
+]]
 patterns = {
   "^[/!]who$"
 }

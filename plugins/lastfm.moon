@@ -71,7 +71,7 @@ run = (msg, matches) ->
   return message
 
 description = "*Last.fm*"
-usage = "
+usage = [[
 `/lastfm`
 Returns what you are or were last listening to
 `/lastfm [username]`
@@ -80,7 +80,7 @@ Returns what [username] is or was last listening to
 Will set your username
 `/lastfm rem`
 Will remove your username
-"
+]]
 patterns = {
   "^[!/#]lastfm ([^%s]+)$"
 	"^[!/#]lastfm (set) ([^%s]+)$"

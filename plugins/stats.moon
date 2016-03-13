@@ -92,10 +92,10 @@ patterns = {
   "^[#!/](groupstats)$"
 }
 description = "*Chat stats.*"
-usage = "
+usage = [[
 `/chatstats`
 Returns a list of members with their msg statistics
-"
+]]
 return {
   :run
   :patterns

@@ -13,8 +13,7 @@ run = (msg,matches) ->
 
 return {
 	description: "*moonscript load string*"
-	usage: "`/moon <code>`
-"
+	usage: "`/moon [code]` - Load string in moonscript\n"
 	patterns: {
 		"^[/!#]moon (.*)"
 	}

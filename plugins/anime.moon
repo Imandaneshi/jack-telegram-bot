@@ -18,17 +18,17 @@ anime = (msg,anime) ->
 				message ..= "#{jdat[1].genres[i].name}"
 	        else
 				message ..= "#{jdat[1].genres[i].name}"," "
-	
+
 	if jdat[1].age_rating
 			message ..= "\n*Age rating:* #{jdat[1].age_rating}"
-	
+
 	message ..= "\n*Rate:* #{math.floor(jdat[1].community_rating)}"
 	message ..= "\n\n`#{string.sub(jdat[1].synopsis, 1 , 300)}`\n"
     if jdat[1].started_airing and jdat[1].finished_airing
       message ..= "\n#{jdat[1].started_airing} *-* #{jdat[1].finished_airing}"
-    
+
     return message
-  
+
 animepic = (msg,pic) ->
   url = "http://konachan.com/post.json?limit=200&tags=#{URL.escape pic}"
   jstr, res = https.request url
@@ -43,9 +43,9 @@ animepic = (msg,pic) ->
     return
   else
     return "Nothing found"
-    
+
 animepicrn = (msg,picrn) ->
-  url = "https://konachan.com/post.json?limit=200"  
+  url = "https://konachan.com/post.json?limit=200"
   jstr, res = http.request url
   jdat = JSON.decode jstr
   if jdat[1]
@@ -67,12 +67,14 @@ run = (msg,matches) ->
 
 return {
   description: "*Anime plugin (hummingbird.me)*"
-  usage: "`/anime search [anime name]`
+  usage: [[
+`/anime search [anime name]`
 For searching
+`/anime pic [query]`
+Will search for query
 `/anime pic`
 Will send random anime pic
-`/anime pic [query]`
-Will search for query"
+]]
   patterns: {
    "^[!/](anime) (search) (.*)"
    "^[!/](anime) (pic) (.*)"

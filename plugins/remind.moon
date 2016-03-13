@@ -60,14 +60,14 @@ run = (msg,matches) ->
   return "I'll remind you on `#{os.date("%x at %H:%M:%S",delay)}` about *#{text}*"
 
 description = "*Remind plugin*"
-usage = "
-`/remind <delay (value|mh)>  <text>`
-*examples:*
-
-`/remind 1h test`
-`/remind 1m test`
-`/remind 1h30m test`
-  "
+usage = [[
+`/remind [delay] [value (in mh)] [text]`
+Save a reminder
+Examples:
+/remind _1h test_
+/remind _1m test_
+/remind _1h30m test_
+]]
 patterns = {
   "^/remind (%d+)([Hh]) (.+)$"
   "^/remind (%d+)([Mm]) (.+)$"

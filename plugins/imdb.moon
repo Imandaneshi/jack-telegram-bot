@@ -33,7 +33,7 @@ run = (msg, matches) ->
 
 return {
   description: "*IMDB for telegram !*"
-  usage: "`/imdb [movie]`\n"
+  usage: "`/imdb [movie]` - Search on IMDB!\n"
   patterns: {
     "^[!/#]imdb (.+)"
   }

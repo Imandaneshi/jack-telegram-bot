@@ -6,12 +6,12 @@ run = (msg,matches) ->
   telegram!\sendPhoto msg.chat.id,file_path
   os.remove file_path
   return
- 
+
 
 
 return {
   description: "*Create a doge image with you words*"
-  usage: "`/dogify (your/words/with/slashes)`\n"
+  usage: "`/dogify (your/words/with/slashes) [words]` - Create a doge image with you words\n"
   patterns: {
   "^[/!#]dogify (.*)"
   "^[/!#]dog (.*)"

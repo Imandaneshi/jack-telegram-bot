@@ -63,14 +63,14 @@ run = (msg,matches) ->
       return plugins_list()
 
 description = "*Get info about plugins !*"
-usage = "
+usage = [[
 `/help`
 Will return a short list of plugins
 `/help all`
 Will return full list of plugins with their commands
 `/help [plugin_name]`
 Will return info about that plugin
-"
+]]
 patterns = {
   "^[/!#](help) (.*)$"
   "^[/!#](help)$"

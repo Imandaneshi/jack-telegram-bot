@@ -12,11 +12,11 @@ patterns = {
   "###inline[#!/]echo (.*)"--inline
 }
 description = "*Echo plugin !*"
-usage = "
+usage = [[
 `/echo <text>`
 Will return text
 _Markdown is enabled_
-"
+]]
 return {
   :run
   :patterns

@@ -245,7 +245,7 @@ run = (msg, matches) ->
 
 return {
 	description: "*Spotify plugin !*"
-	usage: "
+	usage: [[
 `/spotify get [track name(for search)]`
 will send you preview of that song (only 30 sec)
 
@@ -253,7 +253,8 @@ will send you preview of that song (only 30 sec)
 `/spotify album [album name(for search)]`
 `/spotify artist [artist name(for search)]`
 `/spotify playlist [playlist name(for search)]`
-Will send artist info and picture"
+Will send artist info and picture
+]]
 	patterns: {
 		"^[!/#](spotify) (playlist) (.*)$"
 		"^[!/#](spotify) (artist) (.*)$"

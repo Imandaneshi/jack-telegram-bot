@@ -36,10 +36,10 @@ run = (msg, matches) ->
 
 
 description = "*Time !*"
-usage = "
+usage = [[
 `/time [location]`
 Returns the time, date, and timezone for the given location
-"
+]]
 patterns = {
   "^[/!#]time +(.+)$"
 }

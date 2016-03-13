@@ -21,8 +21,10 @@ run = (msg,matches) ->
 
 return {
   description: "*9GAG for Telegram*"
-  usage: "`/9gag`
-Send random image from 9gag\n"
+  usage: [[
+`/9gag`
+Send random image from 9gag
+]]
   patterns: {
   "^[/!#]9gag"
   "^###inline[/!#]9gag"

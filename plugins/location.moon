@@ -13,10 +13,10 @@ run = (msg,matches) ->
   return
 
 description = "*Google maps*"
-usage = "
+usage = [[
 `/loc <query>`
 Sends location data for query
-"
+]]
 patterns = {
   "^[/!#]loc +(.+)$"
   "^[/!#]location +(.+)$"

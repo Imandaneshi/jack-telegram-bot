@@ -37,10 +37,12 @@ run = (msg,matches) ->
 
 return {
   description: "*Returns a GIF from giphy.com!*"
-  usage: "`/giphy`
+  usage: [[
+`/giphy`
 Returns a random GIF
 `/giphy [query]`
-Returns a GIF about query"
+Returns a GIF about query
+]]
   patterns: {
   "^[/!#](giphy) (.*)"
   "^[/!#](giphy)$"

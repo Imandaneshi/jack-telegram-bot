@@ -2,7 +2,7 @@ run = (msg,matches) ->
 	input = ""
 	if matches[2]
 		input = matches[2]
-	
+
 	if not matches[2]
 		if msg.reply_to_message
 			input = msg.reply_to_message.text
@@ -22,14 +22,16 @@ run = (msg,matches) ->
 
 return {
        description: "*Google translate*"
-       usage: "`/translate [language] [text]`
-Will translate text to language
-`/translate [language]`
-[language] examples:
-en for translating text to english
-ar-en for translating text from arabic to english
-You can use both
-Use it by reply\n"
+       usage: [[
+       `/translate [language] [text]`
+       Will translate text to language
+       `/translate [language]`
+       [language] examples:
+       en for translating text to english
+       ar-en for translating text from arabic to english
+       You can use both
+       Use it by reply
+       ]]
              patterns: {
                "^[/!]translate ([^%s]+) (.*)$"
                "^[/!]translate (.*)$"

@@ -16,7 +16,7 @@ run = (msg,matches) ->
 
 return {
   description: "*send a screen shot from web*"
-  usage: "`/webshot [url]`\n"
+  usage: "`/webshot [url]` - Return screen shot\n"
   patterns: {
   "^[/!#]webshot (.*)"
   }

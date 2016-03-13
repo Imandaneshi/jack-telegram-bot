@@ -18,7 +18,7 @@ run = (msg,matches) ->
 
 return {
   description: "*Returns Given ip or domain info*"
-  usage: "`/ip [ip|domain]`"
+  usage: "`/ip [ip|domain]` - Return info\n"
   patterns: {
     "^[/!#]ip (.*)$"
     }
