@@ -39,12 +39,13 @@ export telegram = class telegram--Telegram api methods
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#sendmessage
-  sendMessage: (chat_id,text,reply_to_message_id,parse_mode,disable_web_page_preview) =>
+  sendMessage: (chat_id,text,reply_to_message_id,parse_mode,disable_web_page_preview,disable_notification) =>
     url = "#{API_URL}/sendMessage"
     url ..= "?chat_id=#{chat_id}&text=#{URL.escape text}"
     url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
     url ..= "&parse_mode=#{parse_mode}" if parse_mode
     url ..= "&disable_web_page_preview=#{disable_web_page_preview}" if disable_web_page_preview
+    url ..= "&disable_notification=#{disable_notification}" if disable_notification
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#getupdates
@@ -54,65 +55,73 @@ export telegram = class telegram--Telegram api methods
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#forwardmessage
-  forwardMessage: (chat_id,from_chat_id,message_id) =>
+  forwardMessage: (chat_id,from_chat_id,message_id,disable_notification) =>
     url = "#{API_URL}/forwardMessage"
     url ..= "?chat_id=#{chat_id}&from_chat_id=#{from_chat_id}&message_id=#{message_id}"
+    url ..= "&disable_notification=#{disable_notification}" if disable_notification
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#sendphoto
-  sendPhoto: (chat_id,photo,caption,reply_to_message_id) =>
+  sendPhoto: (chat_id,photo,caption,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendPhoto"
     command = "curl #{url}?chat_id=#{chat_id} -F \"photo=@#{photo}\""
     command ..= " -F \"caption=#{caption}\"" if caption
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
+    command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 
 --https://core.telegram.org/bots/api#sendaudio
-  sendAudio: (chat_id,audio,duration,performer,title,reply_to_message_id) =>
+  sendAudio: (chat_id,audio,duration,performer,title,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendAudio"
     command = "curl #{url}?chat_id=#{chat_id} -F \"audio=@#{audio}\""
     command ..= " -F \"duration=#{duration}\"" if duration
     command ..= " -F \"performer=#{performer}\"" if performer
     command ..= " -F \"title=#{title}\"" if title
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
+    command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 
 --https://core.telegram.org/bots/api#senddocument
 --Bots can currently send files of any type of up to 50 MB in size
-  sendDocument: (chat_id,document,reply_to_message_id) =>
+  sendDocument: (chat_id,document,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendDocument"
     command = "curl #{url}?chat_id=#{chat_id} -F \"document=@#{document}\""
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
+    command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 
   --https://core.telegram.org/bots/api#sendsticker
-  sendSticker: (chat_id,sticker,reply_to_message_id) =>
+  sendSticker: (chat_id,sticker,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendSticker"
     command = "curl #{url}?chat_id=#{chat_id} -F \"sticker=@#{sticker}\""
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
+    command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 --https://core.telegram.org/bots/api#sendvideo
-  sendVideo: (chat_id,video,duration,caption,reply_to_message_id) =>
+  sendVideo: (chat_id,video,duration,caption,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendVideo"
     command = "curl #{url}?chat_id=#{chat_id} -F \"video=@#{video}\""
     command ..= " -F \"duration=#{duration}\"" if duration
     command ..= " -F \"caption=#{caption}\"" if caption
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
+    command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 
   --https://core.telegram.org/bots/api#sendvoice
-  sendVoice: (chat_id,voice,duration,reply_to_message_id) =>
+  sendVoice: (chat_id,voice,duration,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendVoice"
     command = "curl #{url}?chat_id=#{chat_id} -F \"voice=@#{voice}\""
     command ..= " -F \"duration=#{duration}\"" if duration
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
+    command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 
   --https://core.telegram.org/bots/api#sendlocation
-  sendLocation: (chat_id,latitude,longitude,reply_to_message_id) =>
+  sendLocation: (chat_id,latitude,longitude,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendLocation"
     url ..= "?chat_id=#{chat_id}&latitude=#{latitude}&longitude=#{longitude}"
     url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
+    url ..= "&disable_notification=#{disable_notification}" if disable_notification
     return telegram!\sendRequest url
 
   --https://core.telegram.org/bots/api#sendchataction
