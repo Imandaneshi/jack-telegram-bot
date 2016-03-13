@@ -335,3 +335,17 @@ export download_to_file = (url, file_name) ->
 
 export vardump = (data) ->
   print serpent.block(data,{comment:false})
+
+socket = require "socket"
+export tg = class tg
+  sender: socket.connect "localhost", config!.cli_port
+  send: (command, output) =>
+    if output
+      s = socket.connect "localhost", config!.cli_port
+      s\send command
+      data = s\receive(tonumber(string.match(s\receive("*l"), "ANSWER (%d+)")))
+      s\receive "*l"
+      s\close()
+      return data\gsub '\n$',''
+    else
+      (tg @).sender\send(command)

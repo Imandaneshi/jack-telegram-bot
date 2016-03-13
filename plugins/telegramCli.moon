@@ -1,25 +1,3 @@
-socket = require "socket"
-export tg = class tg
-	sender: socket.connect "localhost", config!.cli_port
-	send: (command, output) =>
-		vardump command
-		if output
-			s = socket.connect "localhost", config!.cli_port
-			s\send command
-			data = s\receive(tonumber(string.match(s\receive("*l"), "ANSWER (%d+)")))
-			print data
-			s\receive "*l"
-			s\close()
-			return data\gsub '\n$',''
-		else
-			(tg @).sender\send(command)
-
-
-
-
-
-
-
 run = (msg,matches) ->
 	unless is_admin msg
 		return

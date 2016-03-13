@@ -3,11 +3,11 @@ export http = require "socket.http"
 export https = require "ssl.https"
 export URL = require "socket.url"
 export ltn12 = require "ltn12"
---export serpent = require "serpent"
+export serpent = require "serpent"
 export socket = require "socket"
 export JSON = require "cjson"
 export colors = require 'ansicolors'
-export config = moonscript.loadfile "config.moon",implicitly_return_root:true
+export config = moonscript.loadfile "config.moon"
 utilities = moonscript.loadfile "utilities.moon",implicitly_return_root:true
 utilities!
 export redis = (Redis @).client
