@@ -119,6 +119,8 @@ export telegram = class telegram--Telegram api methods
   --https://core.telegram.org/bots/api#sendlocation
   sendLocation: (chat_id,latitude,longitude,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendLocation"
+    if latitude == "0" and longitude == "0" -- Fix temporary to client chash (Telegram Desktop)
+       return
     url ..= "?chat_id=#{chat_id}&latitude=#{latitude}&longitude=#{longitude}"
     url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
     url ..= "&disable_notification=#{disable_notification}" if disable_notification
