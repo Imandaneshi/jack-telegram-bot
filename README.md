@@ -7,6 +7,7 @@ Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU 
 Table of Contents
 
 * [Setup](#setup)
+* [Telegram Cli](#telegram-cli)
 * [Database](#database)
 * [Plugins](#plugins)
 * [Support and development](#support-and-development)
@@ -21,7 +22,7 @@ You should have lua,luarocks,redis-server,moonscript,lua-socket,lua-sec,oauth,re
 You can install them by:
 
 ```bash
-sudo apt-get update; sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors
+sudo apt-get update; sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors;sudo luarocks install serpent
 ```
 
 Clone the bot
@@ -58,6 +59,45 @@ Make sure you are using the lua5.1 package instead of the lua5.2 package. Try:
 sudo apt-get install lua5.1
 sudo apt-get remove lua5.2
 ```
+
+
+# Telegram cli
+
+first clone and configure telegram cli
+
+```
+git clone https://github.com/Rondoozle/tg.git
+cd tg
+./configure
+make
+```
+Run it with -P and --json options
+
+```
+./bin/telegram-cli -k ./tg/tg-server.pub -P 7731 --json
+```
+Enter your number and conformation code
+
+And uncomment plugin `telegramCli` in config.moon
+
+You can send command to telegram-cli using your api bot
+
+```
+#tg msg user#id123456789 <text>
+#tg msg channel#id123456789 <text>
+#tg msg chat#id123456789 <text>
+
+#tg chat_del_user chat#id123456789 user#id12345678 <text>
+```
+
+Press `TAB` key twice in telegram for all of the methods
+
+You should have serpent installed
+
+```
+sudo luarocks install serpent
+```
+
 
 #Database
 
@@ -119,35 +159,46 @@ These info will be updated on each msg
 # Plugins
 
 Plugins list
+* [9gag](#9gag)
+* [Admin](#admin)
+* [Anime](#anime)
+* [Calculator](#calculator)
+* [Cat](#cat)
+* [Chatter](#chatter)
+* [Code](#code)
+* [Dogify](#dogify)
+* [Echo](#echo)
+* [Giphy](#giphy)
+* [Github](#github)
+* [Google](#google-search)
+* [Help](#help)
+* [Imdb](#imdb)
+* [Ipinfo](#ip-info)
+* [Lastfm](#lastfm)
+* [Linkshortener](#link-shortener)
+* [Location](#location)
+* [Meme](#meme)
+* [Moon](#moon)
+* [Qrcode](#qrcode)
+* [Reddit](#reddit)
+* [Remind](#remind)
+* [Spotify](#spotify)
+* [Stats](#stats)
+* [Sticker](#sticker)
+* [Talk](#talk)
+* [Telegram-Cli](#telegramcli)
+* [Time](#time)
+* [Translate](#Translate)
+* [Urbandictionary](#urban-dictionary)
+* [Weather](#weather)
+* [Webshot](#webshot)
+* [Who](#who)
+* [Wikipedia](#wikipedia)
+* [youtube](#youtube)
 
-1. [Admin](#1---admin)
-2. [Calculato](#2---calculator)
-3. [Cat](#3---cat)
-4. [Chatter](#4---chatter)
-5. [Dogify](#5---dogify)
-6. [Echo](#6---echo)
-7. [Giphy](#7---giphy)
-8. [Github](#8---github)
-9. [Google](#9---google-search)
-10. [Help](#10---help)
-11. [Imdb](#11---imdb)
-12. [Ipinfo](#12---ip-info)
-13. [Linkshortener](#13---link-shortener)
-14. [Location](#14---location)
-15. [Remind](#15---remind)
-16. [Spotify](#16---spotify)
-17. [Stats](#17---stats)
-18. [Talk](#18---talk)
-19. [Time](#19---time)
-20. [Urbandictionary](#20---urban-dictionary)
-21. [Webshot](#21---webshot)
-22. [Who](#22---who)
-23. [Wikipedia](#23---wikipedia)
-24. [youtube](#24---youtube)
-25. [code](#25---code)
 
 
-### 1 - Admin
+### Admin
 
 Plugin for admins
 
@@ -184,7 +235,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/broadcast <msg>`
 >This command will send msg to all chats
 
-### 2 - Calculator
+### Calculator
 
 Returns solutions to math expressions
 
@@ -197,7 +248,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/calc <expression>`
 
-### 3 - Cat
+### Cat
 
 Returns a cat
 
@@ -209,7 +260,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/cat`
 
-### 4 - Chatter
+### Chatter
 
 Talk to bot in English !
 
@@ -225,7 +276,21 @@ Listed | Requires API KEY | Enabled by default | inline
 >@imandabot, How are you ?
 >>you can also trigger chatter plugin by talking to bot in private or replying on of its messages in groups
 
-### 5 - Dogify
+### Code
+
+Send the code in image format with support for highlighter.
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         N          |    N
+
+
+**Commands**
+
+`/code [language] [code]`
+
+
+### Dogify
 
 Create a doge image with you words
 
@@ -236,9 +301,9 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
-``/dogify <your/words/with/slashes>`
+`/dogify <your/words/with/slashes>`
 
-### 6 - Echo
+### Echo
 
 Returns text
 
@@ -257,9 +322,9 @@ Listed | Requires API KEY | Enabled by default | inline
 `@bot_username /echo <text>`
 
 
-### 7 - Giphy
+### Giphy
 
-Returns a GIF from giphy.com!
+Returns a GIF from giphycom!
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
@@ -275,7 +340,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >Returns a GIF about [query]
 
-### 8 - Github
+### Github
 
 Returns info about GitHub repo
 
@@ -290,7 +355,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >/gitrepo SEEDTEAM/TeleSeed
 
-### 9 - Google search
+### Google search
 
 Google search
 
@@ -330,7 +395,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 
 
-### 11 - IMDB
+### IMDB
 
 Returns Info about movie from IMDB and its poster
 
@@ -343,7 +408,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 
 
-### 12 - IP info
+### IP info
 
 Returns Given IP or domain info
 
@@ -357,7 +422,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/ip <IP|domain>`
 
 
-### 13 - Link shortener
+### Link shortener
 
 Returns Shorten link
 
@@ -373,7 +438,7 @@ Listed | Requires API KEY | Enabled by default | inline
 >/shorten https://github.com/SEEDTEAM
 
 
-### 14 - Location
+### Location
 
 Sends location data
 
@@ -389,7 +454,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/location <query>`
 
 
-### 15 - Remind
+### Remind
 
 Reminder
 
@@ -411,7 +476,7 @@ Listed | Requires API KEY | Enabled by default | inline
 >>This plugin will save data in Redis(database) So It even works after Bot crashed or anything happen
 
 
-### 16 - Spotify
+### Spotify
 
 Spotify plugin
 
@@ -453,7 +518,7 @@ Returns playlist info and picture
 `@bot_username /spotify playlist [playlist name(for search)]`
 
 
-### 17 - Stats
+### Stats
 
 Chat msg statistics
 
@@ -465,7 +530,7 @@ Listed | Requires API KEY | Enabled by default | inline
 **Commands**
 
 
-### 18 - Talk
+### Talk
 
 Returns voice
 
@@ -479,7 +544,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/tts <text>`
 
 
-### 19 - Time
+### Time
 
 Returns the time, date, and timezone for the given location
 
@@ -494,7 +559,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 
 
-### 20 - Urban dictionary
+### Urban dictionary
 
 Returns the top definition from Urban Dictionary.
 
@@ -508,7 +573,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/ud <query>`
 
 
-### 21 - Webshot
+### Webshot
 
 Returns screen shot from given website
 
@@ -522,7 +587,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/webshot <url>`
 
 
-### 22 - Who
+### Who
 
 Returns info about user and chat
 
@@ -535,7 +600,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/who`
 
-### 23 - Wikipedia
+### Wikipedia
 
 Returns results from wikipedia.com
 
@@ -550,7 +615,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/wikipedia <query>`
 
 
-### 24 - Youtube
+### Youtube
 
 Returns results from youtube.com
 
@@ -569,19 +634,6 @@ Listed | Requires API KEY | Enabled by default | inline
 `/youtube dl [video name(for download)]`
 
 
-### 25 - Code
-
-Send the code in image format with support for highlighter.
-
-Listed | Requires API KEY | Enabled by default | inline
------- | ---------------- | ------------------ | ------
-  Y    |        Y         |         N          |    N
-
-
-**Commands**
-
-`/code [language] [code]`
-
 
 #Support and development
 
@@ -595,8 +647,6 @@ Join our bot development group by sending /join 1047524697 to @TeleSeed or just 
 
 [topkecleon](https://github.com/topkecleon)
 
-[Tiago Danin](https://github.com/TiagoDanin)
-
 [Yago](https://github.com/yagop)
 
 
@@ -604,6 +654,8 @@ Join our bot development group by sending /join 1047524697 to @TeleSeed or just 
 # Collaborators
 
 [Unfriendly](https://github.com/pAyDaAr)
+
+[Tiago Danin](https://github.com/TiagoDanin)
 
 # Other projects
 
