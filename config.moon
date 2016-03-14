@@ -26,6 +26,7 @@ _ =
     "giphy"
     "github"
     "google"
+    "greeting"
     "help"
     "imdb"
     "ipinfo"

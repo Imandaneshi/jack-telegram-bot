@@ -8,18 +8,21 @@ export get_coords = (input) ->
 
   if jdat.status == 'ZERO_RESULTS'
     return "_No results_"
+  lat = jdat.results[1].geometry.location.lat
+  lng = jdat.results[1].geometry.location.lng
+
 
   return {
-    lat: jdat.results[1].geometry.location.lat
-  	lon: jdat.results[1].geometry.location.lng
+    :lat
+  	:lng
   }
 
 run = (msg, matches) ->
   coords = get_coords matches[1]
   if type(coords) == 'string'
     return "_No connection_"
-
-  url = "https://maps.googleapis.com/maps/api/timezone/json?location=#{coords.lat},#{coords.lon}&timestamp=#{}"
+  vardump coords
+  url = "https://maps.googleapis.com/maps/api/timezone/json?location=#{coords.lat},#{coords.lng}&timestamp=#{os.time!}"
   jstr, res = https.request url
   if res ~= 200
     return "_No connection_"
@@ -30,8 +33,13 @@ run = (msg, matches) ->
   if utcoff == math.abs(utcoff)
     utcoff = "+#{utcoff}"
 
+
   message = "#{os.date('*%I:%M %p*\n', timestamp)}#{os.date('%A, %B %d, %Y\n_', timestamp)}#{jdat.timeZoneName}_
 `UTC #{utcoff}`"
+  if msg.chat.type == "inline"
+    block = "[#{inline_article_block "#{matches[1]} local time", message, "Markdown", true}]"
+    telegram!\sendInline msg.id,block
+    return
   return message
 
 
@@ -42,6 +50,7 @@ Returns the time, date, and timezone for the given location
 ]]
 patterns = {
   "^[/!#]time +(.+)$"
+  "###inline[/!#]time +(.+)$"
 }
 
 return {
