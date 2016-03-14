@@ -17,7 +17,7 @@ Example:
 /meme _Derb "Love" "JackBot"_
 ]]
     patterns: {
-    '^[!/]meme (.+) "(.+)" "(.+)"$'
+    '^[!/#]meme (.+) "(.+)" "(.+)"$'
     }
     :run
   }

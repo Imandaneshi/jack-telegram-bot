@@ -50,9 +50,9 @@ Will return top result of /rsubreddit
 Will search text on Reddit and return result
 ]]
   patterns: {
-      "^[!/]reddit (/r) ([^%s]+)$",
-      "^[!/]reddit search +(.+)$",
-      "^[!/]reddit$"
+      "^[!/#]reddit (/r) ([^%s]+)$",
+      "^[!/#]reddit search +(.+)$",
+      "^[!/#]reddit$"
   }
   :run
 }

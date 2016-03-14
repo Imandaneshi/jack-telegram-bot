@@ -33,10 +33,10 @@ return {
        Use it by reply
        ]]
              patterns: {
-               "^[/!]translate ([^%s]+) (.*)$"
-               "^[/!]translate (.*)$"
-               "^[/!]tr ([^%s]+) (.*)$"
-               "^[/!]tr ([^%s]+)$"
+               "^[/!#]translate ([^%s]+) (.*)$"
+               "^[/!#]translate (.*)$"
+               "^[/!#]tr ([^%s]+) (.*)$"
+               "^[/!#]tr ([^%s]+)$"
 }
              :run
        }

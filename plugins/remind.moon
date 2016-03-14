@@ -69,9 +69,9 @@ Examples:
 /remind _1h30m test_
 ]]
 patterns = {
-  "^/remind (%d+)([Hh]) (.+)$"
-  "^/remind (%d+)([Mm]) (.+)$"
-  "^/remind (%d+)([Hh])(%d+)([Mm]) (.+)$"
+  "^[!/#]remind (%d+)([Hh]) (.+)$"
+  "^[!/#]remind (%d+)([Mm]) (.+)$"
+  "^[!/#]remind (%d+)([Hh])(%d+)([Mm]) (.+)$"
   }
 return {
   :description

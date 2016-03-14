@@ -76,9 +76,9 @@ Will search for query
 Will send random anime pic
 ]]
   patterns: {
-   "^[!/](anime) (search) (.*)"
-   "^[!/](anime) (pic) (.*)"
-   "^[!/](anime) (pic)$"
+   "^[!/#](anime) (search) (.*)"
+   "^[!/#](anime) (pic) (.*)"
+   "^[!/#](anime) (pic)$"
   }
   :run
 }
