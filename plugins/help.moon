@@ -51,7 +51,9 @@ help_all = (target) ->--Returns all plugins info
 
 run = (msg,matches) ->
   if matches[1] == "help" and matches[2] == "all"
-    if msg.chat.type ~= "private"
+    if msg.chat.type == 'inline'
+      return
+    elseif msg.chat.type ~= "private"
       res = help_all(msg.from.id)
       unless res
         return "_Message me first so i can message you !_"
@@ -62,7 +64,16 @@ run = (msg,matches) ->
       return
 
   elseif matches[1] == "help" and matches[2]
-    return plugin_help(matches[2])
+    if msg.chat.type == 'inline'
+      pic = "http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-2/128/help-desk-icon.png"
+      help_inline = plugin_help matches[2]
+      if help_inline
+        block = "[#{inline_article_block "#{matches[2]}", "#{help_inline}", "Markdown", true, "Help for #{matches[2]}", "#{pic}"}]"
+        telegram!\sendInline msg.id, block
+        return
+    else
+      return plugin_help(matches[2])
+
   else
     if msg.chat.type ~= "private"
       res = telegram!\sendMessage msg.from.id,plugins_list!,false,"Markdown"
@@ -86,6 +97,7 @@ patterns = {
   "^[/!#](help) (.*)$"
   "^[/!#](help)$"
   "^[/!#](start)$"
+  "^###inline[/!#](help) (.*)"
 }
 is_listed = false
 return {

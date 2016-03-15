@@ -27,6 +27,11 @@ anime = (msg,anime) ->
     if jdat[1].started_airing and jdat[1].finished_airing
       message ..= "\n#{jdat[1].started_airing} *-* #{jdat[1].finished_airing}"
 
+      if msg.chat.type == "inline"
+        block = "[#{inline_article_block "#{jdat[1].title}", "#{message}", "Markdown", true, "Episodes: #{jdat[1].episode_count}"}]"
+        telegram!\sendInline msg.id, block
+        return
+
     return message
 
 animepic = (msg,pic) ->
@@ -37,6 +42,12 @@ animepic = (msg,pic) ->
     random = math.random #jdat
     jdat = jdat[random]
     file = jdat.jpeg_url
+
+    if msg.chat.type == "inline"
+        block = "[#{inline_photo_block "#{file}", "#{file}", "AnimePic"}]"
+        telegram!\sendInline msg.id, block
+        return
+
     file_path = download_to_file file,"anime.jpg"
     telegram!\sendPhoto msg.chat.id,file_path
     os.remove file_path
@@ -52,10 +63,17 @@ animepicrn = (msg,picrn) ->
     random = math.random #jdat
     jdat = jdat[random]
     file = jdat.jpeg_url
+
+    if msg.chat.type == "inline"
+        block = "[#{inline_photo_block "#{file}", "#{file}", "AnimePic"}]"
+        telegram!\sendInline msg.id, block
+        return
+
     file_path = download_to_file file,"anime.jpg"
     telegram!\sendPhoto msg.chat.id,file_path
     os.remove file_path
     return
+  return
 
 run = (msg,matches) ->
     if matches[1] == "anime" and matches[2] == "search" and matches[3]
@@ -79,6 +97,10 @@ Will send random anime pic
    "^[!/#](anime) (search) (.*)"
    "^[!/#](anime) (pic) (.*)"
    "^[!/#](anime) (pic)$"
+   --Inline
+   "^###inline[!/#](anime) (search) (.*)"
+   "^###inline[!/#](anime) (pic) (.*)"
+   "^###inline[!/#](anime) (pic)$"
   }
   :run
 }
