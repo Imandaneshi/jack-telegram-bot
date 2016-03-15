@@ -13,11 +13,11 @@ export Redis = class Redis--Redis configuration
 export telegram = class telegram--Telegram api methods
   sendRequest: (url) =>
     data, res = https.request url
-    jdata = JSON.decode data
 
     if res ~= 200
       return false, res
 
+    jdata = JSON.decode data
     unless jdata.ok
       return false, jdat.description
 
