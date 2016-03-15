@@ -11,7 +11,7 @@ imdb = (msg, movie) ->
     if jdat.Error
       return jdat.Error
 
-    if jdat.Poster and jdat.Poster ~= ""
+    if jdat.Poster and jdat.Poster ~= "" and msg.chat.type ~= 'inline'
       file_path = download_to_file jdat.Poster,"imdb_poster.jpg"
       telegram!\sendPhoto msg.chat.id,file_path
       os.remove file_path
@@ -26,7 +26,14 @@ _#{jdat.Actors}_
 *#{jdat.Awards}*
 
 `#{jdat.Plot}`"
+
+    if msg.chat.type == "inline"
+      pic = "http://icons.iconarchive.com/icons/uiconstock/socialmedia/128/IMDb-icon.png"
+      block = "[#{inline_article_block "#{jdat.Title}", "#{message}", "Markdown", true, "#{jdat.Plot}", "#{pic}"}]"
+      telegram!\sendInline msg.id,block
+      return
     return message
+  return
 
 run = (msg, matches) ->
   return imdb msg, matches[1]
@@ -36,6 +43,7 @@ return {
   usage: "`/imdb [movie]` - Search on IMDB!\n"
   patterns: {
     "^[!/#]imdb (.+)"
+    "^###inline[!/#]imdb (.+)"
   }
   :run
 }

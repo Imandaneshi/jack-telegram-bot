@@ -2,10 +2,10 @@ run = (msg,matches) ->
 	message = ""
 	limit = 6
 	if msg.chat.type == "private"
-	   limit = 8
-	url = "http://www.reddit.com/.json?limit=10"
+		limit = 8
+	url = "http://www.reddit.com/.json?limit=#{limit}"
 	if not matches[1]
-		url = "http://www.reddit.com/.json?limit=10"
+		url = "http://www.reddit.com/.json?limit=#{limit}"
 
     if matches[1]
 		if matches[1] == "/r"
@@ -21,6 +21,8 @@ run = (msg,matches) ->
 	if #jdat.data.children == 0
 		return "_No results_"
 
+	pic = "http://icons.iconarchive.com/icons/uiconstock/socialmedia/128/Reddit-icon.png"
+	block = "["
 	for i,v in ipairs (jdat.data.children)
 		if v.data.over_18
 			message ..= "*[NSFW]* "
@@ -32,9 +34,14 @@ run = (msg,matches) ->
 
 		short_url = "redd.it/#{v.data.id}"
 		title = "#{v.data.title\gsub '%[.+%]', ''}"
-		message ..= "*#{i}* - [#{title}](#{short_url})
+		message ..= "*#{i}* - [#{title}](#{short_url})\n\n#{long_url}"
+		block ..= "#{inline_article_block "#{title\gsub '%[.+%]', ''\gsub '%(.+%)', ''}", "[#{title}](#{short_url})", "Markdown", true, "#{short_url}", "#{pic}"}, "
 
-#{long_url}"
+    if msg.chat.type == "inline"
+			block ..= "#{inline_article_block "End", "End results", "Markdown", true, "End results", "#{pic}"}]"
+			print(block)
+			telegram!\sendInline msg.id,block
+			return
 
     return message
 
@@ -53,6 +60,10 @@ Will search text on Reddit and return result
       "^[!/#]reddit (/r) ([^%s]+)$",
       "^[!/#]reddit search +(.+)$",
       "^[!/#]reddit$"
+			--Inline
+			"^###inline[!/#]reddit (/r) ([^%s]+)$",
+			"^###inline[!/#]reddit search +(.+)$",
+			"^###inline[!/#]reddit$"
   }
   :run
 }

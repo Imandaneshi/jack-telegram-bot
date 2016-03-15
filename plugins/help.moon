@@ -42,10 +42,7 @@ help_all = (target) ->--Returns all plugins info
     text_2 ..= "*#{i}* - #{plugin_help help_plugins[i]}"
     i += 1
   res = telegram!\sendMessage target,text_1,false,"Markdown"
-  vardump res
-  print text_1
   unless res
-    print "test"
     return false
   telegram!\sendMessage target,text_2,false,"Markdown"
 

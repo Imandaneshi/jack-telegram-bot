@@ -27,7 +27,7 @@ run = (msg, matches) ->
     return
   url = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&format=json&limit=1&api_key=#{config!.lastfm_api_key}&user="
   if username == nil or username == ""
-    return '*Please specify your last.fm username or set it with*`/lastfm set username`'
+    return '*Please specify your last.fm username or set it with*` /lastfm set username`'
   url ..= URL.escape username
 
   jstr, res = https.request url
@@ -42,7 +42,7 @@ run = (msg, matches) ->
   if jdat.error
     if msg.chat.type == "inline"
       return
-    return '*Please specify your last.fm username or set it with*`/lastfm set username`'
+    return '*Please specify your last.fm username or set it with*` /lastfm set username`'
 
   jdat = jdat.recenttracks.track[1] or jdat.recenttracks.track
 
@@ -62,8 +62,9 @@ run = (msg, matches) ->
   artist = jdat.artist['#text'] if jdat.artist
 
   if msg.chat.type == "inline"
+    pic = "http://icons.iconarchive.com/icons/uiconstock/socialmedia/128/Lastfm-icon.png"
     message = "#{message}`#{string.gsub(title,"%p", "-")}` *|* `#{string.gsub(artist,"%p", "-")}`"
-    block = "[#{inline_article_block "Lastfm", message,"Markdown",true}]"
+    block = "[#{inline_article_block "#{username} on Lastfm !", message, "Markdown" , true, "#{title} - #{artist}", "#{pic}"}]"
     telegram!\sendInline msg.id, block
     return
 

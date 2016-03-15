@@ -12,7 +12,8 @@ run = (msg,matches) ->
     calc = matches[1]
 
     if msg.chat.type == "inline"
-      block = "[#{inline_article_block "Result", mathjs("#{calc}"), "Markdown", true}]"
+      pic = "http://icons.iconarchive.com/icons/martz90/circle/128/calculator-icon.png"
+      block = "[#{inline_article_block "Result", mathjs("#{calc}"), "Markdown", true, "#{matches[1]}", "#{pic}"}]"
       telegram!\sendInline msg.id,block
       return
 
@@ -24,7 +25,7 @@ return {
   usage: "`/calc [expression]` - Return the result\n"
   patterns: {
   "^[!/#]calc (.*)"
-  "###inline[!/#]calc (.*)"
+  "^###inline[!/#]calc (.*)"
   }
   :run
 }

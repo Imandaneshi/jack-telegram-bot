@@ -21,7 +21,6 @@ run = (msg, matches) ->
   coords = get_coords matches[1]
   if type(coords) == 'string'
     return "_No connection_"
-  vardump coords
   url = "https://maps.googleapis.com/maps/api/timezone/json?location=#{coords.lat},#{coords.lng}&timestamp=#{os.time!}"
   jstr, res = https.request url
   if res ~= 200
@@ -33,11 +32,10 @@ run = (msg, matches) ->
   if utcoff == math.abs(utcoff)
     utcoff = "+#{utcoff}"
 
-
-  message = "#{os.date('*%I:%M %p*\n', timestamp)}#{os.date('%A, %B %d, %Y\n_', timestamp)}#{jdat.timeZoneName}_
-`UTC #{utcoff}`"
+  message = "#{os.date('*%I:%M %p*\n', timestamp)}#{os.date('%A, %B %d, %Y\n_', timestamp)}#{jdat.timeZoneName}_\n`UTC #{utcoff}`"
   if msg.chat.type == "inline"
-    block = "[#{inline_article_block "#{matches[1]} local time", message, "Markdown", true}]"
+    pic = "http://icons.iconarchive.com/icons/icons8/ios7/128/Time-And-Date-Timer-icon.png"
+    block = "[#{inline_article_block "#{matches[1]} local time", message, "Markdown", true, "#{jdat.timeZoneName}", "#{pic}"}]"
     telegram!\sendInline msg.id,block
     return
   return message

@@ -15,10 +15,17 @@ repo = (msg, git) ->
 
 `#{jdat.description}`
 
-*language:* `#{jdat.language}`
-*forks:* `#{jdat.forks_count}`
-*stars:* `#{jdat.stargazers_count}`
-*issues:* `#{jdat.open_issues_count}`"
+*Language:* `#{jdat.language}`
+*Forks:* `#{jdat.forks_count}`
+*Stars:* `#{jdat.stargazers_count}`
+*Issues:* `#{jdat.open_issues_count}`"
+
+    if msg.chat.type == "inline"
+      pic = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Programming-Github-icon.png"
+      block = "[#{inline_article_block "#{jdat.name} on Github !", "#{text}", "Markdown", true, "#{jdat.description}", "#{pic}"}]"
+      telegram!\sendInline msg.id,block
+      return
+
     return text
 
 
@@ -30,14 +37,21 @@ run = (msg, matches) ->
     jstr, res = https.request url
     jdat = JSON.decode jstr
     text = "#{jdat.name}
-followers: #{jdat.followers}
-following: #{jdat.following}
-repos: #{jdat.public_repos}
-blog: #{jdat.blog}
-location: #{jdat.location}
-email: #{jdat.email}
+Followers: #{jdat.followers}
+Following: #{jdat.following}
+Repos: #{jdat.public_repos}
+Blog: #{jdat.blog}
+Location: #{jdat.location}
+Email: #{jdat.email}
 GitPage: #{jdat.html_url}"
     file = jdat.avatar_url
+
+    if msg.chat.type == "inline"
+      pic = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Programming-Github-icon.png"
+      block = "[#{inline_article_block "#{jdat.name} on Github !", "#{text}", "Markdown", true, "Repos: #{jdat.public_repos} - Followers: #{jdat.followers}", "#{pic}"}]"
+      telegram!\sendInline msg.id,block
+      return
+
     file_path = download_to_file file,"av.jpg"
     telegram!\sendPhoto msg.chat.id,file_path,text
     os.remove file_path
@@ -52,6 +66,9 @@ return {
   patterns: {
     "^[/!#](gitrepo) (.*)$"
     "^[/!#](gituser) (.*)$"
+    -- inline
+    "^###inline[/!#](gitrepo) (.*)$"
+    "^###inline[/!#](gituser) (.*)$"
     }
     :run
   }

@@ -18,7 +18,8 @@ run = (msg,matches) ->
 	message = "*#{celsius}*°C | * #{fahrenheit} *°F, _ #{text} _."
 
 	if msg.chat.type == "inline"
-		block = "[#{inline_article_block "#{matches[1]} weather", "*#{matches[1]} weather* \n#{message}","Markdown", true}]"
+		pic = "http://icons.iconarchive.com/icons/pixelkit/flat-jewels/128/Weather-icon.png"
+		block = "[#{inline_article_block "#{matches[1]} weather", "*#{matches[1]} weather* \n#{message}","Markdown", true, "#{celsius}°C | #{fahrenheit}°F", "#{pic}"}]"
 		telegram!\sendInline msg.id, block
 		return
 	return message
@@ -29,7 +30,7 @@ return {
   patterns: {
   "^[/!#]w (.*)"
   "^[/!#]weather (.*)"
-	"###inline[/!#]weather (.*)"
+  "^###inline[/!#]weather (.*)"
   }
   :run
 }
