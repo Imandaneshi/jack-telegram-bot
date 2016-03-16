@@ -13,8 +13,8 @@ instagrm = (msg,q) ->
  
 *Name:* #{user.data.full_name}
 *Media Count:* #{user.data.counts.media}
-*Followers:* #{user.data.counts.follows}
-*Following:* #{user.data.counts.followed_by}
+*Following:* #{user.data.counts.follows}
+*Followers:* #{user.data.counts.followed_by}
 [WebSite](#{user.data.website})"
  
   
