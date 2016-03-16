@@ -2,7 +2,7 @@ run = (msg,matches) ->
 
   text = matches[1]
 
-  url = "http://latex.codecogs.com/png.download?#{URL.escape text}"
+  url = "http://latex.codecogs.com/png.download?".."\\dpi{800}%20\\LARGE%20#{URL.escape text}"
 
   STICKER = download_to_file url,"stick.webp"
 
