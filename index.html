@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
+    <meta charset="UTF-8">
     <title>Jack telegram bot by SEEDTEAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">Jack telegram bot</h1>
+      <h2 class="project-tagline">A multi purpose telegram bot written in MoonScript</h2>
+      <a href="https://github.com/SEEDTEAM/jack-telegram-bot" class="btn">View on GitHub</a>
+      <a href="https://github.com/SEEDTEAM/jack-telegram-bot/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/SEEDTEAM/jack-telegram-bot/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <header>
-      <div class="container">
-        <h1>Jack telegram bot</h1>
-        <h2>A multi purpose telegram bot written in MoonScript</h2>
-
-        <section id="downloads">
-          <a href="https://github.com/SEEDTEAM/jack-telegram-bot/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/SEEDTEAM/jack-telegram-bot/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/SEEDTEAM/jack-telegram-bot" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="jack" class="anchor" href="#jack" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Jack</h1>
 
 <p>Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU General Public License.</p>
@@ -39,6 +30,7 @@
 
 <ul>
 <li><a href="#setup">Setup</a></li>
+<li><a href="#telegram-cli">Telegram Cli</a></li>
 <li><a href="#database">Database</a></li>
 <li><a href="#plugins">Plugins</a></li>
 <li><a href="#support-and-development">Support and development</a></li>
@@ -54,7 +46,7 @@
 
 <p>You can install them by:</p>
 
-<div class="highlight highlight-source-shell"><pre>sudo apt-get update<span class="pl-k">;</span> sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server <span class="pl-k">;</span> sudo luarocks install moonscript <span class="pl-k">;</span> sudo luarocks install oauth <span class="pl-k">;</span> sudo luarocks install redis-lua <span class="pl-k">;</span> sudo luarocks install lua-cjson <span class="pl-k">;</span> sudo luarocks install ansicolors</pre></div>
+<div class="highlight highlight-source-shell"><pre>sudo apt-get update<span class="pl-k">;</span> sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server curl <span class="pl-k">;</span> sudo luarocks install moonscript <span class="pl-k">;</span> sudo luarocks install oauth <span class="pl-k">;</span> sudo luarocks install redis-lua <span class="pl-k">;</span> sudo luarocks install lua-cjson <span class="pl-k">;</span> sudo luarocks install ansicolors<span class="pl-k">;</span>sudo luarocks install serpent</pre></div>
 
 <p>Clone the bot</p>
 
@@ -81,6 +73,43 @@ git clone https://github.com/Imandaneshi/jack-telegram-bot.git
 
 <pre><code>sudo apt-get install lua5.1
 sudo apt-get remove lua5.2
+</code></pre>
+
+<h1>
+<a id="telegram-cli" class="anchor" href="#telegram-cli" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Telegram cli</h1>
+
+<p>First clone and configure telegram cli</p>
+
+<pre><code>git clone https://github.com/Rondoozle/tg.git
+cd tg
+git submodule update --init --recursive
+./configure
+make
+</code></pre>
+
+<p>Run it with -P and --json options</p>
+
+<pre><code>./bin/telegram-cli -k ./tg/tg-server.pub -P 7731 --json
+</code></pre>
+
+<p>Enter your number and conformation code</p>
+
+<p>And uncomment plugin <code>telegramCli</code> in config.moon</p>
+
+<p>You can send command to telegram-cli using your api bot</p>
+
+<pre><code>#tg msg user#id123456789 &lt;text&gt;
+#tg msg channel#id123456789 &lt;text&gt;
+#tg msg chat#id123456789 &lt;text&gt;
+
+#tg chat_del_user chat#id123456789 user#id12345678 &lt;text&gt;
+</code></pre>
+
+<p>Press <code>TAB</code> key twice in telegram for all of the methods</p>
+
+<p>You should have serpent installed</p>
+
+<pre><code>sudo luarocks install serpent
 </code></pre>
 
 <h1>
@@ -149,34 +178,47 @@ We use perfix/folder <code>bot</code></p>
 
 <p>Plugins list</p>
 
-<ol>
-<li><a href="#1---admin">Admin</a></li>
-<li><a href="#2---calculator">Calculato</a></li>
-<li><a href="#3---cat">Cat</a></li>
-<li><a href="#4---chatter">Chatter</a></li>
-<li><a href="#5---dogify">Dogify</a></li>
-<li><a href="#6---echo">Echo</a></li>
-<li><a href="#7---giphy">Giphy</a></li>
-<li><a href="#8---github">Github</a></li>
-<li><a href="#9---google-search">Google</a></li>
-<li><a href="#10---help">Help</a></li>
-<li><a href="#11---imdb">Imdb</a></li>
-<li><a href="#12---ip-info">Ipinfo</a></li>
-<li><a href="#13---link-shortener">Linkshortener</a></li>
-<li><a href="#14---location">Location</a></li>
-<li><a href="#15---remind">Remind</a></li>
-<li><a href="#16---spotify">Spotify</a></li>
-<li><a href="#17---stats">Stats</a></li>
-<li><a href="#18---talk">Talk</a></li>
-<li><a href="#19---time">Time</a></li>
-<li><a href="#20---urban-dictionary">Urbandictionary</a></li>
-<li><a href="#21---webshot">Webshot</a></li>
-<li><a href="#22---who">Who</a></li>
-<li><a href="#23---wikipedia">Wikipedia</a></li>
-</ol>
+<ul>
+<li><a href="#9gag">9gag</a></li>
+<li><a href="#admin">Admin</a></li>
+<li><a href="#anime">Anime</a></li>
+<li><a href="#calculator">Calculator</a></li>
+<li><a href="#cat">Cat</a></li>
+<li><a href="#chatter">Chatter</a></li>
+<li><a href="#code">Code</a></li>
+<li><a href="#dogify">Dogify</a></li>
+<li><a href="#echo">Echo</a></li>
+<li><a href="#giphy">Giphy</a></li>
+<li><a href="#github">Github</a></li>
+<li><a href="#google-search">Google</a></li>
+<li><a href="#help">Help</a></li>
+<li><a href="#imdb">Imdb</a></li>
+<li><a href="#ip-info">Ipinfo</a></li>
+<li><a href="#lastfm">Lastfm</a></li>
+<li><a href="#link-shortener">Linkshortener</a></li>
+<li><a href="#location">Location</a></li>
+<li><a href="#meme">Meme</a></li>
+<li><a href="#moon">Moon</a></li>
+<li><a href="#qrcode">Qrcode</a></li>
+<li><a href="#reddit">Reddit</a></li>
+<li><a href="#remind">Remind</a></li>
+<li><a href="#spotify">Spotify</a></li>
+<li><a href="#stats">Stats</a></li>
+<li><a href="#sticker">Sticker</a></li>
+<li><a href="#talk">Talk</a></li>
+<li><a href="#telegramcli">Telegram-Cli</a></li>
+<li><a href="#time">Time</a></li>
+<li><a href="#Translate">Translate</a></li>
+<li><a href="#urban-dictionary">Urbandictionary</a></li>
+<li><a href="#weather">Weather</a></li>
+<li><a href="#webshot">Webshot</a></li>
+<li><a href="#who">Who</a></li>
+<li><a href="#wikipedia">Wikipedia</a></li>
+<li><a href="#youtube">youtube</a></li>
+</ul>
 
 <h3>
-<a id="1---admin" class="anchor" href="#1---admin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 - Admin</h3>
+<a id="admin" class="anchor" href="#admin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Admin</h3>
 
 <p>Plugin for admins</p>
 
@@ -248,7 +290,7 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="2---calculator" class="anchor" href="#2---calculator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 - Calculator</h3>
+<a id="calculator" class="anchor" href="#calculator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Calculator</h3>
 
 <p>Returns solutions to math expressions</p>
 
@@ -276,7 +318,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/calc &lt;expression&gt;</code></p>
 
 <h3>
-<a id="3---cat" class="anchor" href="#3---cat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 - Cat</h3>
+<a id="cat" class="anchor" href="#cat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cat</h3>
 
 <p>Returns a cat</p>
 
@@ -304,7 +346,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/cat</code></p>
 
 <h3>
-<a id="4---chatter" class="anchor" href="#4---chatter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 - Chatter</h3>
+<a id="chatter" class="anchor" href="#chatter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Chatter</h3>
 
 <p>Talk to bot in English !</p>
 
@@ -342,7 +384,35 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="5---dogify" class="anchor" href="#5---dogify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 - Dogify</h3>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code</h3>
+
+<p>Send the code in image format with support for highlighter.</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/code [language] [code]</code></p>
+
+<h3>
+<a id="dogify" class="anchor" href="#dogify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dogify</h3>
 
 <p>Create a doge image with you words</p>
 
@@ -367,10 +437,10 @@ We use perfix/folder <code>bot</code></p>
 
 <p><strong>Commands</strong></p>
 
-<p>`<code>/dogify &lt;your/words/with/slashes&gt;</code></p>
+<p><code>/dogify &lt;your/words/with/slashes&gt;</code></p>
 
 <h3>
-<a id="6---echo" class="anchor" href="#6---echo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 - Echo</h3>
+<a id="echo" class="anchor" href="#echo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Echo</h3>
 
 <p>Returns text</p>
 
@@ -406,9 +476,9 @@ We use perfix/folder <code>bot</code></p>
 <p><code>@bot_username /echo &lt;text&gt;</code></p>
 
 <h3>
-<a id="7---giphy" class="anchor" href="#7---giphy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7 - Giphy</h3>
+<a id="giphy" class="anchor" href="#giphy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Giphy</h3>
 
-<p>Returns a GIF from giphy.com!</p>
+<p>Returns a GIF from giphycom!</p>
 
 <table>
 <thead>
@@ -444,7 +514,7 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="8---github" class="anchor" href="#8---github" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 - Github</h3>
+<a id="github" class="anchor" href="#github" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Github</h3>
 
 <p>Returns info about GitHub repo</p>
 
@@ -476,7 +546,7 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="9---google-search" class="anchor" href="#9---google-search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>9 - Google search</h3>
+<a id="google-search" class="anchor" href="#google-search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Google search</h3>
 
 <p>Google search</p>
 
@@ -550,7 +620,7 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="11---imdb" class="anchor" href="#11---imdb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 - IMDB</h3>
+<a id="imdb" class="anchor" href="#imdb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IMDB</h3>
 
 <p>Returns Info about movie from IMDB and its poster</p>
 
@@ -576,7 +646,7 @@ We use perfix/folder <code>bot</code></p>
 <p><strong>Commands</strong></p>
 
 <h3>
-<a id="12---ip-info" class="anchor" href="#12---ip-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 - IP info</h3>
+<a id="ip-info" class="anchor" href="#ip-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IP info</h3>
 
 <p>Returns Given IP or domain info</p>
 
@@ -604,7 +674,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/ip &lt;IP|domain&gt;</code></p>
 
 <h3>
-<a id="13---link-shortener" class="anchor" href="#13---link-shortener" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 - Link shortener</h3>
+<a id="link-shortener" class="anchor" href="#link-shortener" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Link shortener</h3>
 
 <p>Returns Shorten link</p>
 
@@ -636,7 +706,7 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="14---location" class="anchor" href="#14---location" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 - Location</h3>
+<a id="location" class="anchor" href="#location" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Location</h3>
 
 <p>Sends location data</p>
 
@@ -666,7 +736,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/location &lt;query&gt;</code></p>
 
 <h3>
-<a id="15---remind" class="anchor" href="#15---remind" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15 - Remind</h3>
+<a id="remind" class="anchor" href="#remind" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remind</h3>
 
 <p>Reminder</p>
 
@@ -706,7 +776,7 @@ We use perfix/folder <code>bot</code></p>
 </blockquote>
 
 <h3>
-<a id="16---spotify" class="anchor" href="#16---spotify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 - Spotify</h3>
+<a id="spotify" class="anchor" href="#spotify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spotify</h3>
 
 <p>Spotify plugin</p>
 
@@ -724,7 +794,7 @@ We use perfix/folder <code>bot</code></p>
 <td>Y</td>
 <td>O</td>
 <td>Y</td>
-<td>N</td>
+<td>Y</td>
 </tr>
 </tbody>
 </table>
@@ -741,7 +811,7 @@ We use perfix/folder <code>bot</code></p>
 
 <p><code>/spotify album [album name(for search)]</code></p>
 
-<p>Returns lbum info and picture</p>
+<p>Returns album info and picture</p>
 
 <p><code>/spotify artist [artist name(for search)]</code></p>
 
@@ -751,8 +821,18 @@ We use perfix/folder <code>bot</code></p>
 
 <p>Returns playlist info and picture</p>
 
+<p><strong>Inline</strong></p>
+
+<p><code>@bot_username /spotify album [album name(for search)]</code></p>
+
+<p><code>@bot_username /spotify album [album name(for search)]</code></p>
+
+<p><code>@bot_username /spotify artist [artist name(for search)]</code></p>
+
+<p><code>@bot_username /spotify playlist [playlist name(for search)]</code></p>
+
 <h3>
-<a id="17---stats" class="anchor" href="#17---stats" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17 - Stats</h3>
+<a id="stats" class="anchor" href="#stats" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stats</h3>
 
 <p>Chat msg statistics</p>
 
@@ -778,7 +858,7 @@ We use perfix/folder <code>bot</code></p>
 <p><strong>Commands</strong></p>
 
 <h3>
-<a id="18---talk" class="anchor" href="#18---talk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>18 - Talk</h3>
+<a id="talk" class="anchor" href="#talk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Talk</h3>
 
 <p>Returns voice</p>
 
@@ -806,7 +886,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/tts &lt;text&gt;</code></p>
 
 <h3>
-<a id="19---time" class="anchor" href="#19---time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 - Time</h3>
+<a id="time" class="anchor" href="#time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time</h3>
 
 <p>Returns the time, date, and timezone for the given location</p>
 
@@ -834,7 +914,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/time &lt;location&gt;</code></p>
 
 <h3>
-<a id="20---urban-dictionary" class="anchor" href="#20---urban-dictionary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 - Urban dictionary</h3>
+<a id="urban-dictionary" class="anchor" href="#urban-dictionary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Urban dictionary</h3>
 
 <p>Returns the top definition from Urban Dictionary.</p>
 
@@ -862,7 +942,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/ud &lt;query&gt;</code></p>
 
 <h3>
-<a id="21---webshot" class="anchor" href="#21---webshot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>21 - Webshot</h3>
+<a id="webshot" class="anchor" href="#webshot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Webshot</h3>
 
 <p>Returns screen shot from given website</p>
 
@@ -878,7 +958,7 @@ We use perfix/folder <code>bot</code></p>
 <tbody>
 <tr>
 <td>Y</td>
-<td>N</td>
+<td>Y</td>
 <td>Y</td>
 <td>N</td>
 </tr>
@@ -890,7 +970,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/webshot &lt;url&gt;</code></p>
 
 <h3>
-<a id="22---who" class="anchor" href="#22---who" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22 - Who</h3>
+<a id="who" class="anchor" href="#who" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Who</h3>
 
 <p>Returns info about user and chat</p>
 
@@ -918,7 +998,7 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/who</code></p>
 
 <h3>
-<a id="23---wikipedia" class="anchor" href="#23---wikipedia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>23 - Wikipedia</h3>
+<a id="wikipedia" class="anchor" href="#wikipedia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wikipedia</h3>
 
 <p>Returns results from wikipedia.com</p>
 
@@ -946,6 +1026,39 @@ We use perfix/folder <code>bot</code></p>
 <p><code>/wiki &lt;query&gt;</code>
 <code>/wikipedia &lt;query&gt;</code></p>
 
+<h3>
+<a id="youtube" class="anchor" href="#youtube" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Youtube</h3>
+
+<p>Returns results from youtube.com</p>
+
+<table>
+<thead>
+<tr>
+<th>Listed</th>
+<th>Requires API KEY</th>
+<th>Enabled by default</th>
+<th>inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Commands</strong></p>
+
+<p><code>/youtube get [video name(for search)]</code>
+<code>/youtube dl [video name(for download)]</code></p>
+
+<p><strong>Inline</strong></p>
+
+<p><code>/youtube dl [video name(for download)]</code></p>
+
 <h1>
 <a id="support-and-development" class="anchor" href="#support-and-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support and development</h1>
 
@@ -960,14 +1073,14 @@ We use perfix/folder <code>bot</code></p>
 
 <p><a href="https://github.com/topkecleon">topkecleon</a></p>
 
-<p><a href="https://github.com/TiagoDanin">Tiago Danin</a></p>
-
 <p><a href="https://github.com/yagop">Yago</a></p>
 
 <h1>
 <a id="collaborators" class="anchor" href="#collaborators" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Collaborators</h1>
 
 <p><a href="https://github.com/pAyDaAr">Unfriendly</a></p>
+
+<p><a href="https://github.com/TiagoDanin">Tiago Danin</a></p>
 
 <h1>
 <a id="other-projects" class="anchor" href="#other-projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other projects</h1>
@@ -989,9 +1102,15 @@ We use perfix/folder <code>bot</code></p>
 <blockquote>
 <p>A Linux file manager telegram bot</p>
 </blockquote>
-      </section>
-    </div>
 
-    
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/SEEDTEAM/jack-telegram-bot">Jack telegram bot</a> is maintained by <a href="https://github.com/SEEDTEAM">SEEDTEAM</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
   </body>
 </html>
