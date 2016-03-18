@@ -1,3 +1,4 @@
+--taken from https://github.com/topkecleon/otouto/blob/master/plugins/slap.lua--
 slaps = {
   '$victim was shot by $victor.',
   '$victim was pricked to death.',
