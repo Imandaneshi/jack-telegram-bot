@@ -4,6 +4,8 @@ Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU 
 
 [Public bot](https://telegram.me/imandabot)
 
+[Website](http://jack.seedteam.org)
+
 Table of Contents
 
 * [Setup](#setup)
@@ -17,93 +19,67 @@ Table of Contents
 
 #Setup
 
-You should have lua,luarocks,redis-server,moonscript,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors installed
-
-You can install them by:
-
-```bash
-sudo apt-get update; sudo apt-get install lua5.1 luarocks lua-socket lua-sec redis-server curl ; sudo luarocks install moonscript ; sudo luarocks install oauth ; sudo luarocks install redis-lua ; sudo luarocks install lua-cjson ; sudo luarocks install ansicolors;sudo luarocks install serpent
-```
-
-Clone the bot
+Clone Jack !
 
 ```bash
 cd $HOME
 git clone https://github.com/Imandaneshi/jack-telegram-bot.git
 cd jack-telegram-bot
 ```
-Set telegram_api_key in config.moon file to the token you received from the Botfather.
-
-```moonscript
-telegram_api_key: ""--Your telegram bot api key
-```
-
-Run it!
+install it!
 
 ```
-sh run.sh
+chmod +x install.sh
+./install.sh
 ```
+[Manual installation](https://github.com/SEEDTEAM/jack-telegram-bot/wiki/Manual-installation)
 
-
-If you get this error from moonscript
+Run it !
 ```
-/usr/bin/lua: /usr/share/lua/5.1//luarocks/loader.lua:113: error loading module 'lfs' from file '/usr/local/lib/lua/5.1/lfs.so':
-    /usr/local/lib/lua/5.1/lfs.so: undefined symbol: luaL_register
+chmod +x run.sh
+./run.sh
 ```
-
-
-
-Make sure you are using the lua5.1 package instead of the lua5.2 package. Try:
-
-```
-sudo apt-get install lua5.1
-sudo apt-get remove lua5.2
-```
-
 
 # Telegram cli
 
-First clone and configure telegram cli
+*If it's first time you are installing telegram-cli*
+
+You should have `libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev make` installed
+
+You can install them by
 
 ```
-git clone https://github.com/Rondoozle/tg.git
-cd tg
-git submodule update --init --recursive
-./configure
-make
+ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev make
 ```
-Run it with -P and --json options
 
+Install telegram-cli using `./install.sh`
+
+Run it
 ```
-./bin/telegram-cli -k ./tg/tg-server.pub -P 7731 --json
+./tg
 ```
-Enter your number and conformation code
+Enter your phone number and conformation code
 
 And uncomment plugin `telegramCli` in config.moon
 
-You can send command to telegram-cli using your api bot
+_You can change port in tg.sh_
 
+You can send commands to telegram-cli using your api bot
+
+Few examples
 ```
 #tg msg user#id123456789 <text>
 #tg msg channel#id123456789 <text>
 #tg msg chat#id123456789 <text>
-
-#tg chat_del_user chat#id123456789 user#id12345678 <text>
+#tg resolve_username @username
+#tg chat_del_user chat#id123456789 user#id12345678
 ```
 
-Press `TAB` key twice in telegram for all of the methods
-
-You should have serpent installed
-
-```
-sudo luarocks install serpent
-```
-
+[Telegram CLI Commands](https://github.com/vysheng/tg/wiki/Telegram-CLI-Commands)
 
 #Database
 
-Jack is using redis as database
-We use perfix/folder `bot`
+Jack uses redis as database
 
 Here are the datas
 
@@ -638,8 +614,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 #Support and development
 
-Join our bot development group by sending /join 1047524697 to @TeleSeed or just search username [@seed_dev](https://telegram.me/seed_dev) and join
-
+Join our bot development group by sending /join 1047524697 to @TeleSeed
 # Special thanks to
 
 [Alphonse](https://github.com/hmon)

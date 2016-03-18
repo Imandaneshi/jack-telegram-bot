@@ -7,7 +7,7 @@ _ =
   google_api_key: ""
   cli_port: 7731
   screenshotmachine_api_key: "b645b8"
-  insta_api_key: "2453693586.280d5d7.57e2993c9c484778897ca334698c8777"
+  insta_api_key: ""--http://bit.ly/1SWWkeY
   admins: {
     110626080
     123456789
@@ -30,6 +30,7 @@ _ =
     "greeting"
     "help"
     "imdb"
+    --"instagram"
     "ipinfo"
     "lastfm"
     "linkshortener"
