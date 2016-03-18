@@ -34,6 +34,22 @@ chmod +x install.sh
 ```
 [Manual installation](https://github.com/SEEDTEAM/jack-telegram-bot/wiki/Manual-installation)
 
+Add your bot token in config.moon
+
+```MoonScript
+telegram_api_key: "Your bot token here"
+```
+
+Add your telegram id to admins table in config.moon
+
+```MoonScript
+admins: {
+    110626080
+    123456789
+    --your id
+  }
+```
+
 Run it !
 ```
 chmod +x run.sh
