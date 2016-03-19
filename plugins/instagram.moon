@@ -31,7 +31,7 @@ run = (msg,matches) ->
 
 return {
   description: "Search users on instagram"
-  usage: "`/instal <username>` - Return user info\n"
+  usage: "`/insta <username>` - Return user info\n"
   patterns: {
   "^[/!#](insta) (.*)"
   }
