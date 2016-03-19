@@ -26,7 +26,7 @@ run = (msg,matches) ->
 
 return {
   description: "*Weather*"
-  usage: "`/weather <city>` - Returns the current weather"
+  usage: "`/weather <city>` - Returns the current weather\n"
   patterns: {
   "^[/!#]w (.*)"
   "^[/!#]weather (.*)"

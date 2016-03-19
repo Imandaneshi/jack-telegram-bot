@@ -103,7 +103,7 @@ run = (msg,matches) ->
 return {
   description: "*Give someone a good slap (or worse)*"
   usage: "`/slap` - by reply
-`/slap [name]`"
+`/slap [name]`\n"
   patterns: {
   "^[!/](slap)$",
   "^[!/]slap +(.+)$"

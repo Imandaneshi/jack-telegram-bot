@@ -8,16 +8,16 @@ instagrm = (msg,q) ->
   jstr, res = https.request gurl
   user = JSON.decode jstr
   text = "[#{user.data.username}](https://www.instagram.com/#{user.data.username})
- 
+
 `#{user.data.bio}`
- 
+
 *Name:* #{user.data.full_name}
 *Media Count:* #{user.data.counts.media}
 *Following:* #{user.data.counts.follows}
 *Followers:* #{user.data.counts.followed_by}
 [WebSite](#{user.data.website})"
- 
-  
+
+
   file_path = download_to_file user.data.profile_picture,"insta.jpg"
   telegram!\sendPhoto msg.chat.id,file_path
   os.remove file_path
@@ -30,8 +30,8 @@ run = (msg,matches) ->
 
 
 return {
-  description: ""
-  usage: ""
+  description: "Search users on instagram"
+  usage: "`/instal <username>` - Return user info\n"
   patterns: {
   "^[/!#](insta) (.*)"
   }

@@ -25,7 +25,7 @@ return {
 	usage: [[
 	`/code [language] [code]`
 	Send the code in image format with support for highlighter.
-	List of language supported: http://pastebin.com/HiRrhzUm
+	[List of language supported](http://pastebin.com/HiRrhzUm)
 	]]
 	patterns: {
 		"^[!/#]code ([^%s]+) (.*)$"

@@ -16,11 +16,12 @@ run = (msg,matches) ->
 
 
 description = "*About and greeting*"
-usage = "
+usage = [[
 `/about`
 Info about #{bot_first_name}
 `Hi #{bot_first_name}`
-`Bye #{bot_first_name}`"
+`Bye #{bot_first_name}`
+]]
 patterns = greetings
 return {
 	:run

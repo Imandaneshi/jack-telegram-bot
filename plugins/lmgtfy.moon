@@ -5,11 +5,11 @@ run = (msg,matches) ->
     block = "[#{inline_article_block "lmgtfy", "#{message}", "Markdown", true, "#{matches[1]}", "#{pic}"}]"
     telegram!\sendInline msg.id,block
     return
-  return message 
+  return message
 
 return {
-  description: ""
-  usage: ""
+  description: "Return url from lmgtfy"
+  usage: "`/lmgtfy <query>` - Return url from lmgtfy :v\n"
   patterns: {
   "^[/!#]lmgtfy (.*)"
   "###inline[/!#]lmgtfy (.*)"
