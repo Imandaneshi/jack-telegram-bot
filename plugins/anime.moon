@@ -22,7 +22,7 @@ anime = (msg,anime) ->
 	if jdat[1].age_rating
 			message ..= "\n*Age rating:* #{jdat[1].age_rating}"
 
-	message ..= "\n*Rate:* #{math.floor(jdat[1].community_rating)}"
+	message ..= "\n*Rate: * #{string.sub(jdat[1].community_rating,0,4)}"
 	message ..= "\n\n`#{string.sub(jdat[1].synopsis, 1 , 300)}`\n"
     if jdat[1].started_airing and jdat[1].finished_airing
       message ..= "\n#{jdat[1].started_airing} *-* #{jdat[1].finished_airing}"
