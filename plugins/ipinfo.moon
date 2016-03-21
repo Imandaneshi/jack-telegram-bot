@@ -14,6 +14,13 @@ run = (msg,matches) ->
 *Region name:* `#{jdat.regionName}`
 *City name:* `#{jdat.cityName}`
 *Zip code:* `#{jdat.zipCode}`"
+
+  if msg.chat.type == "inline"
+    pic = "http://icons.iconarchive.com/icons/iconsmind/outline/128/URL-Window-icon.png"
+    block = "[#{inline_article_block "Ip|Domain info!", "#{MSG}", "Markdown", true, "Ip Address: #{jdat.ipAddress}", "#{pic}"}]"
+    telegram!\sendInline msg.id,block
+    return
+
   return MSG
 
 return {
@@ -21,6 +28,7 @@ return {
   usage: "`/ip [ip|domain]` - Return info\n"
   patterns: {
     "^[/!#]ip (.*)$"
+    "^###inline[/!#]ip (.*)$"
     }
     :run
   }
