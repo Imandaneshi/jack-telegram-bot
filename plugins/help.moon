@@ -25,26 +25,37 @@ Or Send `/help all` to my private for all info."
   return text
 
 help_all = (target) ->--Returns all plugins info
-  text_1 = ""
-  text_2 = ""
+  text = ""
   help_plugins = {}
   i = 1
+  p = 0
   for k,v in pairs config!.plugs
     if plugins[v]
       if (plugins[v] @).is_listed == nil or (plugins[v] @).is_listed == true
         table.insert help_plugins, v
 
-  for i=1,15
-    text_1 ..= "*#{i}* - #{plugin_help help_plugins[i]}"
+  for i=1,#help_plugins
+    text ..= "*#{i}* - #{plugin_help help_plugins[i]}"
+    if i > 14
+      p += 1
+      if i == 15
+        p = 0
+        res = telegram!\sendMessage target,text,false,"Markdown"
+        unless res
+          return false
+        text = ""
+      elseif p > 14
+        p = 0
+        res = telegram!\sendMessage target,text,false,"Markdown"
+        unless res
+          return false
+        text = ""
     i += 1
+    p = p
 
-  for i=16,#help_plugins
-    text_2 ..= "*#{i}* - #{plugin_help help_plugins[i]}"
-    i += 1
-  res = telegram!\sendMessage target,text_1,false,"Markdown"
+  res = telegram!\sendMessage target,text,false,"Markdown"
   unless res
     return false
-  telegram!\sendMessage target,text_2,false,"Markdown"
 
 run = (msg,matches) ->
   if matches[1] == "help" and matches[2] == "all"
