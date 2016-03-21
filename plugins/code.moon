@@ -9,7 +9,7 @@ run = (msg, matches) ->
 		if res ~= 200
 			return
 		if string.match(jstr, "^Couldn't load")
-			return "List of language supported: http://pastebin.com/HiRrhzUm"
+			return "[List of language supported](http://pastebin.com/HiRrhzUm)"
 		highlighter = URL.escape highlighter
 		screenshotmachine = "http://api.screenshotmachine.com/?key=#{config!.screenshotmachine_api_key}&size=X&url=#{highlighter}"
 
@@ -17,7 +17,7 @@ run = (msg, matches) ->
 		file_path = download_to_file screenshotmachine, "#{i}code.jpg"
 		telegram!\sendPhoto msg.chat.id, file_path
 		os.remove file_path
-		return jstr
+		return
 	return
 
 return {
