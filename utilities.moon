@@ -360,3 +360,8 @@ export tg = class tg
       return data\gsub '\n$',''
     else
       (tg @).sender\send(command)
+
+export up_the_first = (word) ->
+	a = string.upper string.sub(word,1,1)
+	b = string.lower string.sub(word,2,string.len(word))
+	return "#{a}#{b}"

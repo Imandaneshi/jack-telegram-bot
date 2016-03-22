@@ -38,6 +38,7 @@ _ =
     "linkshortener"
     --"lmgtfy"
     "location"
+    "me"
     "meme"
     --"moon"
     "qrcode"
