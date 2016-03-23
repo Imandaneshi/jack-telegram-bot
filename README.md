@@ -72,7 +72,7 @@ Install telegram-cli using `./install.sh`
 
 Run it
 ```
-./tg
+./tg.sh
 ```
 Enter your phone number and conformation code
 
