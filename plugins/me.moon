@@ -5,7 +5,7 @@ parameters = {
 	["phone"]: "`%s`\n"
 	["email"]: "%s\n"
 	["github"]: "[%s](https://github.com/%s)\n"
-	["steam"]: "[%s](http://steamcommunity.com/id/%s\n"
+	["steam"]: "[%s](http://steamcommunity.com/id/%s)\n"
 	["facebook"]: "[%s](https://www.facebook.com/%s)\n"
 	["reddit"]: "[%s](https://reddit.com/u/%s)\n"
 	["instagram"]: "[%s](https://www.instagram.com/%s)\n"
