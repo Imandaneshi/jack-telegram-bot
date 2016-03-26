@@ -56,7 +56,8 @@ export bot_run = class bot_run
 export match_plugin = (plugin, plugin_name, msg) ->
   for k, patterns in pairs (plugin @).patterns
     matches = match_trigger patterns, msg.text
-    print "plugin #{plugin_name} triggered: #{patterns}" if matches
+    unless no_output!
+      print "plugin #{plugin_name} triggered: #{patterns}" if matches
     if matches
       if redis\get "bot:plugin_disabled_on_chat:#{plugin_name}:#{msg.chat.id}"--Check if plugin is disabled on chat or not
         unless is_admin(msg)
@@ -128,8 +129,8 @@ export msg_processor = (msg) ->
 %{bright blue}#{msg_text}%{reset}"
   else
     text = ""
-
-  print(colors text)--print messages
+  unless no_output!
+    print(colors text)--print messages
 
 --msg statistics,nickname,fowarded msgs,blacklist
 
@@ -210,7 +211,8 @@ export msg_processor = (msg) ->
   redis\incr "bot:total_inline_from_user:#{msg.from.id}" if msg.chat.type == "inline"
 
   if msg.date < os.time! - 30--Ignore old messages
-    print colors("%{red}Old msg%{reset}")
+    unless no_output!
+      print colors("%{red}Old msg%{reset}")
     return
 
   export msg_global = msg
@@ -236,7 +238,7 @@ export inline_query_received = (inline) ->
 
 
 bot_run!--Load the bot
-
+print colors("%{red}\nNo output mode enabled . I wont print messages\n%{reset}") if no_output!
 while is_running--A loop for getting messages
 
   if last_cron < os.time() - 10--cron thing

@@ -56,6 +56,16 @@ chmod +x run.sh
 ./run.sh
 ```
 
+### options
+
+*1 - No output*
+
+`--no-output`
+
+>./run.sh --no-output
+
+Bot wont print msgs in this mod
+
 # Telegram cli
 
 *If it's first time you are installing telegram-cli*
@@ -87,7 +97,7 @@ Few examples
 #tg msg user#id123456789 <text>
 #tg msg channel#id123456789 <text>
 #tg msg chat#id123456789 <text>
-#tg resolve_username @username
+#tg resolve_username username
 #tg chat_del_user chat#id123456789 user#id12345678
 ```
 
@@ -159,6 +169,7 @@ Plugins list
 * [Cat](#cat)
 * [Chatter](#chatter)
 * [Code](#code)
+* [Currency](#currency)
 * [Dogify](#dogify)
 * [Echo](#echo)
 * [Giphy](#giphy)
@@ -166,23 +177,31 @@ Plugins list
 * [Google](#google-search)
 * [Help](#help)
 * [Imdb](#imdb)
+* [Instagram](#instagram)
 * [Ipinfo](#ip-info)
 * [Lastfm](#lastfm)
 * [Linkshortener](#link-shortener)
+* [lmgtfy](#lmgtfy)
 * [Location](#location)
+* [me](#me)
 * [Meme](#meme)
 * [Moon](#moon)
 * [Qrcode](#qrcode)
 * [Reddit](#reddit)
 * [Remind](#remind)
+* [Set](#set)
+* [Shell](#shell)
+* [Slap](#slap)
 * [Spotify](#spotify)
 * [Stats](#stats)
 * [Sticker](#sticker)
 * [Talk](#talk)
 * [Telegram-Cli](#telegramcli)
 * [Time](#time)
+* [Translate](#translate)
+* [Time](#time)
 * [Translate](#Translate)
-* [Urbandictionary](#urban-dictionary)
+* [Urban dictionary](#urban-dictionary)
 * [Weather](#weather)
 * [Webshot](#webshot)
 * [Who](#who)
@@ -190,6 +209,17 @@ Plugins list
 * [youtube](#youtube)
 
 
+### 9gag
+
+Send random image from 9gag
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
+
+**Commands**
+
+`/9gag`
 
 ### Admin
 
@@ -197,7 +227,7 @@ Plugin for admins
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  N    |        N         |         Y          |    N
+  N    |        N         |         Y          |    Y
 
 **Commands**
 
@@ -227,6 +257,29 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/broadcast <msg>`
 >This command will send msg to all chats
+
+### Anime
+
+Anime plugin (hummingbird.me)
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
+
+
+**Commands**
+
+`/anime search <anime name>`
+
+For searching
+
+`/anime pic <query>`
+
+Will search for query
+
+`/anime pic`
+
+Will send random anime pic
 
 ### Calculator
 
@@ -264,8 +317,11 @@ Listed | Requires API KEY | Enabled by default | inline
 **Commands**
 
 `bot_first_name, <text>`
+
 `bot_username, <text>`
+
 >jack, How are you ?
+
 >@imandabot, How are you ?
 >>you can also trigger chatter plugin by talking to bot in private or replying on of its messages in groups
 
@@ -280,8 +336,21 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
-`/code [language] [code]`
+`/code <language> <code>`
 
+### Currency
+
+Currency rate converter
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
+
+**Commands**
+
+`/cash <amount> <from> to <to>`
+
+Returns exchange rates for various currencies.
 
 ### Dogify
 
@@ -310,10 +379,26 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >Markdown is enabled
 
-**Inline**
 
-`@bot_username /echo <text>`
+### Fortune
 
+Linux Fortunes
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         N          |    Y
+
+## Get
+
+Retrieves variables saved with /set
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    N
+
+**Commands**
+
+`/return (value_name)`
 
 ### Giphy
 
@@ -329,9 +414,9 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >Returns a random GIF
 
-`/giphy [query]`
+`/giphy <query>`
 
->Returns a GIF about [query]
+>Returns a GIF about <query>
 
 ### Github
 
@@ -363,7 +448,25 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/g <terms>`
 
-### 10 - Help
+### Greeting
+
+About and greeting
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    N
+
+**Commands**
+
+`/about`
+
+Info about your bot
+
+`Hi bot_first_name
+
+`Bye bot_first_name
+
+### Help
 
 Returns info about other plugins
 
@@ -382,7 +485,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >Will return full list of plugins with their commands
 
-`/help [plugin_name]`
+`/help <plugin_name>`
 
 >Will return info about that plugin
 
@@ -399,7 +502,17 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
+### Instagram
 
+Search users on instagram
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         N          |    N
+
+**Commands**
+
+`/insta <username>` - Return user info
 
 ### IP info
 
@@ -414,6 +527,31 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/ip <IP|domain>`
 
+### lastfm
+
+[Lastfm](https://last.fm)
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         Y          |    Y
+
+**Commands**
+
+`/lastfm`
+
+Returns what you are or were last listening to
+
+`/lastfm <username>`
+
+Returns what <username> is or was last listening to
+
+`/lastfm set <username>`
+
+Will set your username
+
+`/lastfm rem`
+
+Will remove your username
 
 ### Link shortener
 
@@ -430,6 +568,13 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >/shorten https://github.com/SEEDTEAM
 
+### Lmgtfy
+
+Let me google that for you !
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
 
 ### Location
 
@@ -446,6 +591,30 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/location <query>`
 
+### Me
+
+Your profile in telegram !
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
+
+
+**Commands**
+
+`/me <parameter> <query>`
+
+>/me facebook imandabot
+
+`/me <parameter> del`
+
+Will delete <parameter>
+
+`/me`
+
+Will return your profile and msg Statistics
+
+_Can also be triggered by reply_
 
 ### Remind
 
@@ -468,6 +637,47 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >>This plugin will save data in Redis(database) So It even works after Bot crashed or anything happen
 
+### set
+
+Plugin for saving values
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    N
+
+**Commands**
+
+`/set <value_name> <data>`
+
+### Shell
+
+Run terminal commands
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  N    |        N         |         N          |    N
+
+**Commands**
+
+`/shell <Command>`
+
+>/shell date
+
+### Slap
+
+Slap someone
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    N
+
+**Commands**
+
+`/slap`
+
+>By reply
+
+`/slap <name>`
 
 ### Spotify
 
@@ -480,35 +690,25 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
-`/spotify get [track name(for search)]`
+`/spotify get <track name(for search)>`
 
 Returns preview of that song (only 30 sec)
 
-`/spotify track [track name(for search)]`
+`/spotify track <track name(for search)>`
 
 Returns track info and picture
 
-`/spotify album [album name(for search)]`
+`/spotify album <album name(for search)>`
 
 Returns album info and picture
 
-`/spotify artist [artist name(for search)]`
+`/spotify artist <artist name(for search)>`
 
 Returns artist info and picture
 
-`/spotify playlist [playlist name(for search)]`
+`/spotify playlist <playlist name(for search)>`
 
 Returns playlist info and picture
-
-**Inline**
-
-`@bot_username /spotify album [album name(for search)]`
-
-`@bot_username /spotify album [album name(for search)]`
-
-`@bot_username /spotify artist [artist name(for search)]`
-
-`@bot_username /spotify playlist [playlist name(for search)]`
 
 
 ### Stats
@@ -522,6 +722,21 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
+`/chatstats`
+
+Returns a list of members with their msg statistics
+
+### Sticker
+
+Return a sticker with your text
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    N
+
+**Commands**
+
+`/sticker <text>`
 
 ### Talk
 
@@ -536,6 +751,19 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/tts <text>`
 
+### TelegramCli
+
+Control a real telegram account
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  N    |        N         |         N          |    N
+
+**Commands**
+
+`/tg <Telegram-cli command`
+
+[More info](#telegram-cli)
 
 ### Time
 
@@ -550,7 +778,29 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/time <location>`
 
+### Translate
 
+Yandex translate
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         Y          |    Y
+
+`/translate <language> <text>`
+
+Will translate text to language
+
+`/translate <language>`
+
+<language> examples:
+
+>en for translating text to english
+
+>ar-en for translating text from arabic to english
+
+>You can use both
+
+>Can be used by replying to a msg
 
 ### Urban dictionary
 
@@ -564,6 +814,19 @@ Listed | Requires API KEY | Enabled by default | inline
 **Commands**
 
 `/ud <query>`
+
+
+### weather
+
+Returns the current weather
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
+
+**Commands**
+
+`/weather <city>`
 
 
 ### Webshot
@@ -605,6 +868,7 @@ Listed | Requires API KEY | Enabled by default | inline
 **Commands**
 
 `/wiki <query>`
+
 `/wikipedia <query>`
 
 
@@ -619,18 +883,15 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
-`/youtube get [video name(for search)]`
-`/youtube dl [video name(for download)]`
+`/youtube get <video name(for search)>`
 
-**Inline**
-
-`/youtube dl [video name(for download)]`
-
+`/youtube dl <video name(for download)>`
 
 
 #Support and development
 
-Join our bot development group by sending /join 1047524697 to @TeleSeed
+Join our development group by sending /join 1047524697 to [@TeleSeed](https://telegram.me/teleseed)
+
 # Special thanks to
 
 [Alphonse](https://github.com/hmon)

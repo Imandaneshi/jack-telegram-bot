@@ -39,13 +39,14 @@ export telegram = class telegram--Telegram api methods
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#sendmessage
-  sendMessage: (chat_id,text,reply_to_message_id,parse_mode,disable_web_page_preview,disable_notification) =>
+  sendMessage: (chat_id, text, reply_to_message_id, parse_mode, disable_web_page_preview, disable_notification, reply_markup) =>
     url = "#{API_URL}/sendMessage"
     url ..= "?chat_id=#{chat_id}&text=#{URL.escape text}"
     url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
     url ..= "&parse_mode=#{parse_mode}" if parse_mode
     url ..= "&disable_web_page_preview=#{disable_web_page_preview}" if disable_web_page_preview
     url ..= "&disable_notification=#{disable_notification}" if disable_notification
+    url ..= "&reply_markup=#{URL.escape reply_markup}" if reply_markup
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#getupdates
@@ -62,7 +63,7 @@ export telegram = class telegram--Telegram api methods
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#sendphoto
-  sendPhoto: (chat_id,photo,caption,reply_to_message_id,disable_notification) =>
+  sendPhoto: (chat_id,photo,caption,reply_to_message_id,disable_notification,reply_markup) =>
     url = "#{API_URL}/sendPhoto"
     command = "curl #{url}?chat_id=#{chat_id} -F \"photo=@#{photo}\""
     command ..= " -F \"caption=#{caption}\"" if caption
@@ -155,7 +156,32 @@ export is_admin = (msg) ->
       var = true
 
   return var
+-- Reply markup
+export ReplyKeyboardMarkup = (keyboard, resize_keyboard, one_time_keyboard,	selective) ->
+  unless keyboard
+    print "keyboard not specified"
+    return nil
+  if #keyboard < 1
+    print "keyboard is empty"
+    return nil
+  res = {}
+  res.keyboard = {keyboard}
+  res.resize_keyboard = resize_keyboard or false
+  res.one_time_keyboard = one_time_keyboard or true
+  res.selective = selective or true
+  return JSON.encode(res)
 
+export ForceReply = (selective) ->
+  res = {}
+  res.force_reply = true
+  res.selective = selective or false
+  return JSON.encode(res)
+
+export ReplyKeyboardHide= (selective) ->
+  res = {}
+  res.force_reply = true
+  res.selective = selective or false
+  return JSON.encode(res)
 -- Inline Block
 export inline_article_block = (title, text, parse_mode, disable_web_page_preview, description, thumb_url) ->
   ran = math.random 1 ,100
@@ -348,7 +374,7 @@ export vardump = (data) ->
   print serpent.block(data,{comment:false})
 
 socket = require "socket"
-export tg = class tg
+export tg = class tg--https://github.com/JuanPotato/Lua-tg
   sender: socket.connect "localhost", config!.cli_port
   send: (command, output) =>
     if output
@@ -365,3 +391,10 @@ export up_the_first = (word) ->
 	a = string.upper string.sub(word,1,1)
 	b = string.lower string.sub(word,2,string.len(word))
 	return "#{a}#{b}"
+
+export no_output =  ->
+  if #arg >= 1
+    for k,v in pairs arg
+      if v == "--no-output"
+        return true
+  return false

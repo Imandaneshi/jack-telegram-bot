@@ -45,6 +45,7 @@ _ =
     "reddit"
     "remind"
     "set"
+    --"shell"
     --"slap"
     "spotify"
     "stats"
