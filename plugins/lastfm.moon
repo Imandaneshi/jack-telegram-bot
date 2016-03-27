@@ -22,12 +22,11 @@ recents = (msg,username) ->
         return
     return message
 
-
 run = (msg,matches) ->
   if matches[1] == "lastfm" and matches[2]
     return recents msg,matches[2]
-  elseif matches[1] == "lastfm" and msg.reply_to_message
-      return recents msg,redis\get "bot:lastfm:user:#{msg.reply_to_message.from.id}"
+  elseif msg.reply_to_message
+    return recents msg,redis\get "bot:lastfm:user:#{msg.reply_to_message.from.id}"
   else
     return recents msg,redis\get "bot:lastfm:user:#{msg.from.id}"
 
