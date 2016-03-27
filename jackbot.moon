@@ -214,6 +214,17 @@ export msg_processor = (msg) ->
     unless no_output!
       print colors("%{red}Old msg%{reset}")
     return
+  --Anti spam/flood
+  hash = "bot:anit_spam:user:#{msg.from.id}:msgs"
+  msgs = tonumber(redis\get(hash) or 0)
+
+  max_msgs = 3 -- msgs in
+  max_time = 2 --seconds
+  if msgs > max_msgs then
+    print "User #{msg.from.id}is flooding"
+    return
+
+  redis\setex(hash, max_time, msgs+1)
 
   export msg_global = msg
   for name, plugin in pairs plugins--Go over plugins and check patterns for match
