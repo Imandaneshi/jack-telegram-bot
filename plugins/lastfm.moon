@@ -26,11 +26,10 @@ recents = (msg,username) ->
 run = (msg,matches) ->
   if matches[1] == "lastfm" and matches[2]
     return recents msg,matches[2]
-  elseif matches[1] == "lastfm"
-    if msg.reply_to_message
+  elseif matches[1] == "lastfm" and msg.reply_to_message
       return recents msg,redis\get "bot:lastfm:user:#{msg.reply_to_message.from.id}"
-    else
-      return recents msg,redis\get "bot:lastfm:user:#{msg.from.id}"
+  else
+    return recents msg,redis\get "bot:lastfm:user:#{msg.from.id}"
 
 return {
   description: "Grab info from a LastFM profile"
