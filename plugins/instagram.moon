@@ -1,6 +1,8 @@
 instagrm = (msg,q) ->
   url = "https://api.instagram.com/v1/users/search?q=#{q}&access_token=#{config!.insta_api_key}"
   jstr, res = https.request url
+  if res ~= 200
+    return "_No connection_"
   jdat = JSON.decode jstr
   random = math.random #{jdat.data}
   id = "#{jdat.data[random].id}"
