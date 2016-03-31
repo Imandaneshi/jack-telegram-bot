@@ -42,6 +42,7 @@ _ =
     "meme"
     --"moon"
     "qrcode"
+    "reactions"
     "reddit"
     "remind"
     "set"

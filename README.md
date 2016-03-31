@@ -187,6 +187,7 @@ Plugins list
 * [Meme](#meme)
 * [Moon](#moon)
 * [Qrcode](#qrcode)
+* [Reactions](#reactions)
 * [Reddit](#reddit)
 * [Remind](#remind)
 * [Set](#set)
@@ -615,6 +616,20 @@ Will delete <parameter>
 Will return your profile and msg Statistics
 
 _Can also be triggered by reply_
+
+### Reactions
+
+Reactions
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         Y          |    Y
+
+**Commands**
+
+`/reactions`
+
+Returns list of reactions
 
 ### Remind
 
