@@ -24,7 +24,7 @@ _ =
     --"currency"
     "dogify"
     "echo"
-    --fortune
+    --"fortune"
     "get"
     "giphy"
     "github"
