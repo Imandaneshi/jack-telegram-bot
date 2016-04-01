@@ -51,7 +51,6 @@ return {
 	"^[!/#]unflip$"
 	"^[!/#]homo$"
 	"^[!/#]happy$"
-	"^[!/#]happy$"
 	"^[!/#]shots$"
 	"^[!/#]reactions$"
 	--inline
