@@ -146,6 +146,14 @@ export telegram = class telegram--Telegram api methods
     url ..= "?file_id=#{file_id}"
     return telegram!\sendRequest url
 
+  --https://core.telegram.org/bots/api#getuserprofilephotos
+  getUserProfilePhotos: (user_id,limit) =>
+    url = "#{API_URL}/getUserProfilePhotos"
+    url ..= "?user_id=#{user_id}"
+    url ..= "&limit=#{limit}" if limit
+    print(url)
+    return telegram!\sendRequest url
+
 --Returns users full info as string
 -- first_name last_name username [id]
 export user_info = (user) ->
