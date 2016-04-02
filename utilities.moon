@@ -98,7 +98,8 @@ export telegram = class telegram--Telegram api methods
     command ..= " -F \"reply_to_message_id=#{reply_to_message_id}\"" if reply_to_message_id
     command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
---https://core.telegram.org/bots/api#sendvideo
+
+  --https://core.telegram.org/bots/api#sendvideo
   sendVideo: (chat_id,video,duration,caption,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendVideo"
     command = "curl #{url}?chat_id=#{chat_id} -F \"video=@#{video}\""
@@ -139,6 +140,12 @@ export telegram = class telegram--Telegram api methods
     url ..= "?inline_query_id=#{inline_id}&results=#{URL.escape result}&is_personal=true&cache_time=1"
     return telegram!\sendRequest url
 
+  --https://core.telegram.org/bots/api#getfile
+  getFile: (file_id) =>
+    url = "#{API_URL}/getFile"
+    url ..= "?file_id=#{file_id}"
+    return telegram!\sendRequest url
+
 --Returns users full info as string
 -- first_name last_name username [id]
 export user_info = (user) ->
@@ -156,6 +163,7 @@ export is_admin = (msg) ->
       var = true
 
   return var
+
 -- Reply markup
 export ReplyKeyboardMarkup = (keyboard, resize_keyboard, one_time_keyboard,	selective) ->
   unless keyboard
@@ -177,11 +185,12 @@ export ForceReply = (selective) ->
   res.selective = selective or false
   return JSON.encode(res)
 
-export ReplyKeyboardHide= (selective) ->
+export ReplyKeyboardHide = (selective) ->
   res = {}
   res.force_reply = true
   res.selective = selective or false
   return JSON.encode(res)
+
 -- Inline Block
 export inline_article_block = (title, text, parse_mode, disable_web_page_preview, description, thumb_url) ->
   ran = math.random 1 ,100
@@ -249,6 +258,7 @@ export match_trigger = (trigger,text) ->
     matches = { string.match text, trigger }
     if next(matches)
       return matches
+
 --Get file name
 --Taken from https://github.com/yagop/telegram-bot
 export get_http_file_name = (url, headers) ->
@@ -369,6 +379,13 @@ export download_to_file = (url, file_name) ->
   file\close!
 
   return file_path
+
+export getFileDownload = (file_id) ->
+  get_file = telegram!\getFile file_id
+  if get_file
+    file = "https://api.telegram.org/file/bot#{config!.telegram_api_key}/#{get_file.result.file_path}"
+    return download_to_file file, file_id
+  return false
 
 export vardump = (data) ->
   print serpent.block(data,{comment:false})
