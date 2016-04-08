@@ -1,4 +1,4 @@
-#Jack
+# Jack
 
 Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU General Public License.
 
@@ -9,6 +9,7 @@ Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU 
 Table of Contents
 
 * [Setup](#setup)
+* [Ranks](#ranks)
 * [Telegram Cli](#telegram-cli)
 * [Database](#database)
 * [Plugins](#plugins)
@@ -17,7 +18,7 @@ Table of Contents
 * [Collaborators](#collaborators)
 * [Other projects](#other-projects)
 
-#Setup
+# Setup
 
 Clone Jack !
 
@@ -58,13 +59,17 @@ chmod +x run.sh
 
 ### options
 
-*1 - No output*
+Use `./run.sh --help` for available options
 
-`--no-output`
 
->./run.sh --no-output
+# Ranks
 
-Bot wont print msgs in this mod
+ Ranks | Permissions      |
+------ | ---------------- |
+ Admin | Has access to everything
+ premium | Has access to premium feature
+ normal user | Has access to public feature
+ blacklisted | Bot will ignore blacklisted users
 
 # Telegram cli
 
@@ -103,7 +108,7 @@ Few examples
 
 [Telegram CLI Commands](https://github.com/vysheng/tg/wiki/Telegram-CLI-Commands)
 
-#Database
+# Database
 
 Jack uses redis as database
 
@@ -916,6 +921,8 @@ Join our development group by sending /join 1047524697 to [@TeleSeed](https://te
 [topkecleon](https://github.com/topkecleon)
 
 [Yago](https://github.com/yagop)
+
+[Flippylosaurus](https://telegram.me/Flippylosaurus)
 
 
 

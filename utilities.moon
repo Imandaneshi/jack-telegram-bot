@@ -419,6 +419,25 @@ export up_the_first = (word) ->
 export no_output =  ->
   if #arg >= 1
     for k,v in pairs arg
-      if v == "--no-output"
+      if v\lower! == "--no-output"
         return true
+  return false
+
+export admin_only = ->
+  if #arg >= 1
+    for k,v in pairs arg
+      if v\lower! == "--admin-mode"
+        return true
+  return false
+
+export is_premium = (msg) ->
+  if is_admin(msg)
+    return true
+  redis = (Redis @).client
+  users = redis\smembers "bot:premium:users"
+  for k,v in pairs(users)
+    if msg.from.id == tonumber(v)
+      return true
+    if msg.chat.id == tonumber(v)
+      return true
   return false

@@ -8,6 +8,8 @@ export socket = require "socket"
 export JSON = require "cjson"
 export colors = require 'ansicolors'
 export config = moonscript.loadfile "config.moon"
+http.TIMEOUT = 5
+https.TIMEOUT = 5
 utilities = moonscript.loadfile "utilities.moon",implicitly_return_root:true
 utilities!
 export redis = (Redis @).client
@@ -80,6 +82,42 @@ export msg_processor = (msg) ->
   if msg.text
     if msg.text\match '^[/]'
       msg.text = msg.text\gsub "@#{bot_username}",""--Remove username
+  --Msg filter
+  if admin_only!
+    unless is_admin(msg)
+      return
+  msg.text = "###photo" if msg.photo
+
+  msg.text = "###audio" if msg.audio
+
+  msg.text = "###document" if msg.document
+
+  msg.text = "###sticker" if msg.sticker
+
+  msg.text = "###video" if msg.video
+
+  msg.text = "###voice" if msg.voice
+
+  msg.text = "###contact" if msg.contact
+
+  msg.text = "###location" if msg.location
+
+  msg.text = "###new_chat_participant" if msg.new_chat_participant
+
+  msg.text = "###left_chat_participant" if msg.left_chat_participant
+
+  msg.text = "###new_chat_title" if msg.new_chat_title
+
+  msg.text = "###new_chat_photo" if msg.new_chat_photo
+
+  msg.text = "###delete_chat_photo" if msg.delete_chat_photo
+
+  msg.text = "###group_chat_created" if msg.group_chat_created
+
+  msg.text = "###supergroup_chat_created" if msg.supergroup_chat_created
+
+  msg.text = "###migrate" if msg.migrate_to_chat_id
+
   msg_text = msg.text or ""
   --User changed chat name
   msg_text = "changed group name to > #{msg.new_chat_title}" if msg.new_chat_title
@@ -249,10 +287,12 @@ export inline_query_received = (inline) ->
 
 
 bot_run!--Load the bot
-print colors("%{red}\nNo output mode enabled . I wont print messages\n%{reset}") if no_output!
+print colors("%{red}\nNo output mode enabled. I wont print messages\n%{reset}") if no_output!
+print colors("%{red}\nAdmin mode enabled.\n%{reset}") if admin_only!
 while is_running--A loop for getting messages
 
   if last_cron < os.time() - 10--cron thing
+    export last_cron = os.time()
     for i,v in pairs plugins
       if (v @)
         if (v @).cron

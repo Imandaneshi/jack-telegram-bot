@@ -1,3 +1,33 @@
+obtain_user_info = (user_id) ->
+  first_name = false
+  last_name = false
+  username = false
+  info = redis\hgetall "bot:users:#{user_id}"
+  if info
+    if info.first_name
+      first_name = info.first_name
+    if info.last_name
+      last_name = info.last_name
+    if info.username
+      username = info.username
+  text = ""
+  if first_name
+    text ..= "#{first_name} "
+  if last_name
+    text ..= "#{last_name} "
+  text ..= "#{user_id} "
+  if username
+    text ..= "@#{username}"
+  text ..= "\n"
+  return text
+
+premium_list = (msg) ->
+  text = ""
+  users = redis\smembers "bot:premium:users"
+  for k,v in pairs(users)
+    text ..= "#{obtain_user_info v}"
+  return text
+
 spairs = (t, order) ->
     -- collect the keys
     keys = {}
@@ -98,7 +128,23 @@ run = (msg,matches) ->
     elseif matches[4] == "true" then
       redis\set "bot:plugin_disabled_on_chat:#{matches[2]}:#{matches[3]}", true
       return "*Plugin* `#{matches[2]} `disabled on `#{matches[3]}`"
-    return
+  if matches[1] == "premium"
+    if matches[2]
+      if matches[2] == "list"
+        return premium_list!
+    user_id = ""
+    if msg.reply_to_message
+      user_id = msg.reply_to_message.from.id
+    elseif matches[2]
+      user_id = matches[2]
+
+    is_premium = redis\sismember("bot:premium:users", user_id)
+    if is_premium
+      redis\srem("bot:premium:users", user_id)
+      return "`User #{user_id} removed from premium list`"
+    else
+      redis\sadd("bot:premium:users", user_id)
+      return "`User #{user_id} Added to premium list`"
 
 
 
@@ -107,7 +153,10 @@ patterns = {
   "^[!#/](plugins) ([^%s]+) (.+) (true)$"
   "^[!#/](plugins) ([^%s]+) (.+) (false)$"
   "^[!#/](blacklist) (%d+)$"
+  "^[!#/](premium) (%d+)$"
+  "^[!#/](premium) (list)$"
   "^[!#/](blacklist)$"
+  "^[!#/](premium)$"
   "^[!#/](bc) ([^%s]+) (.*)$"
   "^[!#/](broadcast) +(.+)$"
   "^[!#/](bot)$"
