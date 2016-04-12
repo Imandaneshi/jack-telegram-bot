@@ -121,9 +121,29 @@ export telegram = class telegram--Telegram api methods
   --https://core.telegram.org/bots/api#sendlocation
   sendLocation: (chat_id,latitude,longitude,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendLocation"
-    if latitude == "0" and longitude == "0" -- Fix temporary to client chash (Telegram Desktop)
-       return
+    if latitude == "0" and longitude == "0"
+       return false
     url ..= "?chat_id=#{chat_id}&latitude=#{latitude}&longitude=#{longitude}"
+    url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
+    url ..= "&disable_notification=#{disable_notification}" if disable_notification
+    return telegram!\sendRequest url
+
+--https://core.telegram.org/bots/api#sendvenue
+  sendVenue: (chat_id,latitude,longitude,title,address,foursquare_id,reply_to_message_id,disable_notification) =>
+    url = "#{API_URL}/sendVenue"
+    if latitude == "0" and longitude == "0"
+      return false
+    url ..= "?chat_id=#{chat_id}&latitude=#{latitude}&longitude=#{longitude}&title=#{title}&address=#{address}"
+    url ..= "&foursquare_id=#{foursquare_id}" if foursquare_id
+    url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
+    url ..= "&disable_notification=#{disable_notification}" if disable_notification
+    return telegram!\sendRequest url
+
+--https://core.telegram.org/bots/api#sendcontact
+  sendContact: (chat_id,phone_number,first_name,last_name,reply_to_message_id,disable_notification) =>
+    url = "#{API_URL}/sendContact"
+    url ..= "?chat_id=#{chat_id}&phone_number=#{phone_number}&first_name=#{first_name}"
+    url ..= "&last_name=#{last_name}" if last_name
     url ..= "&reply_to_message_id=#{reply_to_message_id}" if reply_to_message_id
     url ..= "&disable_notification=#{disable_notification}" if disable_notification
     return telegram!\sendRequest url
@@ -151,6 +171,42 @@ export telegram = class telegram--Telegram api methods
     url = "#{API_URL}/getUserProfilePhotos"
     url ..= "?user_id=#{user_id}"
     url ..= "&limit=#{limit}" if limit
+    return telegram!\sendRequest url
+
+--https://core.telegram.org/bots/api#kickchatmember *Correct is ban*
+  banChatMember: (user_id,limit) =>
+    url = "#{API_URL}/kickChatMember"
+    url ..= "?chat_id=#{chat_id}&user_id=#{user_id}"
+    return telegram!\sendRequest url
+
+  --https://core.telegram.org/bots/api#unbanchatmember
+  unbanChatMember: (user_id,limit) =>
+    url = "#{API_URL}/unbanChatMember"
+    url ..= "?chat_id=#{chat_id}&user_id=#{user_id}"
+    return telegram!\sendRequest url
+
+  --Kick Member ...
+  kickChatMember: (user_id,limit) =>
+    res = telegram!\banChatMember user_id,limit
+    unless res
+      return false
+    res = telegram!\unbanChatMember user_id,limit
+    unless res
+      return false
+    return true
+
+  --https://core.telegram.org/bots/api#editmessagetext
+  editMessageText: (chat_id,message_id,text,parse_mode,disable_web_page_preview) =>
+    url =  "#{API_URL}/editMessageText"
+    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&text=#{text}"
+    url ..= "&parse_mode=#{parse_mode}" if parse_mode
+    url ..= "&disable_web_page_preview=#{disable_web_page_preview}" if disable_web_page_preview
+    return telegram!\sendRequest url
+
+  --https://core.telegram.org/bots/api#editmessagecaption
+  editMessageCaption: (chat_id,message_id,caption) =>
+    url =  "#{API_URL}/editMessageCaption"
+    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&caption=#{caption}"
     return telegram!\sendRequest url
 
 --Returns users full info as string
@@ -255,6 +311,61 @@ export inline_video_block = (video_url, mime_type, thumb_url, title, caption, me
   inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
   inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
   inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= "}"
+  return inline
+
+export inline_audio_block = (audio_url, title, performer, audio_duration) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"audio\", \"id\":\"#{ran}\", \"audio_url\":\"#{audio_url}\", \"mime_type\": \"#{mime_type}\""
+  inline ..= ",\"title\": \"#{title}\""
+  inline ..= ",\"performer\": #{performer}" if performer
+  inline ..= ",\"audio_duration\": \"#{audio_duration}\"" if audio_duration
+  inline ..= "}"
+  return inline
+
+export inline_voice_block = (voice_url, title, performer, voice_duration) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"voice\", \"id\":\"#{ran}\", \"voice_url\":\"#{voice_url}\", \"mime_type\": \"#{mime_type}\""
+  inline ..= ",\"title\": \"#{title}\"" if title
+  inline ..= ",\"voice_duration\": \"#{audio_duration}\"" if voice_duration
+  inline ..= "}"
+  return inline
+
+export inline_document_block = (document_url, title, caption, mime_type, description, disable_web_page_preview) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"document\", \"id\":\"#{ran}\""
+  inline ..= ",\"title\": \"#{title}\"" if title
+  inline ..= ",\"caption\": #{caption}" if caption
+  inline ..= ",\"document_url\": \"#{document_url}\""
+  inline ..= ",\"message_text\": \"#{mime_type}\"" if mime_type
+  inline ..= ",\"parse_mode\": \"#{description}\"" if description
+  inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= "}"
+  return inline
+
+export inline_location_block = (latitude, longitude, title, thumb_url) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"location\", \"id\":\"#{ran}\", \"latitude\": \"#{latitude}\", \"longitude\": \"#{longitude}\""
+  inline ..= ",\"title\": #{title}" if title
+  inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= "}"
+  return inline
+
+export inline_venue_block = (latitude, longitude, title, address, foursquare_id, thumb_url) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"venue\", \"id\":\"#{ran}\", \"latitude\": \"#{latitude}\", \"longitude\": \"#{longitude}\""
+  inline ..= ",\"title\": #{title}" if title
+  inline ..= ",\"address\": \"#{address}\"" if address
+  inline ..= ",\"foursquare_id\": \"#{foursquare_id}\"" if foursquare_id
+  inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= "}"
+  return inline
+
+export inline_contact_block = (phone_number, first_name, last_name, thumb_url) ->
+  ran = math.random 1 ,100
+  inline = "{\"type\":\"contact\", \"id\":\"#{ran}\", \"phone_number\": \"#{phone_number}\", \"first_name\": \"#{first_name}\""
+  inline ..= ",\"last_name\": #{last_name}" if last_name
+  inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
   inline ..= "}"
   return inline
 

@@ -146,17 +146,27 @@ run = (msg,matches) ->
       redis\sadd("bot:premium:users", user_id)
       return "`User #{user_id} Added to premium list`"
 
+  if matches[1] == "editmsg" and matches[2] then
+    unless is_admin(msg)
+      return "For admins only"
+
+    id_reply = msg.reply_to_message.message_id
+    id_chat = msg.chat.id
+    telegram!\editMessageText id_chat,id_reply,matches[2]
+    return
+
 
 
 patterns = {
   "^[!#/](admin) (reload)$"
   "^[!#/](plugins) ([^%s]+) (.+) (true)$"
   "^[!#/](plugins) ([^%s]+) (.+) (false)$"
+  "^[!#/](blacklist)$"
   "^[!#/](blacklist) (%d+)$"
   "^[!#/](premium) (%d+)$"
   "^[!#/](premium) (list)$"
-  "^[!#/](blacklist)$"
   "^[!#/](premium)$"
+  "^[!#/](editmsg) (.*)"
   "^[!#/](bc) ([^%s]+) (.*)$"
   "^[!#/](broadcast) +(.+)$"
   "^[!#/](bot)$"

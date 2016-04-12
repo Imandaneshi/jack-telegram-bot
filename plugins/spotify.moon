@@ -253,7 +253,7 @@ will send you preview of that song (only 30 sec)
 `/spotify album [album name(for search)]`
 `/spotify artist [artist name(for search)]`
 `/spotify playlist [playlist name(for search)]`
-Will send artist info and picture
+Will send info and picture
 ]]
 	patterns: {
 		"^[!/#](spotify) (playlist) (.*)$"
