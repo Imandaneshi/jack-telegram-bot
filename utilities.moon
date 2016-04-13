@@ -174,23 +174,23 @@ export telegram = class telegram--Telegram api methods
     return telegram!\sendRequest url
 
 --https://core.telegram.org/bots/api#kickchatmember *Correct is ban*
-  banChatMember: (user_id,limit) =>
+  banChatMember: (chat_id,user_id) =>
     url = "#{API_URL}/kickChatMember"
     url ..= "?chat_id=#{chat_id}&user_id=#{user_id}"
     return telegram!\sendRequest url
 
   --https://core.telegram.org/bots/api#unbanchatmember
-  unbanChatMember: (user_id,limit) =>
+  unbanChatMember: (chat_id,user_id) =>
     url = "#{API_URL}/unbanChatMember"
     url ..= "?chat_id=#{chat_id}&user_id=#{user_id}"
     return telegram!\sendRequest url
 
   --Kick Member ...
-  kickChatMember: (user_id,limit) =>
-    res = telegram!\banChatMember user_id,limit
+  kickChatMember: (chat_id,user_id) =>
+    res = telegram!\banChatMember chat_id,user_id
     unless res
       return false
-    res = telegram!\unbanChatMember user_id,limit
+    res = telegram!\unbanChatMember chat_id,user_id
     unless res
       return false
     return true
