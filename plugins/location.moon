@@ -9,7 +9,9 @@ run = (msg,matches) ->
     return "_No results found_"
   lat = jdat.results[1].geometry.location.lat
   lng = jdat.results[1].geometry.location.lng
-  telegram!\sendLocation msg.chat.id, lat, lng, msg.message_id
+  address = jdat.results[1].formatted_address
+
+  telegram!\sendVenue msg.chat.id, lat, lng, "Location", address, false, msg.message_id
   return
 
 description = "*Google maps*"

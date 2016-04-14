@@ -23,8 +23,14 @@ run = (msg,matches) ->
   l = jdat\find '\n'
   if l
       jdat = jdat\sub 1, l-1
-  jdat ..= "\n[#{text} on wikipedia](#{url})"
-  return jdat
+  jdat ..= "\n<a href=\"#{url}\">#{title} on wikipedia</a>"
+
+  if msg.chat.type ~= "private"
+    telegram!\sendMessage msg.chat.id, jdat, msg.message_id, "HTML", true
+  else
+    telegram!\sendMessage msg.chat.id, jdat, false, "HTML", true
+
+  return
 
 
 

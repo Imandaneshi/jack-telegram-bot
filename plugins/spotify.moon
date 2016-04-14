@@ -76,7 +76,7 @@ track = (msg, matches, music) ->
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
 			return
 		else
-			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown", true
+			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown"
 			return
 
 	return output
@@ -116,7 +116,7 @@ artist = (msg, matches) ->
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
 			return
 		else
-			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown", true
+			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown"
 			return
 
 	return output
@@ -181,7 +181,7 @@ album = (msg, matches, id) ->
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
 			return
 		else
-			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown", true
+			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown"
 			return
 
 	return output
@@ -220,7 +220,7 @@ playlist = (msg, matches) ->
 			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, msg.message_id, "Markdown"
 			return
 		else
-			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown", true
+			telegram!\sendMessage msg.chat.id, "[​]("..pic..") "..output, false, "Markdown"
 			return
 
 	return output
