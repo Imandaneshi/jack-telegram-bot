@@ -67,9 +67,9 @@ Use `./run.sh --help` for available options
  Ranks | Permissions      |
 ------ | ---------------- |
  Admin | Has access to everything
- premium | Has access to premium feature
- normal user | Has access to public feature
- blacklisted | Bot will ignore blacklisted users
+ Premium | Has access to premium feature
+ Normal user | Has access to public feature
+ Blacklisted | Bot will ignore blacklisted users
 
 # Telegram cli
 
@@ -188,7 +188,7 @@ Plugins list
 * [Linkshortener](#link-shortener)
 * [lmgtfy](#lmgtfy)
 * [Location](#location)
-* [me](#me)
+* [Me](#me)
 * [Meme](#meme)
 * [Moon](#moon)
 * [Qrcode](#qrcode)
@@ -212,7 +212,7 @@ Plugins list
 * [Webshot](#webshot)
 * [Who](#who)
 * [Wikipedia](#wikipedia)
-* [youtube](#youtube)
+* [Youtube](#youtube)
 
 
 ### 9gag
@@ -264,6 +264,11 @@ Listed | Requires API KEY | Enabled by default | inline
 `/broadcast <msg>`
 >This command will send msg to all chats
 
+`/editmsg <new msg>`
+
+> Edit message
+>> Use in reply
+
 ### Anime
 
 Anime plugin (hummingbird.me)
@@ -277,15 +282,15 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/anime search <anime name>`
 
-For searching
+> For searching
 
 `/anime pic <query>`
 
-Will search for query
+> Will search for query
 
 `/anime pic`
 
-Will send random anime pic
+> Will send random anime pic
 
 ### Calculator
 
@@ -294,7 +299,7 @@ Returns solutions to math expressions
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    N
+  Y    |        N         |         Y          |    Y
 
 **Commands**
 
@@ -306,7 +311,7 @@ Returns a cat
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        O         |         Y          |    N
+  Y    |        O         |         Y          |    Y
 
 **Commands**
 
@@ -356,7 +361,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/cash <amount> <from> to <to>`
 
-Returns exchange rates for various currencies.
+> Returns exchange rates for various currencies.
 
 ### Dogify
 
@@ -394,6 +399,10 @@ Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
   Y    |        N         |         N          |    Y
 
+**Commands**
+
+`/fortunes`
+
 ## Get
 
 Retrieves variables saved with /set
@@ -430,7 +439,7 @@ Returns info about GitHub repo
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |       N          |         Y          |    N
+  Y    |       N          |         Y          |    Y
 
 
 **Commands**
@@ -445,7 +454,7 @@ Google search
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    N
+  Y    |        N         |         Y          |    Y
 
 
 **Commands**
@@ -466,11 +475,11 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/about`
 
-Info about your bot
+>Info about your bot
 
-`Hi bot_first_name
+`Hi bot_first_name`
 
-`Bye bot_first_name
+`Bye bot_first_name`
 
 ### Help
 
@@ -478,7 +487,7 @@ Returns info about other plugins
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  N    |        N         |         Y          |    N
+  N    |        N         |         Y          |    Y
 
 
 **Commands**
@@ -503,10 +512,12 @@ Returns Info about movie from IMDB and its poster
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    N
+  Y    |        N         |         Y          |    Y
 
 
 **Commands**
+
+`/imdb`
 
 ### Instagram
 
@@ -518,7 +529,9 @@ Listed | Requires API KEY | Enabled by default | inline
 
 **Commands**
 
-`/insta <username>` - Return user info
+`/insta <username>`
+
+> Return user info
 
 ### IP info
 
@@ -526,7 +539,7 @@ Returns Given IP or domain info
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        Y         |         Y          |    N
+  Y    |        Y         |         Y          |    Y
 
 
 **Commands**
@@ -565,7 +578,7 @@ Returns Shorten link
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        Y         |         Y          |    N
+  Y    |        Y         |         Y          |    Y
 
 
 **Commands**
@@ -614,11 +627,11 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/me <parameter> del`
 
-Will delete <parameter>
+>Will delete <parameter>
 
 `/me`
 
-Will return your profile and msg Statistics
+>Will return your profile and msg Statistics
 
 _Can also be triggered by reply_
 
@@ -634,7 +647,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/reactions`
 
-Returns list of reactions
+> Returns list of reactions
 
 ### Remind
 
@@ -712,23 +725,23 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/spotify get <track name(for search)>`
 
-Returns preview of that song (only 30 sec)
+>Returns preview of that song (only 30 sec)
 
 `/spotify track <track name(for search)>`
 
-Returns track info and picture
+>Returns track info and picture
 
 `/spotify album <album name(for search)>`
 
-Returns album info and picture
+>Returns album info and picture
 
 `/spotify artist <artist name(for search)>`
 
-Returns artist info and picture
+>Returns artist info and picture
 
 `/spotify playlist <playlist name(for search)>`
 
-Returns playlist info and picture
+>Returns playlist info and picture
 
 
 ### Stats
@@ -744,7 +757,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/chatstats`
 
-Returns a list of members with their msg statistics
+>Returns a list of members with their msg statistics
 
 ### Sticker
 
@@ -791,7 +804,7 @@ Returns the time, date, and timezone for the given location
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    N
+  Y    |        N         |         Y          |    Y
 
 
 **Commands**
@@ -808,7 +821,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/translate <language> <text>`
 
-Will translate text to language
+>Will translate text to language
 
 `/translate <language>`
 
@@ -908,7 +921,7 @@ Listed | Requires API KEY | Enabled by default | inline
 `/youtube dl <video name(for download)>`
 
 
-#Support and development
+# Support and development
 
 Join our development group by sending /join 1047524697 to [@TeleSeed](https://telegram.me/teleseed)
 
