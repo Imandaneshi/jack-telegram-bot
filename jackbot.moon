@@ -69,7 +69,15 @@ export match_plugin = (plugin, plugin_name, msg) ->
       redis\incr "bot:plugin_usage_on_chat:#{plugin_name}:#{msg.chat.id}"
       redis\incr "bot:plugins_usage"
       redis\incr "bot:plugins_usage_on_chat:#{msg.chat.id}"
-      result = (plugin @).run msg, matches
+      check, result = pcall ->
+        (plugin @).run msg, matches
+      unless check
+        unless result
+          result = ""
+        error_msg = "\n%{red}ERROR #{os.date "[ %X ]"} :/ %{reset}\n"
+        error_msg ..= "%{bright blue}#{result}%{reset}\n\n"
+        print colors error_msg
+        result = "_ERROR_"
       if result
         telegram!\sendChatAction msg.chat.id, "typing"
         if msg.chat.type ~= "private"
