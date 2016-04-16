@@ -1,5 +1,5 @@
 run = (msg,matches) ->
-  matches[1] = matches[1]\gsub "[!/#]","" if matches[1]\match "^[!/#]"
+  matches[1] = matches[1]\gsub "[!/#]","" if matches[1]\match "^[ !/#]"
 
   if msg.chat.type == "inline"
     pic = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Security-Voice-Recognition-Scan-icon.png"
