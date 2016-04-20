@@ -225,7 +225,7 @@ export msg_processor = (msg) ->
 
 
   --Add the chat id to database
-  redis\sadd "bot:chats",msg.chat.id
+  redis\sadd "bot:chats",msg.chat.id if msg.chat.type ~= "inline"
   redis\sadd "bot:privates",msg.chat.id if msg.chat.type == "private"
   redis\sadd "bot:groups",msg.chat.id if msg.chat.type == "group"
   redis\sadd "bot:supergroups",msg.chat.id if msg.chat.type == "supergroup"
