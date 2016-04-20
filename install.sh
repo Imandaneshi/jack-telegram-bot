@@ -2,7 +2,7 @@
 
 read -p "Do you want me to install lua,luarocks,redis-server,moonscript,lua-socket,lua-sec,oauth,redis-lua,lua-cjson and ansicolors ? (yes/no):"
 
-if [ "$REPLY" != "yes" ]; then
+if [ "$REPLY" != "yes" or "y"]; then
 	echo "
 "
 else
@@ -22,7 +22,7 @@ else
 fi
 
 read -p "Do you want me to remove lua 5.2 to prevent moon script from crashing ? (yes/no):"
-if [ "$REPLY" != "yes" ]; then
+if [ "$REPLY" != "yes" or "y"]; then
 	echo "
 "
 else
@@ -33,7 +33,7 @@ fi
 
 read -p "Do you want me to install telegram-CLI ? (yes/no):"
 
-if [ "$REPLY" != "yes" ]; then
+if [ "$REPLY" != "yes" or "y"]; then
 	exit
 else
 	echo "Installing Telegram-CLI"

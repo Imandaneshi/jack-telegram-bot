@@ -39,11 +39,11 @@ run = (msg, matches) ->
     text = "#{jdat.name}
 Followers: #{jdat.followers}
 Following: #{jdat.following}
-Repos: #{jdat.public_repos}
-Blog: #{jdat.blog}
-Location: #{jdat.location}
-Email: #{jdat.email}
-GitPage: #{jdat.html_url}"
+Repos: #{jdat.public_repos}\n"
+    text ..= "Blog: #{jdat.blog}\n" if jdat.blog and type(jdat.blog) ~= "userdata"
+    text ..= "Location: #{jdat.location}\n" if jdat.location and type(jdat.location) ~= "userdata"
+    text ..= "Email: #{jdat.email}\n" if jdat.email and type(jdat.email) ~= "userdata"
+    text ..= "GitPage: #{jdat.html_url}\n"
     file = jdat.avatar_url
 
     if msg.chat.type == "inline"

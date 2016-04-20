@@ -16,6 +16,10 @@ export redis = (Redis @).client
 export plugins = {}
 
 export bot_run = class bot_run
+  token_check = config!.telegram_api_key
+  if token_check == ""
+    print  colors("%{bright red}Require token!%{reset}")
+
   @admins_ids: config!.admins
   print_admins: =>
     for k,v in pairs (config!.admins)
@@ -229,7 +233,7 @@ export msg_processor = (msg) ->
   redis\sadd "bot:privates",msg.chat.id if msg.chat.type == "private"
   redis\sadd "bot:groups",msg.chat.id if msg.chat.type == "group"
   redis\sadd "bot:supergroups",msg.chat.id if msg.chat.type == "supergroup"
-  redis\sadd "bot:inline_users",msg.chat.id if msg.chat.type == "inline"
+  redis\sadd "bot:inline_users",msg.from.id if msg.chat.type == "inline"
 
   --Add chat/user info to database
 
