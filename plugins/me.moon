@@ -13,7 +13,7 @@ parameters = {
 }
 patterns = {
 	"^[#!/](me)$"
-	"###inline[!/#](me)$"
+	"^###inline[!/#](me)"
 }
 is_parameter = (q) ->
 	var = false
@@ -49,7 +49,8 @@ run = (msg,matches) ->
 					v = v\format redis\get("bot:#{k}:user:#{msg.from.id}"),redis\get("bot:#{k}:user:#{msg.from.id}")
 					text ..= "*#{up_the_first k}:* #{v}"
 			if msg.chat.type == "inline"
-				block = "[#{inline_article_block "", text, "Markdown", true}]"
+				pic = "http://icons.iconarchive.com/icons/designcontest/ecommerce-business/128/contact-info-icon.png"
+				block = "[#{inline_article_block "ME !", text, "Markdown", true, text, pic}]"
 				telegram!\sendInline msg.id,block
 				return
 			if msg.chat.type ~= "private"

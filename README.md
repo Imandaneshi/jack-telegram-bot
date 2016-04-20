@@ -882,7 +882,7 @@ Returns info about user and chat
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    N
+  Y    |        N         |         Y          |    Y
 
 
 **Commands**
