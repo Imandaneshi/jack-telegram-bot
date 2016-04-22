@@ -17,10 +17,12 @@ run = (msg,matches) ->
 	pic = "http://icons.iconarchive.com/icons/iconsmind/outline/128/Smile-icon.png"
 	text = '<b>Reactions!</b>\n'
 	block = "["
-
 	for k,v in pairs reactions
 		text ..= "/#{v}:  #{k}\n"
-		block ..= "#{inline_article_block v, k, "HTML", true, k, "#{pic}"}, "
+		ki = k\gsub "\\", "\\\\"
+		help = ki\gsub "<b>", ""
+		help = help\gsub "</b>", ""
+		block ..= "#{inline_article_block v, ki, "HTML", true, help, "#{pic}"}, "
 		if msg.text\match v
 			telegram!\sendMessage msg.chat.id, k, msg.message_id, "HTML"
 			return
@@ -54,7 +56,7 @@ return {
 	"^[!/#]shots$"
 	"^[!/#]reactions$"
 	--inline
-	"^###inline[!/#]reactions$"
+	"^###inline[!/#]reactions"
 	}
 	:run
 }
