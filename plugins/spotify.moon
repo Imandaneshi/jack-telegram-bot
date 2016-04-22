@@ -255,6 +255,7 @@ will send you preview of that song (only 30 sec)
 `/spotify playlist [playlist name(for search)]`
 Will send info and picture
 ]]
+	lower: true
 	patterns: {
 		"^[!/#](spotify) (playlist) (.*)$"
 		"^[!/#](spotify) (artist) (.*)$"

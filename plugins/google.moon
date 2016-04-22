@@ -30,6 +30,7 @@ run = (msg,matches) ->
 return {
   description: "*Searches Google*"
   usage: "`/google [terms]` - Search on Google!\n"
+  lower: true
   patterns: {
   "^[/!#]g (.*)"
   "^[/!#]google (.*)"

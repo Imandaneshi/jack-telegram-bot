@@ -61,6 +61,8 @@ export bot_run = class bot_run
 
 export match_plugin = (plugin, plugin_name, msg) ->
   for k, patterns in pairs (plugin @).patterns
+    if (plugin @).lower -- Force text lowercase
+      msg.text = msg.text\lower()
     matches = match_trigger patterns, msg.text
     unless no_output!
       print "plugin #{plugin_name} triggered: #{patterns}" if matches
@@ -92,6 +94,8 @@ export match_plugin = (plugin, plugin_name, msg) ->
 
 export msg_processor = (msg) ->
   if msg.text
+    if msg.text\match '^/start .+'
+      msg.text = "/#{msg.text\match '^/start (.+)'}"--Shortcut https://telegram.me/USERNAME?start=COMMAND
     if msg.text\match '^[/]'
       msg.text = msg.text\gsub "@#{bot_username}",""--Remove username
   --Msg filter
@@ -114,9 +118,9 @@ export msg_processor = (msg) ->
 
   msg.text = "###location" if msg.location
 
-  msg.text = "###new_chat_participant" if msg.new_chat_participant
+  msg.text = "###new_chat_participant" if msg.new_chat_participant or msg.new_chat_member
 
-  msg.text = "###left_chat_participant" if msg.left_chat_participant
+  msg.text = "###left_chat_participant" if msg.left_chat_participant or msg.left_chat_member
 
   msg.text = "###new_chat_title" if msg.new_chat_title
 

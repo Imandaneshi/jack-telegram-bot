@@ -26,6 +26,7 @@ usage = [[
 `/who`
 Returns info about user and chat
 ]]
+lower = true
 patterns = {
   "^[/!#]who$"
   "^###inline[/!#]who"
@@ -33,6 +34,7 @@ patterns = {
 return {
   :description
   :usage
+  :lower
   :patterns
   :run
 }
