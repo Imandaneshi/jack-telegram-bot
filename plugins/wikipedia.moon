@@ -37,7 +37,6 @@ run = (msg,matches) ->
 return {
   description: "*Wikipedia.com*"
   usage: "`/wiki [query]` - Search on Wikipedia\n"
-  lower: true
   patterns: {
   "^[/!#]wikipedia (.*)"
   "^[/!#]wiki (.*)"

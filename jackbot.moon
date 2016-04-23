@@ -61,8 +61,6 @@ export bot_run = class bot_run
 
 export match_plugin = (plugin, plugin_name, msg) ->
   for k, patterns in pairs (plugin @).patterns
-    if (plugin @).lower -- Force text lowercase
-      msg.text = msg.text\lower()
     matches = match_trigger patterns, msg.text
     unless no_output!
       print "plugin #{plugin_name} triggered: #{patterns}" if matches
