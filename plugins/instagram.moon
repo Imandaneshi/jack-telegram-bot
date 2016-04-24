@@ -8,6 +8,8 @@ instagrm = (msg,q) ->
   id = "#{jdat.data[random].id}"
   gurl = "https://api.instagram.com/v1/users/#{id}/?access_token=#{config!.insta_api_key}"
   jstr, res = https.request gurl
+  if res ~= 200
+    return "_No connection_"
   user = JSON.decode jstr
   text = "[#{user.data.username}](https://www.instagram.com/#{user.data.username})
 
