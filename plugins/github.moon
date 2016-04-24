@@ -16,12 +16,15 @@ repo = (msg, git) ->
 `#{jdat.description}`
 
 *Language:* `#{jdat.language}`
-*Created At:* `#{jdat.created_at}`
-*Pushed At:* `#{jdat.pushed_at}`
-*Ssh Url:* `#{jdat.ssh_url}`
 *Forks:* `#{jdat.forks_count}`
 *Stars:* `#{jdat.stargazers_count}`
 *Issues:* `#{jdat.open_issues_count}`"
+
+    text ..= "
+*Created at:* `#{jdat.created_at\match '(%d+%-%d+%-%d+)'}`
+*Last updated:* `#{jdat.pushed_at\match '(%d+%-%d+%-%d+)'}`
+*Git clone:* `#{jdat.ssh_url}`
+" if msg.chat.type == "private"
 
     if msg.chat.type == "inline"
       pic = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Programming-Github-icon.png"
