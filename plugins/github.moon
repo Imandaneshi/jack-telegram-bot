@@ -16,6 +16,9 @@ repo = (msg, git) ->
 `#{jdat.description}`
 
 *Language:* `#{jdat.language}`
+*Created At:* `#{jdat.created_at}`
+*Pushed At:* `#{jdat.pushed_at}`
+*Ssh Url:* `#{jdat.ssh_url}`
 *Forks:* `#{jdat.forks_count}`
 *Stars:* `#{jdat.stargazers_count}`
 *Issues:* `#{jdat.open_issues_count}`"
