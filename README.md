@@ -525,7 +525,7 @@ Search users on instagram
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        Y         |         N          |    N
+  Y    |        Y         |         N          |    Y
 
 **Commands**
 
