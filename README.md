@@ -935,8 +935,6 @@ Join our development group by sending /join 1047524697 to [@TeleSeed](https://te
 
 [Yago](https://github.com/yagop)
 
-[Flippylosaurus](https://telegram.me/Flippylosaurus)
-
 
 
 # Collaborators
