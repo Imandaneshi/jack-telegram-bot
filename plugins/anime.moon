@@ -19,7 +19,7 @@ anime = (msg,anime) ->
 	        else
 				message ..= "#{jdat[1].genres[i].name}"," "
 
-	if jdat[1].age_rating
+	if jdat[1].age_rating and type(jdat[1].age_rating) ~= "userdata"
 			message ..= "\n*Age rating:* #{jdat[1].age_rating}"
 
 	message ..= "\n*Rate: * #{string.sub(jdat[1].community_rating,0,4)}"

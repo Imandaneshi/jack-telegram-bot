@@ -1,5 +1,8 @@
 run = (msg,matches) ->
-  message = io.popen("python chatter.py \"#{matches[1]}\"")\read('*all')
+  text = matches[1]
+  if text\match "^%p+$"
+    text = "hi"
+  message = io.popen("python chatter.py \"#{text}\"")\read('*all')
 
   return message
 
