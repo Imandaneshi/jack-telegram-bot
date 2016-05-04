@@ -176,6 +176,7 @@ Plugins list
 * [Code](#code)
 * [Currency](#currency)
 * [Dogify](#dogify)
+* [DuckGo](#dckgo)
 * [Echo](#echo)
 * [Giphy](#giphy)
 * [Github](#github)
@@ -375,6 +376,21 @@ Listed | Requires API KEY | Enabled by default | inline
 **Commands**
 
 `/dogify <your/words/with/slashes>`
+
+### DuckGo
+
+DuckDuckGo search
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         N          |    Y
+
+
+**Commands**
+
+`/duckduckgo <terms>`
+
+`/duckgo <terms>`
 
 ### Echo
 
