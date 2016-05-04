@@ -176,7 +176,7 @@ Plugins list
 * [Code](#code)
 * [Currency](#currency)
 * [Dogify](#dogify)
-* [DuckGo](#dckgo)
+* [DuckGo](#duckgo)
 * [Echo](#echo)
 * [Giphy](#giphy)
 * [Github](#github)
@@ -470,7 +470,7 @@ Google search
 
 Listed | Requires API KEY | Enabled by default | inline
 ------ | ---------------- | ------------------ | ------
-  Y    |        N         |         Y          |    Y
+  Y    |        Y         |         Y          |    Y
 
 
 **Commands**
