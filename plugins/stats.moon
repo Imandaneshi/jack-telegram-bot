@@ -84,7 +84,7 @@ run = (msg, matches) ->
       if not is_admin msg
         return
 
-      return matches[2], msg.from.id
+      return chat_stats matches[2], msg.from.id
 
 patterns = {
   "^[#!/](chatstats) (.*)$"
