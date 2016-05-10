@@ -43,7 +43,10 @@ run = (msg,matches) ->
 				redis\del "bot:#{matches[2]}:user:#{msg.from.id}"
 				return "Your `#{matches[2]}` has been forgotten"
 		else
-			text = "`#{msg.from.first_name}`\n"
+			text = "`#{msg.from.first_name}`"
+			text ..= " `#{msg.from.last_name}`" if msg.from.last_name
+			text ..= "\n"
+
 			for k,v in pairs parameters
 				if redis\get "bot:#{k}:user:#{msg.from.id}"
 					v = v\format redis\get("bot:#{k}:user:#{msg.from.id}"),redis\get("bot:#{k}:user:#{msg.from.id}")
