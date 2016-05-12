@@ -156,6 +156,7 @@ export msg_processor = (msg) ->
   --Chat type (group,supergroup,private)
   chat_type = "Uknown"
   chat_type = "Inline" if msg.chat.type == "inline"
+  chat_type = "Callback" if msg.chat.type == "callback"
   chat_type = "Group" if msg.chat.type == "group"
   chat_type = "Supergroup" if msg.chat.type == "supergroup"
   chat_type = "Private" if msg.chat.type == "private"
@@ -173,7 +174,7 @@ export msg_processor = (msg) ->
 %{red}#{date}%{reset} %{green}#{user_info}%{reset} %{magenta}#{chat_type}%{reset}
 
 %{bright blue}#{msg_text}%{reset}"
-  elseif tostring(msg.chat.type) == "inline"
+  elseif tostring(msg.chat.type) == "inline" or tostring(msg.chat.type) == "callback"
     text = "
 
 %{red}#{date}%{reset} %{green}#{user_info}%{reset} %{magenta}#{chat_type}%{reset}
@@ -231,11 +232,12 @@ export msg_processor = (msg) ->
 
 
   --Add the chat id to database
-  redis\sadd "bot:chats",msg.chat.id if msg.chat.type ~= "inline"
+  redis\sadd "bot:chats",msg.chat.id if msg.chat.type ~= "inline" and msg.chat.type ~= "callback"
   redis\sadd "bot:privates",msg.chat.id if msg.chat.type == "private"
   redis\sadd "bot:groups",msg.chat.id if msg.chat.type == "group"
   redis\sadd "bot:supergroups",msg.chat.id if msg.chat.type == "supergroup"
   redis\sadd "bot:inline_users",msg.from.id if msg.chat.type == "inline"
+  redis\sadd "bot:callback_users",msg.from.id if msg.chat.type == "callback"
 
   --Add chat/user info to database
 
@@ -245,22 +247,24 @@ export msg_processor = (msg) ->
   redis\hset "bot:users:#{msg.from.id}","username",msg.from.username if msg.from.username
 
   --chats
-  if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
+  if msg.chat.type ~= "private" and msg.chat.type ~= "inline" and msg.chat.type ~= "callback"
     redis\hset "bot:chats:#{msg.chat.id}","title",msg.chat.title
     redis\hset "bot:chats:#{msg.chat.id}","type",msg.chat.type
 
 
   --Group memebers
-  if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
+  if msg.chat.type ~= "private" and msg.chat.type ~= "inline" and msg.chat.type ~= "callback"
     redis\sadd "bot:chat#{msg.chat.id}",msg.from.id
 
   --msg statistics
-  redis\incr "bot:total_messages" if msg.chat.type ~= "inline"
+  redis\incr "bot:total_messages" if msg.chat.type ~= "inline" and msg.chat.type ~= "callback"
   redis\incr "bot:total_inlines" if msg.chat.type == "inline"
+  redis\incr "bot:total_callbacks" if msg.chat.type == "callback"
   redis\incr "bot:total_user_msgs_in_private:#{msg.from.id}" if msg.chat.type == "private"
-  redis\incr "bot:total_chat_msgs:#{msg.chat.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
-  redis\incr "bot:total_users_msgs_in_chat:#{msg.chat.id}:#{msg.from.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline"
+  redis\incr "bot:total_chat_msgs:#{msg.chat.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline" and msg.chat.type ~= "callback"
+  redis\incr "bot:total_users_msgs_in_chat:#{msg.chat.id}:#{msg.from.id}" if msg.chat.type ~= "private" and msg.chat.type ~= "inline" and msg.chat.type ~= "callback"
   redis\incr "bot:total_inline_from_user:#{msg.from.id}" if msg.chat.type == "inline"
+  redis\incr "bot:total_callback_from_user:#{msg.from.id}" if msg.chat.type == "callback"
 
   if msg.date < os.time! - 30--Ignore old messages
     unless no_output!
@@ -299,6 +303,21 @@ export inline_query_received = (inline) ->
   }
   msg_processor msg
 
+export callback_query_received = (callback) ->
+  msg = {
+    id: callback.id
+    chat: {
+      id: callback.message.chat.id
+      type: "callback"
+      title: callback.message.chat.first_name
+      }
+      from: callback.from
+      message_id: callback.message.message_id
+      text: "###callback:#{callback.data}"
+      date: os.time!
+  }
+  msg_processor msg
+
 
 bot_run!--Load the bot
 print colors("%{red}\nNo output mode enabled. I wont print messages\n%{reset}") if no_output!
@@ -321,6 +340,8 @@ while is_running--A loop for getting messages
 
       if msg.inline_query--inline thing
         inline_query_received msg.inline_query
+      elseif msg.callback_query--callback thing
+        callback_query_received msg.callback_query
       else
         msg_processor msg.message--process the msg
   else

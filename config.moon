@@ -22,6 +22,7 @@ _ =
     "cat"
     "chatter"
     --"code"
+    --"commit"
     --"currency"
     "dogify"
     --"duckgo"

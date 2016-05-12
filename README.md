@@ -126,6 +126,8 @@ Here are the datas
 
 `bot:inline_users` > List of all inline users
 
+`bot:callback_users` > List of all callback users
+
 **chat_id info**
 
 `bot:chats:chat_id`
@@ -151,6 +153,8 @@ These info will be updated on each msg
 
 `bot:total_inlines` > Number of total inline requests
 
+`bot:total_callbacks` > Number of total callback requests
+
 **chat_id msg statistics**
 
 `bot:total_chat_msgs:chat_id` > Number of total msgs bot received in chat_id
@@ -174,6 +178,7 @@ Plugins list
 * [Cat](#cat)
 * [Chatter](#chatter)
 * [Code](#code)
+* [Commit](#commit)
 * [Currency](#currency)
 * [Dogify](#dogify)
 * [DuckGo](#duckgo)
@@ -349,6 +354,21 @@ Listed | Requires API KEY | Enabled by default | inline
 **Commands**
 
 `/code <language> <code>`
+
+
+### Commit
+
+Send the a commit.
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         N          |    Y
+
+
+**Commands**
+
+`/commit`
+
 
 ### Currency
 

@@ -24,6 +24,12 @@ run = (msg,matches) ->
 		help = help\gsub "</b>", ""
 		block ..= "#{inline_article_block v, ki, "HTML", true, help, "#{pic}"}, "
 		if msg.text\match v
+			if msg.chat.type == "inline" and matches[1]
+				block = "[#{inline_article_block v, "#{ki}", "HTML", true, "#{help}", "#{pic}"}, "
+				block ..= "#{inline_article_block v, "#{ki} #{matches[1]}", "HTML", true, "#{help} #{matches[1]}", "#{pic}"}, "
+				block ..= "#{inline_article_block v, "#{matches[1]} #{ki}", "HTML", true, "#{matches[1]} #{help}", "#{pic}"}]"
+				telegram!\sendInline msg.id,block
+				return
 			telegram!\sendMessage msg.chat.id, k, msg.message_id, "HTML"
 			return
 
@@ -56,6 +62,19 @@ return {
 	"^[!/#]shots$"
 	"^[!/#]reactions$"
 	--inline
+	"^###inline[!/#]shrug (.*)"
+	"^###inline[!/#]shades (.*)"
+	"^###inline[!/#]clap (.*)"
+	"^###inline[!/#]lenny (.*)"
+	"^###inline[!/#]look (.*)"
+	"^###inline[!/#]gimme (.*)"
+	"^###inline[!/#]like (.*)"
+	"^###inline[!/#]lol (.*)"
+	"^###inline[!/#]flip (.*)"
+	"^###inline[!/#]unflip (.*)"
+	"^###inline[!/#]homo (.*)"
+	"^###inline[!/#]happy (.*)"
+	"^###inline[!/#]shots (.*)"
 	"^###inline[!/#]reactions"
 	}
 	:run

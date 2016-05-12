@@ -82,8 +82,8 @@ export telegram = class telegram--Telegram api methods
     command ..= " -F \"disable_notification=#{disable_notification}\"" if disable_notification
     return telegram!\curl command
 
---https://core.telegram.org/bots/api#senddocument
---Bots can currently send files of any type of up to 50 MB in size
+  --https://core.telegram.org/bots/api#senddocument
+  --Bots can currently send files of any type of up to 50 MB in size
   sendDocument: (chat_id,document,reply_to_message_id,disable_notification) =>
     url = "#{API_URL}/sendDocument"
     command = "curl #{url}?chat_id=#{chat_id} -F \"document=@#{document}\""
@@ -198,7 +198,7 @@ export telegram = class telegram--Telegram api methods
   --https://core.telegram.org/bots/api#editmessagetext
   editMessageText: (chat_id,message_id,text,disable_web_page_preview,parse_mode) =>
     url =  "#{API_URL}/editMessageText"
-    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&text=#{text}"
+    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&text=#{URL.escape text}"
     url ..= "&parse_mode=#{parse_mode}" if parse_mode
     url ..= "&disable_web_page_preview=#{disable_web_page_preview}" if disable_web_page_preview
     return telegram!\sendRequest url
@@ -207,6 +207,12 @@ export telegram = class telegram--Telegram api methods
   editMessageCaption: (chat_id,message_id,caption) =>
     url =  "#{API_URL}/editMessageCaption"
     url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&caption=#{caption}"
+    return telegram!\sendRequest url
+
+  --https://core.telegram.org/bots/api#answercallbackquery
+  answerCallbackQuery: (callback_query_id, text, show_alert) =>
+    url = "#{API_URL}/answerCallbackQuery?callback_query_id=#{callback_query_id}&text=#{URL.escape text}"
+    url ..= "&show_alert=#{show_alert}" if show_alert
     return telegram!\sendRequest url
 
 --Returns users full info as string
