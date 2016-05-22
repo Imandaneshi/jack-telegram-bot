@@ -214,6 +214,37 @@ export telegram = class telegram--Telegram api methods
     url = "#{API_URL}/answerCallbackQuery?callback_query_id=#{callback_query_id}&text=#{URL.escape text}"
     url ..= "&show_alert=#{show_alert}" if show_alert
     return telegram!\sendRequest url
+  
+  --https://core.telegram.org/bots/api#getchat
+  getChat: (chat_id,action) =>
+    url = "#{API_URL}/getChat"
+    url ..= "?chat_id=#{chat_id}"
+    return telegram!\sendRequest url
+    
+  --https://core.telegram.org/bots/api#getchatadministrators
+  getChatAdministrators: (chat_id) =>
+    url = "#{API_URL}/getChatAdministrators"
+    url ..= "?chat_id=#{chat_id}"
+    return telegram!\sendRequest url
+    
+  --https://core.telegram.org/bots/api#getchatmemberscount
+  getChatMembersCount: (chat_id) =>
+    url = "#{API_URL}/getChatMembersCount"
+    url ..= "?chat_id=#{chat_id}"
+    return telegram!\sendRequest url
+    
+  --https://core.telegram.org/bots/api#getchatmember
+  getChatMember: (chat_id,user_id) =>
+    url = "#{API_URL}/getChatMember"
+    url ..= "?chat_id=#{chat_id}"
+    url ..= "&user_id=#{user_id}"
+    return telegram!\sendRequest url
+    
+  --https://core.telegram.org/bots/api#leavechat
+  leaveChat: (chat_id) =>
+    url = "#{API_URL}/leaveChat"
+    url ..= "?chat_id=#{chat_id}"
+    return telegram!\sendRequest url
 
 --Returns users full info as string
 -- first_name last_name username [id]
@@ -248,6 +279,11 @@ export ReplyKeyboardMarkup = (keyboard, resize_keyboard, one_time_keyboard,	sele
   res.selective = selective or true
   return JSON.encode(res)
 
+export InlineKeyboardMarkup = (buttons) ->
+  res = {}
+  res.inline_keyboard = buttons
+  return JSON.encode(res)
+
 export ForceReply = (selective) ->
   res = {}
   res.force_reply = true
@@ -261,13 +297,14 @@ export ReplyKeyboardHide = (selective) ->
   return JSON.encode(res)
 
 -- Inline Block
-export inline_article_block = (title, text, parse_mode, disable_web_page_preview, description, thumb_url) ->
+export inline_article_block = (title, text, parse_mode, disable_web_page_preview, description, thumb_url, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"article\", \"id\":\"#{ran}\", \"title\":\"#{title}\", \"message_text\": \"#{text}\""
   inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
   inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
   inline ..= ",\"description\": \"#{description}\"" if description
   inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
