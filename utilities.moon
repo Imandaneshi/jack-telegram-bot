@@ -196,17 +196,18 @@ export telegram = class telegram--Telegram api methods
     return true
 
   --https://core.telegram.org/bots/api#editmessagetext
-  editMessageText: (chat_id,message_id,text,disable_web_page_preview,parse_mode) =>
+  editMessageText: (chat_id,message_id,text,disable_web_page_preview,parse_mod,reply_markup) =>
     url =  "#{API_URL}/editMessageText"
     url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&text=#{URL.escape text}"
     url ..= "&parse_mode=#{parse_mode}" if parse_mode
     url ..= "&disable_web_page_preview=#{disable_web_page_preview}" if disable_web_page_preview
+    url ..= "&reply_markup=#{URL.escape reply_markup}" if reply_markup
     return telegram!\sendRequest url
 
   --https://core.telegram.org/bots/api#editmessagecaption
   editMessageCaption: (chat_id,message_id,caption) =>
     url =  "#{API_URL}/editMessageCaption"
-    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&caption=#{caption}"
+    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&caption=#{URL.escape caption}"
     return telegram!\sendRequest url
 
   --https://core.telegram.org/bots/api#answercallbackquery
@@ -214,32 +215,32 @@ export telegram = class telegram--Telegram api methods
     url = "#{API_URL}/answerCallbackQuery?callback_query_id=#{callback_query_id}&text=#{URL.escape text}"
     url ..= "&show_alert=#{show_alert}" if show_alert
     return telegram!\sendRequest url
-  
+
   --https://core.telegram.org/bots/api#getchat
   getChat: (chat_id,action) =>
     url = "#{API_URL}/getChat"
     url ..= "?chat_id=#{chat_id}"
     return telegram!\sendRequest url
-    
+
   --https://core.telegram.org/bots/api#getchatadministrators
   getChatAdministrators: (chat_id) =>
     url = "#{API_URL}/getChatAdministrators"
     url ..= "?chat_id=#{chat_id}"
     return telegram!\sendRequest url
-    
+
   --https://core.telegram.org/bots/api#getchatmemberscount
   getChatMembersCount: (chat_id) =>
     url = "#{API_URL}/getChatMembersCount"
     url ..= "?chat_id=#{chat_id}"
     return telegram!\sendRequest url
-    
+
   --https://core.telegram.org/bots/api#getchatmember
   getChatMember: (chat_id,user_id) =>
     url = "#{API_URL}/getChatMember"
     url ..= "?chat_id=#{chat_id}"
     url ..= "&user_id=#{user_id}"
     return telegram!\sendRequest url
-    
+
   --https://core.telegram.org/bots/api#leavechat
   leaveChat: (chat_id) =>
     url = "#{API_URL}/leaveChat"
@@ -308,7 +309,7 @@ export inline_article_block = (title, text, parse_mode, disable_web_page_preview
   inline ..= "}"
   return inline
 
-export inline_photo_block = (photo_url, thumb_url, title, description, caption, message_text, parse_mode, disable_web_page_preview) ->
+export inline_photo_block = (photo_url, thumb_url, title, description, caption, message_text, parse_mode, disable_web_page_preview, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"photo\", \"id\":\"#{ran}\", \"photo_url\":\"#{photo_url}\""
   inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
@@ -318,10 +319,11 @@ export inline_photo_block = (photo_url, thumb_url, title, description, caption, 
   inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
   inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
   inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_gif_block = (gif_url, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview) ->
+export inline_gif_block = (gif_url, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"gif\", \"id\":\"#{ran}\", \"gif_url\":\"#{gif_url}\""
   inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
@@ -330,10 +332,11 @@ export inline_gif_block = (gif_url, thumb_url, title, caption, message_text, par
   inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
   inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
   inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_mpeg4_block = (mpeg4_url, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview) ->
+export inline_mpeg4_block = (mpeg4_url, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"mpeg4_gif\", \"id\":\"#{ran}\", \"mpeg4_url\":\"#{mpeg4_url}\""
   inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
@@ -342,10 +345,11 @@ export inline_mpeg4_block = (mpeg4_url, thumb_url, title, caption, message_text,
   inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
   inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
   inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_video_block = (video_url, mime_type, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview) ->
+export inline_video_block = (video_url, mime_type, thumb_url, title, caption, message_text, parse_mode, disable_web_page_preview, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"video\", \"id\":\"#{ran}\", \"video_url\":\"#{video_url}\", \"mime_type\": \"#{mime_type}\""
   inline ..= ",\"thumb_url\": \"#{thumb_url}\"" if thumb_url
@@ -354,27 +358,30 @@ export inline_video_block = (video_url, mime_type, thumb_url, title, caption, me
   inline ..= ",\"message_text\": \"#{message_text}\"" if message_text
   inline ..= ",\"parse_mode\": \"#{parse_mode}\"" if parse_mode
   inline ..= ",\"disable_web_page_preview\": #{disable_web_page_preview}" if disable_web_page_preview
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_audio_block = (audio_url, title, performer, audio_duration) ->
+export inline_audio_block = (audio_url, title, performer, audio_duration, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"audio\", \"id\":\"#{ran}\", \"audio_url\":\"#{audio_url}\", \"mime_type\": \"#{mime_type}\""
   inline ..= ",\"title\": \"#{title}\""
   inline ..= ",\"performer\": #{performer}" if performer
   inline ..= ",\"audio_duration\": \"#{audio_duration}\"" if audio_duration
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_voice_block = (voice_url, title, performer, voice_duration) ->
+export inline_voice_block = (voice_url, title, performer, voice_duration, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"voice\", \"id\":\"#{ran}\", \"voice_url\":\"#{voice_url}\", \"mime_type\": \"#{mime_type}\""
   inline ..= ",\"title\": \"#{title}\"" if title
   inline ..= ",\"voice_duration\": \"#{audio_duration}\"" if voice_duration
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_document_block = (document_url, title, caption, mime_type, description, disable_web_page_preview) ->
+export inline_document_block = (document_url, title, caption, mime_type, description, disable_web_page_preview, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"document\", \"id\":\"#{ran}\""
   inline ..= ",\"title\": \"#{title}\"" if title
@@ -383,32 +390,48 @@ export inline_document_block = (document_url, title, caption, mime_type, descrip
   inline ..= ",\"message_text\": \"#{mime_type}\"" if mime_type
   inline ..= ",\"parse_mode\": \"#{description}\"" if description
   inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_location_block = (latitude, longitude, title, thumb_url) ->
+export inline_location_block = (latitude, longitude, title, thumb_url, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"location\", \"id\":\"#{ran}\", \"latitude\": \"#{latitude}\", \"longitude\": \"#{longitude}\""
   inline ..= ",\"title\": #{title}" if title
   inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_venue_block = (latitude, longitude, title, address, foursquare_id, thumb_url) ->
+export inline_venue_block = (latitude, longitude, title, address, foursquare_id, thumb_url, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"venue\", \"id\":\"#{ran}\", \"latitude\": \"#{latitude}\", \"longitude\": \"#{longitude}\""
   inline ..= ",\"title\": #{title}" if title
   inline ..= ",\"address\": \"#{address}\"" if address
   inline ..= ",\"foursquare_id\": \"#{foursquare_id}\"" if foursquare_id
   inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
   inline ..= "}"
   return inline
 
-export inline_contact_block = (phone_number, first_name, last_name, thumb_url) ->
+export inline_contact_block = (phone_number, first_name, last_name, thumb_url, reply_markup) ->
   ran = math.random 1 ,100
   inline = "{\"type\":\"contact\", \"id\":\"#{ran}\", \"phone_number\": \"#{phone_number}\", \"first_name\": \"#{first_name}\""
   inline ..= ",\"last_name\": #{last_name}" if last_name
   inline ..= ",\"thumb_url\": #{thumb_url}" if thumb_url
+  inline ..= ",\"reply_markup\": #{reply_markup}" if reply_markup
+  inline ..= "}"
+  return inline
+
+export inline_keyboard_block = (block) ->
+  inline_keyboard = "{\"inline_keyboard\":#{block}}"
+  return inline_keyboard
+
+export inline_keyboard_button = (text, url, callback_data, switch_inline_query) ->
+  inline = "{\"text\": \"#{text}\""
+  inline ..= ",\"url\":\"#{url}\"" if url
+  inline ..= ",\"callback_data\":\"#{callback_data}\"" if callback_data
+  inline ..= ",\"switch_inline_query\":\"#{switch_inline_query}\"" if switch_inline_query
   inline ..= "}"
   return inline
 
