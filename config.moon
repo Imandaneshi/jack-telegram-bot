@@ -44,6 +44,7 @@ _ =
     "me"
     "meme"
     --"moon"
+    --"poll"
     "qrcode"
     "reactions"
     "reddit"
