@@ -91,6 +91,8 @@ export match_plugin = (plugin, plugin_name, msg) ->
 
 
 export msg_processor = (msg) ->
+  if not msg
+    return
   if msg.text
     if msg.text\match '^/start .+'
       msg.text = "/#{msg.text\match '^/start (.+)'}"--Shortcut https://telegram.me/USERNAME?start=COMMAND
