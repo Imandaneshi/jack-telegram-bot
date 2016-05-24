@@ -196,7 +196,7 @@ export telegram = class telegram--Telegram api methods
     return true
 
   --https://core.telegram.org/bots/api#editmessagetext
-  editMessageText: (chat_id,message_id,text,disable_web_page_preview,parse_mod,reply_markup) =>
+  editMessageText: (chat_id,message_id,text,disable_web_page_preview,parse_mode,reply_markup) =>
     url =  "#{API_URL}/editMessageText"
     url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&text=#{URL.escape text}"
     url ..= "&parse_mode=#{parse_mode}" if parse_mode

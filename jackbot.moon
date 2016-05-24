@@ -310,11 +310,11 @@ export callback_query_received = (callback) ->
       id: callback.message.chat.id
       type: "callback"
       title: callback.message.chat.first_name
-      }
-      from: callback.from
-      message_id: callback.message.message_id
-      text: "###callback:#{callback.data}"
-      date: os.time!
+    }
+    from: callback.from
+    message_id: callback.message.message_id
+    text: "###callback:#{callback.data}"
+    date: os.time!
   }
   msg_processor msg
 

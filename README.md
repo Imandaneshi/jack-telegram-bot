@@ -197,6 +197,7 @@ Plugins list
 * [Me](#me)
 * [Meme](#meme)
 * [Moon](#moon)
+* [Poll](#poll)
 * [Qrcode](#qrcode)
 * [Reactions](#reactions)
 * [Reddit](#reddit)
@@ -670,6 +671,48 @@ Listed | Requires API KEY | Enabled by default | inline
 >Will return your profile and msg Statistics
 
 _Can also be triggered by reply_
+
+### Poll
+
+Create a poll
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         N          |    N
+
+
+**Commands**
+
+`/poll new <question>`
+
+>Create a new poll
+
+`/poll add <option>`
+
+>Added a answer option
+
+`/poll del`
+
+>Delete or terminate the Poll
+
+`/poll`
+
+>Shows the poll
+
+### QRcode
+
+Send a QRcore
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        N         |         N          |    N
+
+
+**Commands**
+
+`/qr <text>`
+
+>Generates a QR code
 
 ### Reactions
 
