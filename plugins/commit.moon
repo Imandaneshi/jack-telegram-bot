@@ -449,17 +449,17 @@ commits ={
 }
 run = (msg,matches) ->
 	commit = commits[math.random #commits]
-	call = "[[#{inline_keyboard_button "View a commit", false, "commit:new"}]]"
+	call = "[[#{inline_keyboard_button "View a new commit", false, "commit:new"}]]"
 	if msg.chat.type == "inline"
 		pic = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Security-Voice-Recognition-Scan-icon.png"
 		block = "[#{inline_article_block "Commit", "#{commit}", false, true, "#{commit}", "#{pic}"}]"
 		telegram!\sendInline msg.id,block
 		return
 	elseif msg.chat.type == "private"
-		telegram!\sendMessage msg.from.id, commit, false, "Markdown", true, true, "#{inline_keyboard_block call}"
+		telegram!\sendMessage msg.chat.id, commit, false, "Markdown", true, true, "#{inline_keyboard_block call}"
 		return
 	elseif matches[1] == "new"
-		telegram!\editMessageText msg.from.id, msg.message_id, commit, true, "Markdown", "#{inline_keyboard_block call}"
+		telegram!\editMessageText msg.chat.id, msg.message_id, commit, true, "Markdown", "#{inline_keyboard_block call}"
 		return
 	return commit
 

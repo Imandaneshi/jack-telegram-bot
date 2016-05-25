@@ -198,7 +198,9 @@ export telegram = class telegram--Telegram api methods
   --https://core.telegram.org/bots/api#editmessagetext
   editMessageText: (chat_id,message_id,text,disable_web_page_preview,parse_mode,reply_markup) =>
     url =  "#{API_URL}/editMessageText"
-    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&text=#{URL.escape text}"
+    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}" if chat_id ~= "callback_inline"
+    url ..= "?inline_message_id=#{message_id}" if chat_id == "callback_inline"
+    url ..= "&text=#{URL.escape text}"
     url ..= "&parse_mode=#{parse_mode}" if parse_mode
     url ..= "&disable_web_page_preview=#{disable_web_page_preview}" if disable_web_page_preview
     url ..= "&reply_markup=#{URL.escape reply_markup}" if reply_markup
@@ -207,7 +209,9 @@ export telegram = class telegram--Telegram api methods
   --https://core.telegram.org/bots/api#editmessagecaption
   editMessageCaption: (chat_id,message_id,caption) =>
     url =  "#{API_URL}/editMessageCaption"
-    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}&caption=#{URL.escape caption}"
+    url ..= "?chat_id=#{chat_id}&message_id=#{message_id}" if chat_id ~= "callback_inline"
+    url ..= "?inline_message_id=#{message_id}" if chat_id == "callback_inline"
+    url ..= "&caption=#{URL.escape caption}"
     return telegram!\sendRequest url
 
   --https://core.telegram.org/bots/api#answercallbackquery

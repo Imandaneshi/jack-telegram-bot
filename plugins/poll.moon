@@ -124,14 +124,14 @@ vote_poll = (msg, matches) ->
 		return
 
 	if matches[4] and matches[4] == "view" and msg.chat.type == "callback"
-		telegram!\editMessageText msg.from.id, msg.message_id, "#{poll_poll msg, chat_id, true}", true, "Markdown", "#{inline_keyboard_button call}"
+		telegram!\editMessageText msg.chat.id, msg.message_id, "#{poll_poll msg, chat_id, true}", true, "Markdown", "#{inline_keyboard_button call}"
 		return
 	elseif matches[4] == "vote" and msg.chat.type == "callback"
 		if matches[5]
 			vote = matches[5]
 			svote = vote_fun chat_id, msg.from.id, vote
 			telegram!\answerCallbackQuery msg.id, "Your vote was saved!"
-			telegram!\editMessageText msg.from.id, msg.message_id, "#{poll_poll msg, chat_id, true}\nYou voted in #{svote}", true, "Markdown", "#{inline_keyboard_block call}"
+			telegram!\editMessageText msg.chat.id, msg.message_id, "#{poll_poll msg, chat_id, true}\nYou voted in #{svote}", true, "Markdown", "#{inline_keyboard_block call}"
 			return
 	return
 

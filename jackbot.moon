@@ -306,20 +306,34 @@ export inline_query_received = (inline) ->
   msg_processor msg
 
 export callback_query_received = (callback) ->
-  msg = {
-    id: callback.id
-    chat: {
-      id: callback.message.chat.id
-      type: "callback"
-      title: callback.message.chat.first_name
+  if callback.message
+    msg = {
+      id: callback.id
+      chat: {
+        id: callback.message.chat.id
+        type: "callback"
+        title: callback.message.chat.first_name
+      }
+      from: callback.from
+      message_id: callback.message.message_id
+      text: "###callback:#{callback.data}"
+      date: os.time!
     }
-    from: callback.from
-    message_id: callback.message.message_id
-    text: "###callback:#{callback.data}"
-    date: os.time!
-  }
-  msg_processor msg
-
+    msg_processor msg
+  else
+    msg = {
+      id: callback.id
+      chat: {
+        id: "callback_inline"
+        type: "callback"
+        title: callback.from.first_name
+      }
+      from: callback.from
+      message_id: callback.inline_message_id
+      text: "###callback:#{callback.data}"
+      date: os.time!
+    }
+    msg_processor msg
 
 bot_run!--Load the bot
 print colors("%{red}\nNo output mode enabled. I wont print messages\n%{reset}") if no_output!
@@ -344,7 +358,11 @@ while is_running--A loop for getting messages
         inline_query_received msg.inline_query
       elseif msg.callback_query--callback thing
         callback_query_received msg.callback_query
-      else
+      elseif msg.edited_message--Not necessary
+        if output
+          print colors("%{magenta}Msg edited%{reset}")
+      elseif msg.message
         msg_processor msg.message--process the msg
+
   else
     print "Connection failed"
