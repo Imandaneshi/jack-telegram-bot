@@ -174,6 +174,7 @@ Plugins list
 * [9gag](#9gag)
 * [Admin](#admin)
 * [Anime](#anime)
+* [Bing](#bing)
 * [Calculator](#calculator)
 * [Cat](#cat)
 * [Chatter](#chatter)
@@ -298,6 +299,19 @@ Listed | Requires API KEY | Enabled by default | inline
 `/anime pic`
 
 > Will send random anime pic
+
+### Bing
+
+Bing Search
+
+Listed | Requires API KEY | Enabled by default | inline
+------ | ---------------- | ------------------ | ------
+  Y    |        Y         |         N          |    Y
+
+
+**Commands**
+
+`/bing <terms>`
 
 ### Calculator
 
