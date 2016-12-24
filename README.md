@@ -2,7 +2,7 @@
 
 Multi purpose telegram bot written in MoonScript/lua and licenced under the GNU General Public License.
 
-[Public bot](https://telegram.me/imandabot)
+[Public bot](https://telegram.me/jackbot)
 
 [Website](http://jack.seedteam.org)
 
