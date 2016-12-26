@@ -13,11 +13,11 @@ anime = (msg,anime) ->
 *Status*: "
 	message ..= "#{jdat[1].status}
 *Genres*: "
-	for i = 1,#jdat[1].genres
-			if i == #jdat[1].genres
+	for i = #jdat[1].genres,1,-1
+			if i == 1
 				message ..= "#{jdat[1].genres[i].name}"
 	        else
-				message ..= "#{jdat[1].genres[i].name}"," "
+				message ..= "#{jdat[1].genres[i].name}, "
 
 	if jdat[1].age_rating and type(jdat[1].age_rating) ~= "userdata"
 			message ..= "\n*Age rating:* #{jdat[1].age_rating}"
