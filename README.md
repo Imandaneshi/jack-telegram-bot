@@ -354,7 +354,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 >jack, How are you ?
 
->@imandabot, How are you ?
+>@jackbot, How are you ?
 >>you can also trigger chatter plugin by talking to bot in private or replying on of its messages in groups
 
 ### Code
@@ -674,7 +674,7 @@ Listed | Requires API KEY | Enabled by default | inline
 
 `/me <parameter> <query>`
 
->/me facebook imandabot
+>/me facebook jackbot
 
 `/me <parameter> del`
 
