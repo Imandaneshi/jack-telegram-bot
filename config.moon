@@ -61,6 +61,7 @@ _ =
     --"telegramCli"
     "time"
     "translate"
+    "tophoto"
     "urbandictionary"
     "weather"
     "webshot"
