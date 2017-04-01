@@ -1,8 +1,7 @@
 run = (msg, matches) ->
 	if matches[1] and matches[2] then
 		lang = URL.escape matches[1]
-		code = URL.escape matches[2]
-		code = string.gsub(code, '—', '--')
+		code = URL.escape matches[2]\gsub('—', '--')
 
 		highlighter = "http://markup.su/api/highlighter?language=#{lang}&theme=Sunburst&source=#{code}"
 		jstr, res = http.request highlighter
